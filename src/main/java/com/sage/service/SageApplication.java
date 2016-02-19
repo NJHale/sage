@@ -14,7 +14,7 @@ import javax.ws.rs.core.Application;
 /**
  * Created by root on 2/18/16.
  */
-@ApplicationPath("/sage")
+@ApplicationPath("/0.1/")
 public class SageApplication extends Application {
 
     @Override
