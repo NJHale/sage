@@ -7,8 +7,12 @@ package com.sage.models;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement()
+@XmlRootElement(name = "goat")
 public class Goat {
+
+    private static int latestGoatId = 0;
+
+    private int goatId;
 
     private int age;
 
@@ -16,9 +20,21 @@ public class Goat {
 
     private double weight;
 
-    public Goat() { }
+    public Goat() {
+        // set and increment goatId
+        goatId = latestGoatId++;
+    }
 
-    @XmlElement
+    @XmlElement(name = "goatId")
+    public int getGoatId() {
+        return goatId;
+    }
+
+    public void setGoatId(int goatId) {
+        this.goatId = goatId;
+    }
+
+    @XmlElement(name = "age")
     public int getAge() {
         return age;
     }
@@ -27,7 +43,7 @@ public class Goat {
         this.age = age;
     }
 
-    @XmlElement
+    @XmlElement(name = "aggression")
     public int getAggression() {
         return aggression;
     }
@@ -36,7 +52,7 @@ public class Goat {
         this.aggression = aggression;
     }
 
-    @XmlElement
+    @XmlElement(name = "weight")
     public double getWeight() {
         return weight;
     }
