@@ -11,7 +11,7 @@ public class ComputeNode {
 
     private int computeId;
 
-    private int user;
+    private int userId;
 
     private String info;
 
@@ -31,11 +31,11 @@ public class ComputeNode {
 
     @XmlElement(name = "user")
     public int getUser(){
-        return user;
+        return userId;
     }
 
-    public void setUser(int user){
-        this.user = user;
+    public void setUserId(int userId){
+        this.userId = userId;
     }
 
     @XmlElement(name = "info")

@@ -7,7 +7,7 @@ package com.sage.models;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "goat")
+@XmlRootElement
 public class Goat {
 
     private static int latestGoatId = 0;
