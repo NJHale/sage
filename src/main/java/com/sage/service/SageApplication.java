@@ -1,5 +1,6 @@
 package com.sage.service;
 
+import com.sage.models.JobOrder;
 import com.sage.resources.GoatsResource;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
@@ -7,8 +8,7 @@ import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import javax.ws.rs.core.Application;
 
@@ -17,6 +17,9 @@ import javax.ws.rs.core.Application;
  */
 @ApplicationPath("/0.1/")
 public class SageApplication extends Application {
+
+
+    public static List<Object> everything = new LinkedList<Object>();
 
     @Override
     public Set<Class<?>> getClasses() {
