@@ -4,7 +4,6 @@ import com.sage.models.JobOrder;
 import com.sage.resources.GoatsResource;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
-import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

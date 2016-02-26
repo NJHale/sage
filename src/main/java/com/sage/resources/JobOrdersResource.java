@@ -46,12 +46,17 @@ public class JobOrdersResource {
         System.out.println("idTokenStr: " + idTokenStr);
         try {
             UserAuth auth = new UserAuth();
+            System.out.println("UserAuth Created!");
+            System.out.println("Validating IdToken...");
             User user = auth.validateUser(idTokenStr);
-            resp = Response.ok().entity(user).build();
+            System.out.println("IdToken validated!");
+            //resp = Response.ok().entity(user).build();
+            resp = Response.ok().build();
             return resp;
         } catch (UserAuth.InvalidIdTokenException e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {
+            System.out.println("SHIT HAPPENS!");
             System.out.println(e.getMessage());
         }
 

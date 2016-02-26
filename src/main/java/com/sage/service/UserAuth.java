@@ -10,7 +10,14 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.sage.models.User;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.util.EntityUtils;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 
@@ -26,9 +33,9 @@ public class UserAuth {
     }
 
     // TODO: Move client-id and client secret into config file
-    private static final String CLIENT_ID = "665551274466-pg67r65beuk7lkk4t13bo004tv54mcin.apps.googleusercontent.com";
+    private static final String CLIENT_ID = "665551274466-k9e5oun21che7qamm2ct9bn603dss65n.apps.googleusercontent.com";
 
-    private static final String CLIENT_SECRET = "1t5nlWhDmfNlEdmthSfCsFCB";
+    private static final String CLIENT_SECRET = "T3MOi4HvzoAo-ayP3Mv-g6TT";
 
     private GoogleIdTokenVerifier verifier;
 
@@ -66,10 +73,15 @@ public class UserAuth {
     public User validateUser(String idTokenStr) throws Exception {
         // TODO: Add Database query logic and update logic for new potential user
         // create a null user
+        System.out.println("Attempting validation...");
+
+
         User user = null;
+        //idTokenStr = "{ id_token : \"hp2zvRtGee9gfn21YLJFW9_sdnwCN1VLI-B2ShOYhF0\" } ";
         // grab the idToken from google
         GoogleIdToken idToken = verifier.verify(idTokenStr);
         if (idToken != null) {
+            System.out.println("The idToken is not null");
             Payload payload = idToken.getPayload();
 
             // Print user identifier
@@ -84,7 +96,7 @@ public class UserAuth {
             String locale = (String) payload.get("locale");
             String familyName = (String) payload.get("family_name");
             String givenName = (String) payload.get("given_name");
-
+            System.out.println(name + " - " + email);
             // Temporary - Create User from scratch
             user = new User();
             user.setUserId(1);
