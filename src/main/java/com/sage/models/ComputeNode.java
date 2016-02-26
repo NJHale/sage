@@ -11,7 +11,7 @@ public class ComputeNode {
 
     private int computeId;
 
-    private int userId;
+    private int nodeOwnerId;
 
     private String info;
 
@@ -30,12 +30,12 @@ public class ComputeNode {
     }
 
     @XmlElement(name = "user")
-    public int getUser(){
-        return userId;
+    public int getNodeOwnerId(){
+        return nodeOwnerId;
     }
 
-    public void setUserId(int userId){
-        this.userId = userId;
+    public void setNodeOwnerId(int nodeOwnerId){
+        this.nodeOwnerId = nodeOwnerId;
     }
 
     @XmlElement(name = "info")

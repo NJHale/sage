@@ -1,7 +1,9 @@
 package com.sage.resources;
 
 import com.sage.models.JobOrder;
+import com.sage.models.User;
 import com.sage.service.SageApplication;
+import com.sage.service.UserAuth;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -18,6 +20,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/jobOrders")
 public class JobOrdersResource {
+//TODO: Add Logging!
 
     @GET
     public List<JobOrder> getjobOrders(
@@ -38,7 +41,20 @@ public class JobOrdersResource {
     }
 
     @POST
-    public Response postJobOrder(JobOrder order) {
+    public Response postJobOrder(@HeaderParam("IdToken") String idTokenStr, JobOrder order) {
+        Response resp;
+        System.out.println("idTokenStr: " + idTokenStr);
+        try {
+            UserAuth auth = new UserAuth();
+            User user = auth.validateUser(idTokenStr);
+            resp = Response.ok().entity(user).build();
+            return resp;
+        } catch (UserAuth.InvalidIdTokenException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         return putJobOrder(order);
     }
 

@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.File;
+import java.util.Date;
 
 /**
  * Created by root on 2/21/16.
@@ -17,7 +18,7 @@ public class Job {
 
     private int jobId;
 
-    private int askerId;
+    private int ordererId;
 
     private int nodeId;
 
@@ -30,6 +31,8 @@ public class Job {
     private byte[] data;
 
     private byte[] result;
+
+    private Date completion;
 
     private Task task;
 
@@ -45,20 +48,14 @@ public class Job {
         return jobId;
     }
 
-    public void setJobId(int jobId) {
-        this.jobId = jobId;
-    }
+    public void setJobId(int jobId) { this.jobId = jobId; }
 
     @XmlTransient
-    public int getAskerId() {
-        return askerId;
-    }
+    public int getOrdererId() { return ordererId; }
 
-    public void setAskerId(int askerId) {
-        this.askerId = askerId;
-    }
+    public void setOrdererId(int ordererId) { this.ordererId = ordererId; }
 
-    @XmlTransient
+    @XmlElement(name = "nodeId")
     public int getNodeId() {
         return nodeId;
     }
@@ -111,6 +108,11 @@ public class Job {
     public void setResult(byte[] result) {
         this.result = result;
     }
+
+    @XmlElement(name = "completion")
+    public Date getCompletion() { return completion; }
+
+    public void setCompletion(Date completion) { this.completion = completion; }
 
     @XmlTransient
     public Task getTask() {
