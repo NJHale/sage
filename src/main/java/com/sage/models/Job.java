@@ -2,6 +2,7 @@ package com.sage.models;
 
 import com.sage.service.Task;
 
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -9,29 +10,49 @@ import java.io.File;
 import java.util.Date;
 
 /**
- * Created by root on 2/21/16.
+ * Created by Nick Hale on 2/21/16.
+ * @Author Nick Hale
+ *         NJohnHale@gmail.com
+ *
  */
 @XmlRootElement
+@Entity
+@Table(name = "job")
 public class Job {
 
-    // Hibernate Annotations
-
+    /**
+     * Hibernate Annotations for ORM persistence
+     */
+    @Id
+    @GeneratedValue
+    @Column(name = "job_id")
     private int jobId;
 
+    @Column(name = "orderer_id")
     private int ordererId;
 
-    private int nodeId;
+    @Column(name = "nodeid")
+    private String nodeId;
 
+    @Column(name = "bounty")
+    private int bounty;
+
+    @Column(name = "status")
     private JobStatus status;
 
+    @Column(name = "timeout")
     private long timeOut;
 
+    @Column(name = "dex_file")
     private File dexFile;
 
+    @Column(name = "data")
     private byte[] data;
 
+    @Column(name = "result")
     private byte[] result;
 
+    @Column(name = "completion")
     private Date completion;
 
     private Task task;
@@ -56,13 +77,18 @@ public class Job {
     public void setOrdererId(int ordererId) { this.ordererId = ordererId; }
 
     @XmlElement(name = "nodeId")
-    public int getNodeId() {
+    public String getNodeId() {
         return nodeId;
     }
 
-    public void setNodeId(int nodeId) {
+    public void setNodeId(String nodeId) {
         this.nodeId = nodeId;
     }
+
+    @XmlTransient
+    public int getBounty() { return bounty; }
+
+    public void setBounty(int bounty) { this.bounty = bounty; }
 
     @XmlElement(name = "status")
     public JobStatus getStatus() {

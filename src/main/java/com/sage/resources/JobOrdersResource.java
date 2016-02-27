@@ -5,6 +5,9 @@ import com.sage.models.User;
 import com.sage.service.SageApplication;
 import com.sage.service.UserAuth;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -22,8 +25,16 @@ import java.util.List;
 public class JobOrdersResource {
 //TODO: Add Logging!
 
+    private static final Logger logger = LogManager.getLogger(JobOrdersResource.class);
+
     @GET
-    public List<JobOrder> getjobOrders(
+    @Path("/{jobOrderId}")//sage-ws.ddns.net:8080/sage-ws/0.1/jobOrders/2
+    public JobOrder getJobOrder(@PathParam("jobOrderId") int jobOrderId ) {
+        return new JobOrder();
+    }
+
+    @GET
+    public List<JobOrder> getjobOrders(// sage-ws.ddns.net:8080/sage-ws/0.1/jobOrders/?age=1000&weight=150
             @QueryParam("age") int age,
             @QueryParam("aggression") int aggression,
             @QueryParam("weight") double weight ) {
@@ -43,21 +54,24 @@ public class JobOrdersResource {
     @POST
     public Response postJobOrder(@HeaderParam("IdToken") String idTokenStr, JobOrder order) {
         Response resp;
-        System.out.println("idTokenStr: " + idTokenStr);
+        logger.debug("idTokenStr: " + idTokenStr);
         try {
             UserAuth auth = new UserAuth();
-            System.out.println("UserAuth Created!");
-            System.out.println("Validating IdToken...");
-            User user = auth.validateUser(idTokenStr);
-            System.out.println("IdToken validated!");
+            logger.debug("UserAuth Created!");
+            logger.debug("Validating IdToken...");
+            User user = auth.verifyToken(idTokenStr);
+            if (user == null) {
+                throw new Exception ("An exposion of the shittiest kind!");
+            }
+            logger.debug("IdToken validated!");
             //resp = Response.ok().entity(user).build();
             resp = Response.ok().build();
             return resp;
         } catch (UserAuth.InvalidIdTokenException e) {
-            System.out.println(e.getMessage());
+            logger.debug(e.getMessage());
         } catch (Exception e) {
-            System.out.println("SHIT HAPPENS!");
-            System.out.println(e.getMessage());
+            logger.debug("SHIT HAPPENS!");
+            logger.debug(e.getMessage());
         }
 
         return putJobOrder(order);

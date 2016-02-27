@@ -16,9 +16,14 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.util.EntityUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.security.PublicKey;
 import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -26,18 +31,26 @@ import java.util.Arrays;
  */
 public class UserAuth {
 
+    private static final Logger logger = LogManager.getLogger("UserAuth");
+
     public class InvalidIdTokenException extends Exception {
-        public InvalidIdTokenException(String idTokenString) {
-            super("The given google id token " + idTokenString + " was invalid!");
+        public InvalidIdTokenException(String idTokenString, String problem) {
+            super("The given google id token " + idTokenString + " was invalid with problem: " + problem);
         }
     }
 
+    //665551274466-15p0nifusupk4r9rjgrdtq773ua6m2b8.apps.googleusercontent.com
     // TODO: Move client-id and client secret into config file
     private static final String CLIENT_ID = "665551274466-k9e5oun21che7qamm2ct9bn603dss65n.apps.googleusercontent.com";
-
+    //X21gLK_nImHfJLuEVsgqASBf
     private static final String CLIENT_SECRET = "T3MOi4HvzoAo-ayP3Mv-g6TT";
 
+    private JsonFactory jsonFactory;
+
+    private HttpTransport transport;
+
     private GoogleIdTokenVerifier verifier;
+
 
 
     /**
@@ -48,9 +61,9 @@ public class UserAuth {
     public UserAuth() throws Exception
     {
         // setup the HttpTransport
-        HttpTransport transport = GoogleNetHttpTransport.newTrustedTransport();
+        transport = GoogleNetHttpTransport.newTrustedTransport();
         // setup the JsonFactory
-        JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+        jsonFactory = JacksonFactory.getDefaultInstance();
         // instantiate the token verifier
         verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
                 .setAudience(Arrays.asList(CLIENT_ID))
@@ -60,56 +73,58 @@ public class UserAuth {
                 // a GoogleIdTokenVerifier for each issuer and try them both.
                 .setIssuer("https://accounts.google.com")
                 .build();
-
     }
 
     /**
      *
-     * @param idTokenStr GoogleIdToken representing a sage user
+     * @param tokenStr GoogleIdToken representing a sage user
      * @return User corresponding to given token
      * @throws Exception in the event the token is bad
      * or accounts.google.com is unresponsive
      */
-    public User validateUser(String idTokenStr) throws Exception {
+    public User verifyToken(String tokenStr) throws Exception {
         // TODO: Add Database query logic and update logic for new potential user
         // create a null user
-        System.out.println("Attempting validation...");
+        logger.debug("Attempting validation...");
+        Payload payload = null;
+        String problem = null;
 
+        try {
+            GoogleIdToken token = GoogleIdToken.parse(jsonFactory, tokenStr);
+            payload = token.getPayload();
+            // verify the token and make sure it is valid
+            if (verifier.verify(token)) {
+                GoogleIdToken.Payload tempPayload = token.getPayload();
+                if (!tempPayload.getAudience().equals(CLIENT_ID))
+                    problem = "Audience mismatch";
+                else if (!CLIENT_ID.equals(tempPayload.getAuthorizedParty()))
+                    problem = "Client ID mismatch";
+                else
+                    payload = tempPayload;
+            } else {
+                logger.debug("Not valid with google!");
+            }
+        } catch (GeneralSecurityException e) {
+            problem = "Security issue: " + e.getLocalizedMessage();
+        } catch (IOException e) {
+            problem = "Network problem: " + e.getLocalizedMessage();
+        }
+
+        if (problem != null) logger.debug("PROBLEM: " + problem);
 
         User user = null;
-        //idTokenStr = "{ id_token : \"hp2zvRtGee9gfn21YLJFW9_sdnwCN1VLI-B2ShOYhF0\" } ";
-        // grab the idToken from google
-        GoogleIdToken idToken = verifier.verify(idTokenStr);
-        if (idToken != null) {
-            System.out.println("The idToken is not null");
-            Payload payload = idToken.getPayload();
 
-            // Print user identifier
-            String userId = payload.getSubject();
-            System.out.println("User ID: " + userId);
-
-            // Get profile information from payload
-            String email = payload.getEmail();
-            //boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
-            String name = (String) payload.get("name");
-            String pictureUrl = (String) payload.get("picture");
-            String locale = (String) payload.get("locale");
-            String familyName = (String) payload.get("family_name");
-            String givenName = (String) payload.get("given_name");
-            System.out.println(name + " - " + email);
-            // Temporary - Create User from scratch
+        if (payload != null) {
+            // TODO: Look for User in DB, create if doesn't exist
             user = new User();
-            user.setUserId(1);
-            user.setUserName(name);
-            user.setUserEmail(email);
-
-
+            user.setUserEmail(payload.getEmail());
+            logger.debug(payload.getEmail());
         } else {
-            System.out.println("Invalid ID token.");
-            throw new InvalidIdTokenException(idTokenStr);
+            logger.debug("payload is null");
         }
-        // return the user
+
         return user;
+
     }
 
 
