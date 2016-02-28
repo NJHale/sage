@@ -1,5 +1,7 @@
 package com.sage.dao;
 
+import org.hibernate.criterion.SimpleExpression;
+
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +27,7 @@ public class SageTokenDao<SageToken> extends Dao<SageToken> {
     }
 
     @Override
-    public List<SageToken> get(Map filter) throws Exception {
+    public List<SageToken> get(List<SimpleExpression> expressions) throws Exception {
         return null;
     }
 

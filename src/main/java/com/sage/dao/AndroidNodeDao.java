@@ -1,9 +1,9 @@
 package com.sage.dao;
 
 import com.sage.models.AndroidNode;
+import org.hibernate.criterion.SimpleExpression;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by root on 2/27/16.
@@ -27,7 +27,7 @@ public class AndroidNodeDao extends Dao<AndroidNode> {
     }
 
     @Override
-    public List<AndroidNode> get(Map filter) throws Exception {
+    public List<AndroidNode> get(List<SimpleExpression> expressions) throws Exception {
         return null;
     }
 

@@ -60,15 +60,14 @@ public class Job {
     @Column(name = "completion")
     private Date completion;
 
-    private Task task;
+    /**
+     * Default constructor
+     */
+    public Job() { }
 
-    // Default Constructor
-
-    public Job() {
-
-    }
-
-    // Jersey JAXB Annotations
+    /**
+     * Jersey JAXB Annotations
+     */
     @XmlTransient
     public int getJobId() {
         return jobId;
@@ -145,12 +144,4 @@ public class Job {
 
     public void setCompletion(Date completion) { this.completion = completion; }
 
-    @XmlTransient
-    public Task getTask() {
-        return task;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
-    }
 }

@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.SimpleExpression;
 
 import java.util.List;
 import java.util.Map;
@@ -46,11 +47,11 @@ public abstract class Dao <T> {
 
     /**
      * Gets a List<T> based on the filter param given
-     * @param filter Mapping of filter key->value pairs to
-     *               create query criteria with
+     * @param expressions List of SimpleExpression objects
+     *                    to act as search criteria
      * @return List<T> based on the filter param given
      */
-    public abstract List<T> get(Map<String, Object> filter) throws Exception;
+    public abstract List<T> get(List<SimpleExpression> expressions) throws Exception;
 
     /**
      * Add a completely new model of type T to

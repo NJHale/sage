@@ -1,6 +1,7 @@
 package com.sage.dao;
 
 import com.sage.models.Job;
+import org.hibernate.criterion.SimpleExpression;
 
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class JobDao extends Dao<Job> {
     }
 
     @Override
-    public List<Job> get(Map filter) {
+    public List<Job> get(List<SimpleExpression> expressions) {
         return null;
     }
 

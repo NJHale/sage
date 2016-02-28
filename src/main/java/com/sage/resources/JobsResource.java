@@ -29,12 +29,21 @@ public class JobsResource {
 
     private static final Logger logger = LogManager.getLogger(JobsResource.class);
 
+    /**
+     * Gets Job associated with the given jobId
+     * @param googleTokenStr
+     * @param sageTokenStr
+     * @param jobId
+     * @return Gets Job associated with the given jobId
+     */
     @GET
     @Path("/{jobId}")
     public Job getJob(
-            @HeaderParam("googleToken") String googleTokenStr,
-            @HeaderParam("sageToken") String sageTokenStr,
+            @HeaderParam("GoogleToken") String googleTokenStr,
+            @HeaderParam("SageToken") String sageTokenStr,
             @PathParam("jobId") int jobId ) {
+
+        // create job reference
         Job job = null;
         try {
             // get the acting user
@@ -81,59 +90,69 @@ public class JobsResource {
         return job;
     }
 
-    @GET
-    public List<JobOrder> getjobOrders(// sage-ws.ddns.net:8080/sage-ws/0.1/jobOrders/?age=1000&weight=150
-                                       @QueryParam("age") int age,
-                                       @QueryParam("aggression") int aggression,
-                                       @QueryParam("weight") double weight ) {
-        List<JobOrder> jobOrders = new LinkedList<JobOrder>();
-
-
-        return jobOrders;
-    }
-
-    @PUT
-    public Response putJobOrder(JobOrder order) {
-        SageApplication.everything.add(order);
-        Response resp = Response.ok().build();
-        return resp;
-    }
-
+    /**
+     * Gets Job associated with the given jobId
+     * POST should not have a body
+     * @param googleTokenStr
+     * @param sageTokenStr
+     * @param nodeId
+     * @return Gets Job associated with the given jobId
+     */
     @POST
-    public Response postJobOrder(@HeaderParam("IdToken") String idTokenStr, JobOrder order) {
-        Response resp;
-        logger.debug("idTokenStr: " + idTokenStr);
+    @Path("/nextReady/{nodeId}")
+    public Job getNextReadyJob(
+            @HeaderParam("googleToken") String googleTokenStr,
+            @HeaderParam("sageToken") String sageTokenStr,
+            @PathParam("nodeId") int nodeId) {
+
+        // create job reference
+        Job job = null;
         try {
+            // get the acting user
+            User user = null;
             UserAuth auth = new UserAuth();
-            logger.debug("UserAuth Created!");
-            logger.debug("Validating IdToken...");
-            User user = auth.verifyToken(idTokenStr);
-            if (user == null) {
-                throw new Exception ("An exposion of the shittiest kind!");
+            // verify token(s)
+            if (googleTokenStr != null && !googleTokenStr.equals("") ) {
+                user = auth.verifyGoogleToken(googleTokenStr);
+            } else if (sageTokenStr != null && !googleTokenStr.equals("")) {
+                //TODO: Change to verifySageToken()
+                user = auth.verifyGoogleToken(googleTokenStr);
             }
-            logger.debug("IdToken validated!");
-            //resp = Response.ok().entity(user).build();
-            resp = Response.ok().build();
-            return resp;
-        } catch (UserAuth.InvalidIdTokenException e) {
-            logger.debug(e.getMessage());
+
+            if (user == null) {
+                // The user is unauthorized
+                throw new WebApplicationException(Response.status(401).build());// unauthorized
+            }
+
+            // make sure the user is the owner of the given nodeId
+            Dao<AndroidNode> nodeDao = new AndroidNodeDao();
+            AndroidNode node = nodeDao.get(nodeId);
+
+            if (node.getOwnerId() != user.getUserId()) {
+                throw new WebApplicationException(Response.status(403).build());// unauthorized
+            }
+
+            // at this point we know the user is acting on behalf of a node they own
+            // get a list of ready jobs descending by bounty
+
+
+        } catch (WebApplicationException e) {
+            logger.error("Something went wrong while attempting to get the next ready Job");
+            logger.error(e.getMessage());
+            logger.debug(e.getStackTrace().toString());
+            logger.debug("rethrowing web exception");
+            // rethrow as web exception
+            throw e;
         } catch (Exception e) {
-            logger.debug("SHIT HAPPENS!");
-            logger.debug(e.getMessage());
+            logger.error("Something went wrong while attempting to get the next ready Job");
+            logger.error(e.getMessage());
+            logger.debug(e.getStackTrace().toString());
+            logger.error("Silently withering...");
         }
-
-        return putJobOrder(order);
+        // return the job
+        return job;
     }
 
-    @POST
-    @Path("/generate")
-    public Response generateJobOrder() {
-        JobOrder order = new JobOrder();
-        order.setBounty(10);
-        order.setTimeOut(10);
-        //order.setJavaFile();
-        return putJobOrder(order);
-    }
 
 
 

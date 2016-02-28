@@ -1,7 +1,8 @@
 package com.sage.dao;
 
+import org.hibernate.criterion.SimpleExpression;
+
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by root on 2/27/16.
@@ -29,7 +30,7 @@ public class UserDao<User> extends Dao<User> {
     }
 
     @Override
-    public List<User> get(Map filter) throws Exception {
+    public List<User> get(List<SimpleExpression> expressions) throws Exception {
         return null;
     }
 }
