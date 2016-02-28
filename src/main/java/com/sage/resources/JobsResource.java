@@ -50,7 +50,7 @@ public class JobsResource {
 
             if (user == null) {
                 // The user is unauthorized
-                throw new WebApplicationException(Response.status(401).build());
+                throw new WebApplicationException(Response.status(401).build());// unauthorized
             }
 
             // get the job by its id
@@ -65,7 +65,7 @@ public class JobsResource {
                 if (job.getOrdererId() != user.getUserId() &&
                         node.getOwnerId() != user.getUserId()) {
                     // the user is neither the orderer or the node owner
-                    throw new WebApplicationException(Response.status(401).build());
+                    throw new WebApplicationException(Response.status(403).build());// forbidden
                 }
             }
 
@@ -75,7 +75,7 @@ public class JobsResource {
             logger.debug(e.getStackTrace().toString());
             logger.debug("rethrowing web exception with ");
             // rethrow as web exception
-             throw new WebApplicationException(Response.status(401).build());
+             throw new WebApplicationException(Response.status(503).build());// unavailable
         }
         // return the job
         return job;
