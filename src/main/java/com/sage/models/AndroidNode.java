@@ -1,18 +1,38 @@
 package com.sage.models;
 
+
+
+
+import org.hibernate.annotations.Table;
+
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Created by root on 2/21/16.
+ * Created by Nick Hale on 2/21/16.
+ * @Author Nick Hale
+ *         NJohnHale@gmail.com
+ *
  */
+@XmlRootElement
+@Entity
+@Table(appliesTo = "android_node")
 public class AndroidNode {
 
-
     // Unique android node Id
-    private String nodeId;
+    @Column(name = "android_id")
+    private String androidId;
 
+    @Id
+    @GeneratedValue
+    @Column(name = "node_id")
+    private int nodeId;
+
+    @Column(name = "owner_id")
     private int ownerId;
 
+    @Column(name = "info")
     private String info;
 
     public AndroidNode(){
@@ -20,12 +40,19 @@ public class AndroidNode {
         //computeId = latestComputeId++;
     }
 
+    @XmlElement(name = "androidId")
+    public String getAndroidId() { return androidId; }
+
+    public void setAndroidId(String androidId) {
+        androidId = androidId;
+    }
+
     @XmlElement(name = "nodeId")
-    public String getNodeId(){
+    public int getNodeId(){
         return nodeId;
     }
 
-    public void setNodeId(String nodeId){
+    public void setNodeId(int nodeId){
         this.nodeId = nodeId;
     }
 

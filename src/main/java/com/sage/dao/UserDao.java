@@ -6,28 +6,30 @@ import java.util.Map;
 /**
  * Created by root on 2/27/16.
  */
-public class UserDao<User> extends Dao {
+public class UserDao<User> extends Dao<User> {
 
-    public UserDao() {
+    public UserDao() throws Exception {
         super();
     }
+
+
     @Override
-    public Object get(int id) throws Exception {
+    public User get(int id) throws Exception {
         return null;
     }
 
     @Override
-    public void add(Object model) throws Exception {
+    public void add(User user) throws Exception {
 
     }
 
     @Override
-    public void upsert(Object model) throws Exception {
+    public void upsert(User user) throws Exception {
 
     }
 
     @Override
-    public List get(Map filter) throws Exception {
+    public List<User> get(Map filter) throws Exception {
         return null;
     }
 }

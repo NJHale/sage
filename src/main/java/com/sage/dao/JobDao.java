@@ -6,11 +6,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by root on 2/27/16.
+ * Created by Nick Hale on 2/21/16.
+ * @Author Nick Hale
+ *         NJohnHale@gmail.com
+ *
  */
-public class JobDao<Job> extends Dao {
+public class JobDao extends Dao<Job> {
 
-    public JobDao() {
+    /**
+     * Default constructor for JobDao
+     * @throws Exception if something goes wrong
+     * when calling super()
+     */
+    public JobDao() throws Exception {
         // call super
         super();
         logger.trace("JobDao - Super called!");
@@ -27,12 +35,12 @@ public class JobDao<Job> extends Dao {
     }
 
     @Override
-    public void add(Object model) {
+    public void add(Job job) {
 
     }
 
     @Override
-    public void upsert(Object model) {
+    public void upsert(Job job) {
 
     }
 

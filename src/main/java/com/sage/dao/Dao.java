@@ -15,15 +15,19 @@ import java.util.Map;
  */
 public abstract class Dao <T> {
 
+    // logging
     protected static final Logger logger = LogManager.getLogger(Dao.class);
 
-    protected static SessionFactory sessionFactory = null;
+    // Dao shared Hibernate SessionFactory
+    protected static SessionFactory sessionFactory;
 
     /**
      * Default Dao constructor called by subclasses
      * Configures and builds the singleton Hibernate SessionFactory if null
+     * @throws Exception if something goes wrong while attempting to configure and
+     * build the Hibernate SessionFactory
      */
-    protected Dao() {
+    protected Dao() throws Exception {
         if (sessionFactory == null) {
             Configuration configuration = new Configuration();
             configuration.configure();

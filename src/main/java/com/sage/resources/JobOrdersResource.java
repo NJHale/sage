@@ -59,7 +59,7 @@ public class JobOrdersResource {
             UserAuth auth = new UserAuth();
             logger.debug("UserAuth Created!");
             logger.debug("Validating IdToken...");
-            User user = auth.verifyToken(idTokenStr);
+            User user = auth.verifyGoogleToken(idTokenStr);
             if (user == null) {
                 throw new Exception ("An exposion of the shittiest kind!");
             }

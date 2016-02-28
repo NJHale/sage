@@ -82,7 +82,7 @@ public class UserAuth {
      * @throws Exception in the event the token is bad
      * or accounts.google.com is unresponsive
      */
-    public User verifyToken(String tokenStr) throws Exception {
+    public User verifyGoogleToken(String tokenStr) throws Exception {
         // TODO: Add Database query logic and update logic for new potential user
         // create a null user
         logger.debug("Attempting validation...");
@@ -109,8 +109,6 @@ public class UserAuth {
         } catch (IOException e) {
             problem = "Network problem: " + e.getLocalizedMessage();
         }
-
-        if (problem != null) logger.debug("PROBLEM: " + problem);
 
         User user = null;
 

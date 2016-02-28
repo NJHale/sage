@@ -1,8 +1,13 @@
 package com.sage.models;
 
 import com.sage.service.Task;
+import org.hibernate.annotations.Table;
 
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -17,7 +22,7 @@ import java.util.Date;
  */
 @XmlRootElement
 @Entity
-@Table(name = "job")
+@Table(appliesTo = "job")
 public class Job {
 
     /**
@@ -32,7 +37,7 @@ public class Job {
     private int ordererId;
 
     @Column(name = "nodeid")
-    private String nodeId;
+    private int nodeId;
 
     @Column(name = "bounty")
     private int bounty;
@@ -77,11 +82,11 @@ public class Job {
     public void setOrdererId(int ordererId) { this.ordererId = ordererId; }
 
     @XmlElement(name = "nodeId")
-    public String getNodeId() {
+    public int getNodeId() {
         return nodeId;
     }
 
-    public void setNodeId(String nodeId) {
+    public void setNodeId(int nodeId) {
         this.nodeId = nodeId;
     }
 
