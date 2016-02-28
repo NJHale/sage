@@ -1,5 +1,6 @@
 package com.sage.dao;
 
+import com.sage.service.SageServletContextListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -8,6 +9,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.SimpleExpression;
 
+import javax.servlet.ServletContextListener;
+import javax.ws.rs.core.Context;
 import java.util.List;
 import java.util.Map;
 
@@ -16,11 +19,15 @@ import java.util.Map;
  */
 public abstract class Dao <T> {
 
+    // inject the servlet context
+    @Context
+    private ServletContextListener context;
+
     // logging
     protected static final Logger logger = LogManager.getLogger(Dao.class);
 
-    // Dao shared Hibernate SessionFactory
-    protected static SessionFactory sessionFactory;
+    // Reference to Dao shared Hibernate SessionFactory
+    protected SessionFactory sessionFactory;
 
     /**
      * Default Dao constructor called by subclasses
@@ -30,11 +37,8 @@ public abstract class Dao <T> {
      */
     protected Dao() throws Exception {
         if (sessionFactory == null) {
-            Configuration configuration = new Configuration();
-            configuration.configure();
-            StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
-            sessionFactory = configuration.buildSessionFactory(builder.build());
-            logger.info("Hibernate SessionFactory successfully built");
+            sessionFactory = SageServletContextListener.sessionFactory;
+            logger.info("SessionFactory successfully referenced");
         }
     }
 
@@ -66,6 +70,5 @@ public abstract class Dao <T> {
      * @param model Model to be updated
      */
     public abstract void upsert(T model) throws Exception;
-
 
 }

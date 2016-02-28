@@ -115,6 +115,7 @@ public class UserAuth {
         if (payload != null) {
             // TODO: Look for User in DB, create if doesn't exist
             user = new User();
+            user.setUserId(1);
             user.setUserEmail(payload.getEmail());
             logger.debug(payload.getEmail());
         } else {

@@ -78,13 +78,20 @@ public class JobsResource {
                 }
             }
 
+        } catch (WebApplicationException e) {
+            logger.error("Something went wrong while attempting to get the Job");
+            logger.error(e.getMessage());
+            logger.debug(e.getStackTrace().toString());
+            logger.debug("rethrowing web exception");
+            // rethrow given web exception
+            throw e;// unavailable
         } catch (Exception e) {
             logger.error("Something went wrong while attempting to get the Job");
             logger.error(e.getMessage());
             logger.debug(e.getStackTrace().toString());
-            logger.debug("rethrowing web exception with ");
+            logger.debug("rethrowing web exception");
             // rethrow as web exception
-             throw new WebApplicationException(Response.status(503).build());// unavailable
+            throw new WebApplicationException(Response.status(503).build());
         }
         // return the job
         return job;
@@ -121,20 +128,29 @@ public class JobsResource {
 
             if (user == null) {
                 // The user is unauthorized
+                logger.debug("User Unauthorized!");
                 throw new WebApplicationException(Response.status(401).build());// unauthorized
             }
+
+            logger.debug("Attempting to dig up the given AndroidNode ...");
 
             // make sure the user is the owner of the given nodeId
             Dao<AndroidNode> nodeDao = new AndroidNodeDao();
             AndroidNode node = nodeDao.get(nodeId);
 
-            if (node.getOwnerId() != user.getUserId()) {
-                throw new WebApplicationException(Response.status(403).build());// unauthorized
+            logger.debug("Given AndroidNode found!");
+            logger.debug("Verifying whether it belongs to the User...");
+
+            if (node == null || node.getOwnerId() != user.getUserId()) {
+                logger.debug("User doesn't own the node they are attempting to represent or the node does not exist.");
+                throw new WebApplicationException(Response.status(403).build());// forbidden
             }
+
+            logger.debug("AndroidNode ownership verified!");
 
             // at this point we know the user is acting on behalf of a node they own
             // get a list of ready jobs descending by bounty
-
+            //TODO: work on getting job and updating job status to JobStatus.RUNNING
 
         } catch (WebApplicationException e) {
             logger.error("Something went wrong while attempting to get the next ready Job");
