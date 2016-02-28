@@ -19,6 +19,7 @@ import javax.ws.rs.core.Application;
 public class SageApplication extends Application {
 
 
+
     public static List<Object> everything = new LinkedList<Object>();
 
     @Override

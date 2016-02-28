@@ -5,7 +5,7 @@
          version="3.1">
 
     <servlet>
-        <servlet-name>Example API</servlet-name>
+        <servlet-name>ExampleAPI</servlet-name>
         <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
 
         <init-param>
@@ -17,11 +17,14 @@
             <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
             <param-value>true</param-value>
         </init-param>
+
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>Example API</servlet-name>
+        <servlet-name>ExampleAPI</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
+
+
 
 </web-app>

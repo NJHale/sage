@@ -11,7 +11,7 @@ public class User {
 
     private int userId;
 
-    private String userName;
+    private String userEmail;
 
     public User() {
         // set and increment userId
@@ -27,13 +27,8 @@ public class User {
         this.userId = userId;
     }
 
-    @XmlElement(name = "userName")
-    public String getUserName() {
-        return userName;
-    }
+    @XmlElement(name = "userEmail")
+    public String getUserEmail() { return userEmail; }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
+    public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
 }

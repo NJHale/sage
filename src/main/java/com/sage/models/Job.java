@@ -1,64 +1,86 @@
 package com.sage.models;
 
 import com.sage.service.Task;
+import org.hibernate.annotations.Table;
 
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.File;
+import java.util.Date;
 
 /**
- * Created by root on 2/21/16.
+ * Created by Nick Hale on 2/21/16.
+ * @Author Nick Hale
+ *         NJohnHale@gmail.com
+ *
  */
 @XmlRootElement
+@Entity
+@Table(appliesTo = "job")
 public class Job {
 
-    // Hibernate Annotations
-
+    /**
+     * Hibernate Annotations for ORM persistence
+     */
+    @Id
+    @GeneratedValue
+    @Column(name = "job_id")
     private int jobId;
 
-    private int askerId;
+    @Column(name = "orderer_id")
+    private int ordererId;
 
+    @Column(name = "nodeid")
     private int nodeId;
 
+    @Column(name = "bounty")
+    private int bounty;
+
+    @Column(name = "status")
     private JobStatus status;
 
+    @Column(name = "timeout")
     private long timeOut;
 
+    @Column(name = "dex_file")
     private File dexFile;
 
+    @Column(name = "data")
     private byte[] data;
 
+    @Column(name = "result")
     private byte[] result;
 
-    private Task task;
+    @Column(name = "completion")
+    private Date completion;
 
-    // Default Constructor
+    /**
+     * Default constructor
+     */
+    public Job() { }
 
-    public Job() {
-
-    }
-
-    // Jersey JAXB Annotations
+    /**
+     * Jersey JAXB Annotations
+     */
     @XmlTransient
     public int getJobId() {
         return jobId;
     }
 
-    public void setJobId(int jobId) {
-        this.jobId = jobId;
-    }
+    public void setJobId(int jobId) { this.jobId = jobId; }
 
     @XmlTransient
-    public int getAskerId() {
-        return askerId;
-    }
+    public int getOrdererId() { return ordererId; }
 
-    public void setAskerId(int askerId) {
-        this.askerId = askerId;
-    }
+    public void setOrdererId(int ordererId) { this.ordererId = ordererId; }
 
-    @XmlTransient
+    @XmlElement(name = "nodeId")
     public int getNodeId() {
         return nodeId;
     }
@@ -66,6 +88,11 @@ public class Job {
     public void setNodeId(int nodeId) {
         this.nodeId = nodeId;
     }
+
+    @XmlTransient
+    public int getBounty() { return bounty; }
+
+    public void setBounty(int bounty) { this.bounty = bounty; }
 
     @XmlElement(name = "status")
     public JobStatus getStatus() {
@@ -112,12 +139,9 @@ public class Job {
         this.result = result;
     }
 
-    @XmlTransient
-    public Task getTask() {
-        return task;
-    }
+    @XmlElement(name = "completion")
+    public Date getCompletion() { return completion; }
 
-    public void setTask(Task task) {
-        this.task = task;
-    }
+    public void setCompletion(Date completion) { this.completion = completion; }
+
 }

@@ -11,8 +11,7 @@ import java.io.File;
 @XmlRootElement
 public class JobOrder {
 
-    // Hibernate annotations
-    private int jobOrderId;
+    private int ordererId;
 
     private int bounty;
 
@@ -27,16 +26,11 @@ public class JobOrder {
 
     }
 
-    // Jersey JAXB Annotations
 
     @XmlTransient
-    public int getJobOrderId() {
-        return jobOrderId;
-    }
+    public int getOrdererId() { return ordererId; }
 
-    public void setJobOrderId(int jobOrderId) {
-        this.jobOrderId = jobOrderId;
-    }
+    public void setOrdererId(int ordererId) { this.ordererId = ordererId; }
 
     @XmlElement(name = "bounty")
     public int getBounty() {
