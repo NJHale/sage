@@ -48,8 +48,11 @@ public class Job {
     @Column(name = "timeout")
     private long timeOut;
 
-    @Column(name = "dex_file")
-    private File dexFile;
+    @Column(name = "encoded_dex")
+    private String encodedDex;
+
+    @Column(name = "encoded_java")
+    private String encodedJava;
 
     @Column(name = "data")
     private byte[] data;
@@ -112,14 +115,16 @@ public class Job {
         this.timeOut = timeOut;
     }
 
-    @XmlElement(name = "dexFile")
-    public File getDexFile() {
-        return dexFile;
-    }
+    @XmlElement(name = "encodedDex")
+    public String getEncodedDex() { return encodedDex; }
 
-    public void setDexFile(File dexFile) {
-        this.dexFile = dexFile;
-    }
+    public void setEncodedDex(String encodedDex) { this.encodedDex = encodedDex; }
+
+    @XmlTransient
+    public String getEncodedJava() { return encodedJava; }
+
+    public void setEncodedJava(String encodedJava) { this.encodedJava = encodedJava; }
+
 
     @XmlElement(name = "data")
     public byte[] getData() {
