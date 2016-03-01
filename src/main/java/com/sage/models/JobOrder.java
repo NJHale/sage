@@ -19,7 +19,7 @@ public class JobOrder {
 
     private byte[] data;
 
-    private File javaFile;
+    private String encodedJava;
 
     // Default constructor
     public JobOrder() {
@@ -59,12 +59,12 @@ public class JobOrder {
         this.data = data;
     }
 
-    @XmlElement(name = "javaFile")
-    public File getJavaFile() {
-        return javaFile;
+    @XmlElement(name = "encodedFile")
+    public String getEncodedJava() {
+        return encodedJava;
     }
 
-    public void setJavaFile(File javaFile) {
-        this.javaFile = javaFile;
+    public void setEncodedJava(String encodedJava) {
+        this.encodedJava = encodedJava;
     }
 }
