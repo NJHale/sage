@@ -1,5 +1,9 @@
 package com.sage.models;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
@@ -7,16 +11,26 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class User {
 
-    private static int latestUserId = 0;
+    /**
+     * Instance variables annotated with Hibernate mappings
+     */
 
+    @Id
+    @GeneratedValue
+    @Column(name = "user_id")
     private int userId;
 
+    @Column(name = "user_email")
     private String userEmail;
 
-    public User() {
-        // set and increment userId
-        userId = latestUserId++;
-    }
+    /**
+     * Default User constructor
+     */
+    public User() { }
+
+    /**
+     * Getters and Setters annotated with Jersey mappings
+     */
 
     @XmlElement(name = "userId")
     public int getUserId() {

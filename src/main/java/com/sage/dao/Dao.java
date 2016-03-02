@@ -7,6 +7,8 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.SimpleExpression;
 
 import javax.servlet.ServletContextListener;
@@ -51,18 +53,19 @@ public abstract class Dao <T> {
 
     /**
      * Gets a List<T> based on the filter param given
-     * @param expressions List of SimpleExpression objects
+     * @param crits List of SimpleExpression objects
      *                    to act as search criteria
      * @return List<T> based on the filter param given
      */
-    public abstract List<T> get(List<SimpleExpression> expressions) throws Exception;
+    public abstract List<T> get(List<Criterion> crits, Order order, int setSize) throws Exception;
 
     /**
      * Add a completely new model of type T to
      * the data layer
      * @param model New Model to attempt to add
+     * @returns Id of the newly stored Job
      */
-    public abstract void add(T model) throws Exception;
+    public abstract int add(T model) throws Exception;
 
     /**
      * Updates the given model of type T

@@ -11,8 +11,6 @@ import java.io.File;
 @XmlRootElement
 public class JobOrder {
 
-    private int ordererId;
-
     private int bounty;
 
     private long timeOut;
@@ -21,16 +19,16 @@ public class JobOrder {
 
     private String encodedJava;
 
-    // Default constructor
+    /**
+     * Default JobOrder constructor
+     */
     public JobOrder() {
 
     }
 
-
-    @XmlTransient
-    public int getOrdererId() { return ordererId; }
-
-    public void setOrdererId(int ordererId) { this.ordererId = ordererId; }
+    /**
+     * Getters and Setters annotated with Jersey mappings
+     */
 
     @XmlElement(name = "bounty")
     public int getBounty() {
@@ -59,7 +57,7 @@ public class JobOrder {
         this.data = data;
     }
 
-    @XmlElement(name = "encodedFile")
+    @XmlElement(name = "encodedJava")
     public String getEncodedJava() {
         return encodedJava;
     }
