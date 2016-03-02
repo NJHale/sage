@@ -1,11 +1,12 @@
-
 package com.sage.resources;
 
 import com.sage.dao.AndroidNodeDao;
 import com.sage.dao.Dao;
 import com.sage.dao.JobDao;
-import com.sage.models.*;
-import com.sage.service.SageApplication;
+import com.sage.models.AndroidNode;
+import com.sage.models.Job;
+import com.sage.models.JobStatus;
+import com.sage.models.User;
 import com.sage.service.UserAuth;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,21 +15,14 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by root on 2/18/16.
+ * Created by root on 3/1/16.
  */
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
-@Path("/jobs")
-public class JobsResource {
-
+public class JobOrdersResource {
     private static final Logger logger = LogManager.getLogger(JobsResource.class);
 
     /**
@@ -194,8 +188,4 @@ public class JobsResource {
         // return the job
         return job;
     }
-
-
-
-
 }

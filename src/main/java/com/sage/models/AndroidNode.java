@@ -20,6 +20,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(appliesTo = "android_node")
 public class AndroidNode {
 
+    /**
+     * Instance variables annotated with Hibernate mappings
+     */
+
     // Unique android node Id
     @Column(name = "android_id")
     private String androidId;
@@ -39,6 +43,10 @@ public class AndroidNode {
         // set and increment computeId
         //computeId = latestComputeId++;
     }
+
+    /**
+     * Getters and Setters annotated with Jersey mappings
+     */
 
     @XmlElement(name = "androidId")
     public String getAndroidId() { return androidId; }

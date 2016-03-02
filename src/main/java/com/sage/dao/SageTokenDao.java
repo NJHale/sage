@@ -1,5 +1,6 @@
 package com.sage.dao;
 
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.SimpleExpression;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class SageTokenDao<SageToken> extends Dao<SageToken> {
     }
 
     @Override
-    public List<SageToken> get(List<SimpleExpression> expressions) throws Exception {
+    public List<SageToken> get(List<Criterion> expressions) throws Exception {
         return null;
     }
 
