@@ -1,4 +1,4 @@
-package com.sage.models;
+package com.sage.ws.models;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

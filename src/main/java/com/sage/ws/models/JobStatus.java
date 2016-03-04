@@ -1,4 +1,4 @@
-package com.sage.models;
+package com.sage.ws.models;
 
 /**
  * Created by root on 2/24/16.

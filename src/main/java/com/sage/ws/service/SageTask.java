@@ -1,11 +1,11 @@
-package com.sage.service;
+package com.sage.ws.service;
 
 /**
  * @Author Nick Hale NJohnHale@gmail.com
  *
- * Defines how a Task should behave
+ * Defines how a SageTask should behave
  */
-public interface Task {
+public interface SageTask {
 
     /**
      * The main operation that a task performs

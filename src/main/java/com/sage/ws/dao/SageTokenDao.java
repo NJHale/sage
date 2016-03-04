@@ -1,10 +1,8 @@
-package com.sage.dao;
+package com.sage.ws.dao;
 
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.SimpleExpression;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Nick Hale

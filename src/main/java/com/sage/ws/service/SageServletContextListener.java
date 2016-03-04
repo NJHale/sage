@@ -1,6 +1,5 @@
-package com.sage.service;
+package com.sage.ws.service;
 
-import com.sage.dao.Dao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
@@ -11,12 +10,20 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+/**
+ * Created by Nick Hale on 2/21/16.
+ * @Author Nick Hale
+ *         NJohnHale@gmail.com
+ *
+ */
 @WebListener
 public class SageServletContextListener implements ServletContextListener{
 
     private static final Logger logger = LogManager.getLogger(SageServletContextListener.class);
 
-    // Store all site wide variables here
+    /**
+     * Site-wide global variables
+     */
 
     public static SessionFactory sessionFactory;
 

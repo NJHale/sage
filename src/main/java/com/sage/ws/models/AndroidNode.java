@@ -1,4 +1,4 @@
-package com.sage.models;
+package com.sage.ws.models;
 
 
 
@@ -52,7 +52,7 @@ public class AndroidNode {
     public String getAndroidId() { return androidId; }
 
     public void setAndroidId(String androidId) {
-        androidId = androidId;
+        this.androidId = androidId;
     }
 
     @XmlElement(name = "nodeId")

@@ -1,12 +1,14 @@
 
-package com.sage.resources;
+package com.sage.ws.resources;
 
-import com.sage.dao.AndroidNodeDao;
-import com.sage.dao.Dao;
-import com.sage.dao.JobDao;
-import com.sage.models.*;
-import com.sage.service.SageApplication;
-import com.sage.service.UserAuth;
+import com.sage.ws.dao.AndroidNodeDao;
+import com.sage.ws.dao.Dao;
+import com.sage.ws.dao.JobDao;
+import com.sage.ws.models.Job;
+import com.sage.ws.models.JobStatus;
+import com.sage.ws.models.User;
+import com.sage.ws.service.UserAuth;
+import com.sage.ws.models.AndroidNode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.criterion.Criterion;
@@ -18,11 +20,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by root on 2/18/16.
+ * Created by Nick Hale on 2/21/16.
+ * @Author Nick Hale
+ *         NJohnHale@gmail.com
+ *
  */
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -108,7 +112,7 @@ public class JobsResource {
      * @return Gets Job associated with the given jobId
      */
     @POST
-    @Path("/nextReady/{nodeId}")
+    @Path("/nextReady/{nodeId}")//sage-ws.ddns.net:8080/sage/0.1/jobs/nextReady/2234
     public Job getNextReadyJob(
             @HeaderParam("googleToken") String googleTokenStr,
             @HeaderParam("sageToken") String sageTokenStr,

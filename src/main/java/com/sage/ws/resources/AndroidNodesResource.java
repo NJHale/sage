@@ -1,4 +1,4 @@
-package com.sage.resources;
+package com.sage.ws.resources;
 
 /**
  * Created by root on 2/27/16.

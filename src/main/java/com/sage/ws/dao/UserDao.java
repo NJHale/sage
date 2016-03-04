@@ -1,4 +1,4 @@
-package com.sage.dao;
+package com.sage.ws.dao;
 
 import org.hibernate.criterion.SimpleExpression;
 

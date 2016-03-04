@@ -1,23 +1,22 @@
-package com.sage.dao;
+package com.sage.ws.dao;
 
-import com.sage.service.SageServletContextListener;
+import com.sage.ws.service.SageServletContextListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.SimpleExpression;
 
 import javax.servlet.ServletContextListener;
 import javax.ws.rs.core.Context;
 import java.util.List;
-import java.util.Map;
 
 /**
- * Created by root on 2/27/16.
+ * Created by Nick Hale on 2/21/16.
+ * @Author Nick Hale
+ *         NJohnHale@gmail.com
+ *
  */
 public abstract class Dao <T> {
 

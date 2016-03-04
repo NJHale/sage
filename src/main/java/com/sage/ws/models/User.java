@@ -1,4 +1,4 @@
-package com.sage.models;
+package com.sage.ws.models;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;

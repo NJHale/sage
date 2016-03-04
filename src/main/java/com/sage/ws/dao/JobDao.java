@@ -1,17 +1,14 @@
-package com.sage.dao;
+package com.sage.ws.dao;
 
-import com.sage.models.Job;
+import com.sage.ws.models.Job;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.SimpleExpression;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Nick Hale on 2/21/16.

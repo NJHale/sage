@@ -1,6 +1,5 @@
-package com.sage.models;
+package com.sage.ws.models;
 
-import com.sage.service.Task;
 import org.hibernate.annotations.Table;
 
 
@@ -11,7 +10,6 @@ import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import java.io.File;
 import java.util.Date;
 
 /**

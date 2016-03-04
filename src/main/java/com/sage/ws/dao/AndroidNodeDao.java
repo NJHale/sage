@@ -1,6 +1,6 @@
-package com.sage.dao;
+package com.sage.ws.dao;
 
-import com.sage.models.AndroidNode;
+import com.sage.ws.models.AndroidNode;
 import org.hibernate.criterion.SimpleExpression;
 
 import java.util.List;
