@@ -3,19 +3,16 @@ package com.sage.ws.resources;
 import com.sage.ws.dao.JobDao;
 import com.sage.ws.models.Job;
 import com.sage.ws.models.User;
-import com.sage.ws.service.JavaToDexTranslator;
-import com.sage.ws.service.UserAuth;
+import com.sage.ws.util.JavaToDexTranslator;
+import com.sage.ws.util.UserAuth;
 import com.sage.ws.models.JobOrder;
 import com.sun.javaws.exceptions.InvalidArgumentException;
-import com.sun.jersey.core.util.Base64;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.tools.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.File;
 
 /**
  * Created by Nick Hale on 2/21/16.
@@ -27,7 +24,9 @@ import java.io.File;
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/jobOrders")
 public class JobOrdersResource {
-    private static final Logger logger = LogManager.getLogger(JobsResource.class);
+
+    // logging
+    private static final Logger logger = LogManager.getLogger(JobOrdersResource.class);
 
     /**
      *

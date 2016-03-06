@@ -7,7 +7,7 @@ import com.sage.ws.dao.JobDao;
 import com.sage.ws.models.Job;
 import com.sage.ws.models.JobStatus;
 import com.sage.ws.models.User;
-import com.sage.ws.service.UserAuth;
+import com.sage.ws.util.UserAuth;
 import com.sage.ws.models.AndroidNode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

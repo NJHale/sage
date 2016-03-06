@@ -18,6 +18,8 @@ import java.util.List;
  *         NJohnHale@gmail.com
  *
  */
+
+//TODO: Perhaps make the Dao<T> class non-abstract and dynamically type its methods and implementation
 public abstract class Dao <T> {
 
     // inject the servlet context

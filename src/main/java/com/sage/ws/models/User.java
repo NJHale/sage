@@ -1,14 +1,19 @@
 package com.sage.ws.models;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.UniqueConstraint;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Table;
+
+import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Created by root on 2/21/16.
  */
+@XmlRootElement()
+@Entity
+@Table(appliesTo = "user")
 public class User {
 
     /**
