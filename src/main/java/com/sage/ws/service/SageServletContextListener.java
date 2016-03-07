@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebListener;
 
 /**
  * Created by Nick Hale on 2/21/16.
- * @Author Nick Hale
+ * @author Nick Hale
  *         NJohnHale@gmail.com
  *
  */

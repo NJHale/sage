@@ -1,7 +1,7 @@
 package com.sage.ws.service;
 
 /**
- * @Author Nick Hale NJohnHale@gmail.com
+ * @author Nick Hale NJohnHale@gmail.com
  *
  * Defines how a SageTask should behave
  */
