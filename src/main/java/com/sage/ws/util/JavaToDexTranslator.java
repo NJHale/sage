@@ -61,7 +61,7 @@ public class JavaToDexTranslator {
         logger.debug("src: " + src);
 
         // create a unique temp directory to store the java, class, and dex files
-        File root = new File("~/java/" + this.hashCode());
+        File root = new File("java/" + this.hashCode());
         logger.debug("Making temp directory for compiled java and dex...");
         if (!root.mkdirs() && !root.isDirectory()) {
             // In this case the temp directory could not be created
@@ -85,9 +85,10 @@ public class JavaToDexTranslator {
         SageTask task = (SageTask) cls.newInstance();
         // convert the class file to a dex file using the dx command
         // for now hardcode unix command TODO: Either execute bash or bat script based on deploy architecture
-        StringBuilder cmd = new StringBuilder("dx --dex --output ");
-        cmd.append(root.getAbsolutePath() + "/" + fqn + ".java ");
+        StringBuilder cmd = new StringBuilder(
+                "/usr/share/android-sdk-linux/build-tools/23.0.2/dx --dex --output ");
         cmd.append(root.getAbsolutePath() + "/" + fqn + ".dex ");
+        cmd.append(root.getAbsolutePath() + "/" + fqn + ".class ");
         logger.debug("cmd: " + cmd.toString());
         Process proc = Runtime.getRuntime().exec(cmd.toString());
 
