@@ -6,7 +6,6 @@ import com.sage.ws.models.User;
 import com.sage.ws.util.JavaToDexTranslator;
 import com.sage.ws.util.UserAuth;
 import com.sage.ws.models.JobOrder;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,7 +15,7 @@ import javax.ws.rs.core.Response;
 
 /**
  * Created by Nick Hale on 2/21/16.
- * @Author Nick Hale
+ * @author  Nick Hale
  *         NJohnHale@gmail.com
  *
  */
@@ -90,13 +89,13 @@ public class JobOrdersResource {
             logger.debug("rethrowing web exception");
             // rethrow given web exception
             throw e;// unavailable
-        } catch (InvalidArgumentException e) {
-            logger.error("Something went wrong while attempting to get place the JobOrder");
-            logger.error(e.getMessage());
-            logger.debug(e.getStackTrace().toString());
-            logger.debug("rethrowing web exception");
-            // rethrow as web exception
-            throw new WebApplicationException(Response.status(400).build());
+//        } catch (InvalidArgumentException e) {
+//            logger.error("Something went wrong while attempting to get place the JobOrder");
+//            logger.error(e.getMessage());
+//            logger.debug(e.getStackTrace().toString());
+//            logger.debug("rethrowing web exception");
+//            // rethrow as web exception
+//            throw new WebApplicationException(Response.status(400).build());
         } catch (Exception e) {
             logger.error("Something went wrong while attempting to get place the JobOrder");
             logger.error(e.getMessage());

@@ -1,6 +1,8 @@
 package com.sage.ws.resources;
 
 import com.sage.ws.models.Goat;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -16,11 +18,14 @@ import java.util.List;
 @Path("/goats")
 public class GoatsResource {
 
+    private static final Logger logger = LogManager.getLogger(GoatsResource.class);
+
     @GET
     public List<Goat> getGoats(
             @QueryParam("age") int age,
             @QueryParam("aggression") int aggression,
             @QueryParam("weight") double weight ) {
+
         List<Goat> goats = new LinkedList<Goat>();
         for (int i = 1; i < 4; i++) {// no goats under the age of 1 permitted
             Goat goat = new Goat();
