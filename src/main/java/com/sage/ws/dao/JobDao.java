@@ -65,7 +65,7 @@ public class JobDao extends Dao<Job> {
             // add the order
             cr.addOrder(order);
             // trim the resilt set
-            cr.setFetchSize(setSize);
+            if (setSize >= 0) cr.setFetchSize(setSize);
             // retrieve the jobs
             jobs = cr.list();
         } catch (HibernateException e) {

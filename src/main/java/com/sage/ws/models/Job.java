@@ -69,14 +69,14 @@ public class Job {
     /**
      * Jersey JAXB Annotations
      */
-    @XmlTransient
+    @XmlElement(name = "jobId")
     public int getJobId() {
         return jobId;
     }
 
     public void setJobId(int jobId) { this.jobId = jobId; }
 
-    @XmlTransient
+    @XmlElement(name = "ordererId")
     public int getOrdererId() { return ordererId; }
 
     public void setOrdererId(int ordererId) { this.ordererId = ordererId; }

@@ -7,10 +7,12 @@ import com.sage.ws.dao.JobDao;
 import com.sage.ws.models.Job;
 import com.sage.ws.models.JobStatus;
 import com.sage.ws.models.User;
+import com.sage.ws.util.ModelValidator;
 import com.sage.ws.util.UserAuth;
 import com.sage.ws.models.AndroidNode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -20,6 +22,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -199,7 +202,174 @@ public class JobsResource {
         return job;
     }
 
+    /**
+     * Updates the given job in the datastore
+     * Only the android node running the given job is allowed to make updates
+     * No changing of dex content is permitted
+     * @param googleTokenStr
+     * @param sageTokenStr
+     * @param job
+     * @return Gets Job associated with the given jobId
+     */
+    @POST
+    @Path("/")
+    public void updateJob(
+            @HeaderParam("googleToken") String googleTokenStr,
+            @HeaderParam("sageToken") String sageTokenStr,
+            Job job) {
 
+        try {
+            // get the acting user
+            User user = null;
+            UserAuth auth = new UserAuth();
+            // verify token(s)
+            if (googleTokenStr != null && !googleTokenStr.equals("") ) {
+                user = auth.verifyGoogleToken(googleTokenStr);
+            } else if (sageTokenStr != null && !googleTokenStr.equals("")) {
+                //TODO: Change to verifySageToken()
+                user = auth.verifyGoogleToken(googleTokenStr);
+            }
 
+            if (user == null) {
+                // The user is unauthorized
+                logger.debug("User Unauthorized!");
+                throw new WebApplicationException(Response.status(401).build());// unauthorized
+            }
 
+            logger.debug("Verifying node ownership ...");
+            // get the android node and confirm ownership
+            Dao<AndroidNode> nodeDao = new AndroidNodeDao();
+            AndroidNode node = nodeDao.get(job.getNodeId());
+            if (node == null || user.getUserId() != node.getOwnerId()) {
+                // node is not owned by the user or does not exist
+                logger.debug("User doesn't own the node they are attempting to represent or the node does not exist.");
+                throw new WebApplicationException(Response.status(403).build());// forbidden
+            }
+            logger.debug("Node ownership verified!");
+
+            // at this point we know the user is acting on behalf of a node they own
+            // dig up the stored version of the job and check for tampering
+            JobDao jobDao = new JobDao();
+            Job stored = jobDao.get(job.getJobId());
+            // validate the job
+            ModelValidator validator = new ModelValidator();
+            if (!validator.validate(stored, job)) {
+                // the core job data has been tampered with
+                logger.debug("Validation failed. User is attempting to tamper with core job info.");
+                throw new WebApplicationException(Response.status(403).build());// forbidden
+            }
+            logger.debug("Validation successful!");
+            // update the stored job with status change and result
+            stored.setResult(job.getResult());
+            stored.setStatus(job.getStatus());
+            stored.setCompletion(new Date());
+            // update the datastore
+            jobDao.upsert(stored);
+
+        } catch (WebApplicationException e) {
+            logger.error("Something went wrong while attempting to update the Job");
+            logger.error(e.getMessage());
+            logger.debug(e.getStackTrace().toString());
+            logger.debug("rethrowing web exception");
+            // rethrow as web exception
+            throw e;
+        } catch (Exception e) {
+            logger.error("Something went wrong while attempting to update the Job");
+            logger.error(e.getMessage());
+            logger.debug(e.getStackTrace().toString());
+            logger.error("Silently withering...");
+        }
+
+    }
+
+    /**
+     *
+     * @param googleTokenStr
+     * @param sageTokenStr
+     * @param count
+     * @param dir
+     * @param uBounty
+     * @param lBounty
+     * @param nodeId
+     * @param ordererId
+     * @return
+     */
+    @GET
+    @Path("/")
+    public List<Job> getJobs(
+            @HeaderParam("GoogleToken") String googleTokenStr,
+            @HeaderParam("SageToken") String sageTokenStr,
+            @QueryParam("count") int count,
+            @QueryParam("dir") String dir,
+            @QueryParam("orderBy") String orderBy,
+            @QueryParam("status") int status,
+            @QueryParam("upperBounty") int uBounty,
+            @QueryParam("lowerBounty") int lBounty,
+            @QueryParam("nodeId") int nodeId,
+            @QueryParam("ordererId") int ordererId) {
+
+        // create job reference
+        List<Job> jobs = new ArrayList<Job>();
+        try {
+            // get the acting user
+            User user = null;
+            UserAuth auth = new UserAuth();
+            // verify token(s)
+            if (googleTokenStr != null && !googleTokenStr.equals("") ) {
+                user = auth.verifyGoogleToken(googleTokenStr);
+            } else if (sageTokenStr != null && !googleTokenStr.equals("")) {
+                //TODO: Change to verifySageToken()
+                user = auth.verifyGoogleToken(googleTokenStr);
+            }
+
+            if (user == null) {
+                // The user is unauthorized
+                throw new WebApplicationException(Response.status(401).build());// unauthorized
+            }
+
+            // get the job by the given query parameters
+            Dao<Job> jobDao = new JobDao();
+            Order order = null;
+            // create the criterion to filter by
+            List<Criterion> crits = new ArrayList<Criterion>();
+            if ( status >= 0 ) crits.add(Restrictions.eq("status", status));// include status
+            // apply direction and orderBy
+            if ( dir != null ) {
+                if (orderBy != null) {
+                    order = dir.equals("asc") ? Order.asc(orderBy) : Order.desc(orderBy);
+                } else {
+                    order = dir.equals("asc") ? Order.asc("jobId") : Order.desc("jobId");
+                }
+            } else {
+                if (orderBy != null) {
+                    order = Order.desc(orderBy);// always descending
+                } else {
+                    order = Order.desc("jobId");
+                }
+            }
+            if ( uBounty > 0 ) crits.add(Restrictions.lt("bounty", uBounty));
+            if ( lBounty > 0 ) crits.add(Restrictions.gt("bounty", lBounty));
+            if ( nodeId > 0 ) crits.add(Restrictions.eq("nodeId", nodeId));
+            if ( ordererId > 0 ) crits.add(Restrictions.eq("ordererId", ordererId));
+            // retrieve jobs from the datastore
+            jobs = jobDao.get(crits, order, count);
+
+        } catch (WebApplicationException e) {
+            logger.error("Something went wrong while attempting to get Jobs");
+            logger.error(e.getMessage());
+            logger.debug(e.getStackTrace().toString());
+            logger.debug("rethrowing web exception");
+            // rethrow given web exception
+            throw e;// unavailable
+        } catch (Exception e) {
+            logger.error("Something went wrong while attempting to get Jobs");
+            logger.error(e.getMessage());
+            logger.debug(e.getStackTrace().toString());
+            logger.debug("rethrowing web exception");
+            // rethrow as web exception
+            throw new WebApplicationException(Response.status(503).build());
+        }
+        // return the job
+        return jobs;
+    }
 }
