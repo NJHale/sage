@@ -212,7 +212,6 @@ public class JobsResource {
      * @return Gets Job associated with the given jobId
      */
     @POST
-    @Path("/")
     public void updateJob(
             @HeaderParam("googleToken") String googleTokenStr,
             @HeaderParam("sageToken") String sageTokenStr,
@@ -295,7 +294,6 @@ public class JobsResource {
      * @return
      */
     @GET
-    @Path("/")
     public List<Job> getJobs(
             @HeaderParam("GoogleToken") String googleTokenStr,
             @HeaderParam("SageToken") String sageTokenStr,

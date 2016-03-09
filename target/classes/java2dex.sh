@@ -5,3 +5,4 @@
 #echo arguments to the shell
 echo $1, $2, $3
 
+javac 

@@ -30,10 +30,59 @@ import java.util.List;
  */
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Path("/jobs")
+@Path("/androidNodes")
 public class AndroidNodesResource {
 
     private static final Logger logger = LogManager.getLogger(AndroidNodesResource.class);
+
+    @POST
+    public int addNode(@HeaderParam("GoogleToken") String googleTokenStr,
+                       @HeaderParam("SageToken") String sageTokenStr,
+                       AndroidNode node) {
+        int nodeId = -1;
+        try {
+            // get the acting user
+            User user = null;
+            UserAuth auth = new UserAuth();
+            // verify token(s)
+            if (googleTokenStr != null && !googleTokenStr.equals("")) {
+                user = auth.verifyGoogleToken(googleTokenStr);
+            } else if (sageTokenStr != null && !googleTokenStr.equals("")) {
+                //TODO: Change to verifySageToken()
+                user = auth.verifyGoogleToken(googleTokenStr);
+            }
+
+            if (user == null) {
+                // The user is unauthorized
+                throw new WebApplicationException(Response.status(401).build());// unauthorized
+            }
+
+            // null out the given nodeId
+            node.setNodeId(0);
+            // assume the endpoint caller is the node owner
+            node.setOwnerId(user.getUserId());
+
+            // save the node to the datastore
+            Dao nodeDao = new AndroidNodeDao();
+            nodeId = nodeDao.add(node);
+
+        } catch (WebApplicationException e) {
+            logger.error("Something went wrong while attempting to add a Node");
+            logger.error(e.getMessage());
+            logger.debug(e.getStackTrace().toString());
+            logger.debug("rethrowing web exception");
+            // rethrow given web exception
+            throw e;// unavailable
+        } catch (Exception e) {
+            logger.error("Something went wrong while attempting to add a Node");
+            logger.error(e.getMessage());
+            logger.debug(e.getStackTrace().toString());
+            logger.debug("rethrowing web exception");
+            // rethrow as web exception
+            throw new WebApplicationException(Response.status(503).build());
+        }
+        return nodeId;
+    }
 
     @GET
     public List<AndroidNode> getNodes(
@@ -82,20 +131,22 @@ public class AndroidNodesResource {
                     order = Order.desc("jobId");
                 }
             }
+
+            if (androidId != null) crits.add(Restrictions.eq("androidId", androidId));
             if ( ownerId > 0 ) crits.add(Restrictions.eq("ownerId", ownerId));
 
             // retrieve jobs from the datastore
-             = nodedDao.get(crits, order, count);
+            nodes = nodeDao.get(crits, order, count);
 
         } catch (WebApplicationException e) {
-            logger.error("Something went wrong while attempting to get Jobs");
+            logger.error("Something went wrong while attempting to get Nodes");
             logger.error(e.getMessage());
             logger.debug(e.getStackTrace().toString());
             logger.debug("rethrowing web exception");
             // rethrow given web exception
             throw e;// unavailable
         } catch (Exception e) {
-            logger.error("Something went wrong while attempting to get Jobs");
+            logger.error("Something went wrong while attempting to get Nodes");
             logger.error(e.getMessage());
             logger.debug(e.getStackTrace().toString());
             logger.debug("rethrowing web exception");
@@ -103,7 +154,7 @@ public class AndroidNodesResource {
             throw new WebApplicationException(Response.status(503).build());
         }
         // return the job
-        return jobs;
+        return nodes;
     }
 
 
