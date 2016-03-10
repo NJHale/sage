@@ -1,14 +1,12 @@
 package com.sage.ws.util;
 
+import com.sage.task.SageTask;
+
 import com.google.common.io.Files;
 import com.sage.ws.resources.JobOrdersResource;
-import com.sage.ws.service.SageTask;
-import com.sun.jersey.core.util.Base64;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.tools.JavaCompiler;
-import javax.tools.ToolProvider;
 import javax.xml.bind.DatatypeConverter;
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,9 +26,7 @@ public class JavaToDexTranslator {
     /**
      * Default constructor for JavaToDexTranslator
      */
-    public JavaToDexTranslator() {
-
-    }
+    public JavaToDexTranslator() { }
 
     /**
      * Converts and compiles the given encoded java to
@@ -54,14 +50,16 @@ public class JavaToDexTranslator {
         String[] grps = encodedJava.split("\\.");
         // instantiate an index for stepping through groups
         int idx = 0;
-        String fqn = new String(DatatypeConverter.parseBase64Binary(grps[idx++]));// get the fully qualified object name
-        String src = new String(DatatypeConverter.parseBase64Binary(grps[idx++]));// get the java file
+        // get the fully qualified object name
+        String fqn = new String(DatatypeConverter.parseBase64Binary(grps[idx++]));
+        // get the java file
+        String src = new String(DatatypeConverter.parseBase64Binary(grps[idx++]));
 
         logger.debug("fqn: " + fqn);
         logger.debug("src: " + src);
 
         // create a unique temp directory to store the java, class, and dex files
-        File root = new File("java/" + this.hashCode());
+        File root = new File("buildzone/" + this.hashCode());
         logger.debug("Making temp directory for compiled java and dex...");
         if (!root.mkdirs() && !root.isDirectory()) {
             // In this case the temp directory could not be created
@@ -69,46 +67,36 @@ public class JavaToDexTranslator {
         }
         logger.debug("Temp directory made!");
 
-        // compile java to a class and then save the src temporarily to .java
+        //save the src temporarily to .java
         File sourceFile = new File(root, fqn + ".java");
         Files.write(src, sourceFile, StandardCharsets.UTF_8);
 
-        // Compile src
-        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        // convert the class file to a dex file using the dx command
+        // for now hardcode unix command
+        //Create a ProcessBuilder using the java2dex.sh resource as its command.
+        //java2dex.sh takes 2 arguments, where $1 is the path to the file's directory,
+        //and $2 is the file name without the extension
+        ProcessBuilder pb = new ProcessBuilder( "/bin/bash",
+                "src/main/resources/config/java2dex.sh",
+                root.getAbsolutePath()+"/", fqn);
+        pb.redirectErrorStream(true);
 
-        compiler.run(null, null, null, sourceFile.getPath());
+        //Start the process
+        Process p = pb.start();
+        BufferedReader reader = new BufferedReader (new InputStreamReader(p.getInputStream()));
+        while ((reader.readLine ()) != null) {
+            logger.error("Stdout: " + reader.readLine());
+        }
+        //Wait for it to finish
+        p.waitFor();
+
 
         // load and instantiate compiled class.
         URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] { root.toURI().toURL() });
         Class<?> cls = Class.forName(fqn, true, classLoader);
         // make sure the compiled class can be cast to type SageTask
         SageTask task = (SageTask) cls.newInstance();
-        // convert the class file to a dex file using the dx command
-        // for now hardcode unix command TODO: Either execute bash or bat script based on deploy architecture
-        StringBuilder cmd = new StringBuilder(
-                "/usr/share/android-sdk-linux/build-tools/23.0.2/dx --dex --output ");
-        cmd.append(root.getAbsolutePath() + "/" + fqn + ".dex ");
-        cmd.append(root.getAbsolutePath() + "/" + fqn + ".class ");
-        logger.debug("cmd: " + cmd.toString());
-        Process proc = Runtime.getRuntime().exec(cmd.toString());
 
-        BufferedReader stdInput = new BufferedReader(new
-                InputStreamReader(proc.getInputStream()));
-
-        BufferedReader stdError = new BufferedReader(new
-                InputStreamReader(proc.getErrorStream()));
-
-        // read the output from the command
-        String s;
-        while ((s = stdInput.readLine()) != null) {
-            logger.debug(s);
-        }
-
-        // read any errors from the attempted command
-        while ((s = stdError.readLine()) != null) {
-            logger.error(s);
-        }
-        //TODO: Delete temp directory and files after dex is slurped up into a String
         // read the dex file into a String
         File dexFile = new File(root.getAbsolutePath() + "/" + fqn + ".dex");
         String dex = Files.toString(dexFile, StandardCharsets.UTF_8);
@@ -116,6 +104,27 @@ public class JavaToDexTranslator {
         String encodedDex = DatatypeConverter.printBase64Binary(fqn.getBytes())
                 + "." + DatatypeConverter.printBase64Binary(dex.getBytes());
 
+        // delete the temporary directory
+        if (!recDelete(root)) {
+            logger.error("An error occurred while attempting to delete the temporary directory.");
+        }
+
         return encodedDex;
+    }
+
+    /**
+     * Recursively deletes a directory including all subdirectories and files
+     *
+     * @param file Directory to delete
+     * @return true if the directory has been successfully deleted; false otherwise
+     */
+    private boolean recDelete(File file) {
+        boolean deleted = true;
+        if (file.isDirectory()) {
+            for (File f : file.listFiles())
+                deleted &= recDelete(f);
+        }
+        deleted &= file.delete();
+        return deleted;
     }
 }
