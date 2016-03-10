@@ -25,7 +25,7 @@ public class GoatsResource {
             @QueryParam("age") int age,
             @QueryParam("aggression") int aggression,
             @QueryParam("weight") double weight ) {
-
+        logger.debug("Hitting GET goats/...");
         List<Goat> goats = new LinkedList<Goat>();
         for (int i = 1; i < 4; i++) {// no goats under the age of 1 permitted
             Goat goat = new Goat();
@@ -45,7 +45,7 @@ public class GoatsResource {
                 }
             }
         }
-
+        logger.debug("Returning from GET goats/...");
         return goats;
     }
 

@@ -10,12 +10,9 @@ import java.util.*;
 /**
  * Created by root on 2/18/16.
  */
-@ApplicationPath("/0.1/")
+@ApplicationPath("/alpaca")
 public class SageApplication extends Application {
 
-
-
-    public static List<Object> everything = new LinkedList<Object>();
 
     @Override
     public Set<Class<?>> getClasses() {

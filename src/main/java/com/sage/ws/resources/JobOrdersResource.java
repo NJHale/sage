@@ -35,7 +35,6 @@ public class JobOrdersResource {
      * @return
      */
     @POST
-    @Path("/")
     public int placeJobOrder(
             @HeaderParam("GoogleToken") String googleTokenStr,
             @HeaderParam("SageToken") String sageTokenStr,
