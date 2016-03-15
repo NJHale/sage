@@ -1,0 +1,26 @@
+[ERROR] 2016-03-14 11:12:16.338 [RMI TCP Connection(2)-127.0.0.1] SageServletContextListener - An error occurred while attempting web service startup.
+[ERROR] 2016-03-14 11:18:09.746 [http-bio-8080-exec-5] JavaToDexTranslator - stdout: warning: [options] bootstrap class path not set in conjunction with -source 1.7
+[ERROR] 2016-03-14 11:18:10.291 [http-bio-8080-exec-5] JavaToDexTranslator - stdout: null
+[ERROR] 2016-03-14 11:47:51.402 [http-bio-8080-exec-1] JobOrdersResource - Something went wrong while attempting to place JobOrder
+[ERROR] 2016-03-14 11:47:51.402 [http-bio-8080-exec-1] JobOrdersResource - Could not make the temporary directories required for dex compilation.
+[ERROR] 2016-03-14 11:50:20.777 [http-bio-8080-exec-2] JobOrdersResource - Something went wrong while attempting to place JobOrder
+[ERROR] 2016-03-14 11:50:20.777 [http-bio-8080-exec-2] JobOrdersResource - Could not make the temporary directories required for dex compilation.
+[ERROR] 2016-03-14 11:56:31.869 [http-bio-8080-exec-1] JavaToDexTranslator - stdout: warning: [options] bootstrap class path not set in conjunction with -source 1.7
+[ERROR] 2016-03-14 11:56:32.551 [http-bio-8080-exec-1] JavaToDexTranslator - stdout: null
+[ERROR] 2016-03-14 12:08:42.924 [http-bio-8080-exec-3] JobsResource - Something went wrong while attempting to get the Job
+[ERROR] 2016-03-14 12:08:42.924 [http-bio-8080-exec-3] JobsResource - could not initialize proxy - no Session
+[ERROR] 2016-03-14 12:12:31.682 [http-bio-8080-exec-4] JobsResource - Something went wrong while attempting to get the Job
+[ERROR] 2016-03-14 12:12:31.682 [http-bio-8080-exec-4] JobsResource - could not initialize proxy - no Session
+[ERROR] 2016-03-14 12:13:15.626 [http-bio-8080-exec-5] JobsResource - Something went wrong while attempting to get the Job
+[ERROR] 2016-03-14 12:13:15.626 [http-bio-8080-exec-5] JobsResource - could not initialize proxy - no Session
+[ERROR] 2016-03-14 12:13:16.676 [http-bio-8080-exec-6] JobsResource - Something went wrong while attempting to get the Job
+[ERROR] 2016-03-14 12:13:16.676 [http-bio-8080-exec-6] JobsResource - could not initialize proxy - no Session
+[ERROR] 2016-03-14 12:14:04.248 [http-bio-8080-exec-7] JobsResource - Something went wrong while attempting to get the Job
+[ERROR] 2016-03-14 12:14:04.248 [http-bio-8080-exec-7] JobsResource - could not initialize proxy - no Session
+[ERROR] 2016-03-14 12:23:22.570 [http-bio-8080-exec-3] JobsResource - Something went wrong while attempting to get the Job
+[ERROR] 2016-03-14 12:23:22.570 [http-bio-8080-exec-3] JobsResource - could not initialize proxy - no Session
+[ERROR] 2016-03-14 12:29:06.815 [http-bio-8080-exec-5] JobsResource - Something went wrong while attempting to get the Job
+[ERROR] 2016-03-14 12:29:06.815 [http-bio-8080-exec-5] JobsResource - could not initialize proxy - no Session
+[ERROR] 2016-03-14 12:34:17.650 [http-bio-8080-exec-1] JobsResource - Something went wrong while attempting to get the Job
+[ERROR] 2016-03-14 12:44:12.054 [http-bio-8080-exec-5] JobsResource - Something went wrong while attempting to get the Job
+[ERROR] 2016-03-14 12:46:49.952 [http-bio-8080-exec-5] JobsResource - Something went wrong while attempting to get the Job

@@ -2,6 +2,7 @@ package com.sage.ws.resources;
 
 import com.sage.ws.dao.JobDao;
 import com.sage.ws.models.Job;
+import com.sage.ws.models.JobStatus;
 import com.sage.ws.models.User;
 import com.sage.ws.util.JavaToDexTranslator;
 import com.sage.ws.util.UserAuth;
@@ -67,25 +68,29 @@ public class JobOrdersResource {
             job.setBounty(order.getBounty());
             job.setData(order.getData());
             job.setTimeOut(order.getTimeOut());
-            String encodedJava = order.getEncodedJava();
+            job.setEncodedJava(order.getEncodedJava());
 
 
             //TODO: Handle JavaToDexTranslator.encodeJavaToDex() exceptions
             JavaToDexTranslator jdTrans = new JavaToDexTranslator();
-            String encodedDex = jdTrans.encodedJavaToDex(encodedJava);
+            String encodedDex = jdTrans.encodedJavaToDex(job.getEncodedJava());
 
             // set the encoded dex string
             job.setEncodedDex(encodedDex);
+
+            // set the status to READY
+            job.setStatus(JobStatus.READY);
 
             // save the Job and get its id
             JobDao jobDao = new JobDao();
             jobId = jobDao.add(job);
 
         } catch (WebApplicationException e) {
-            logger.error("Something went wrong while attempting to get place the JobOrder");
+            logger.error("Something went wrong while attempting to place JobOrder");
             logger.error(e.getMessage());
-            logger.debug(e.getStackTrace().toString());
+            logger.debug(e.getStackTrace());
             logger.debug("rethrowing web exception");
+            e.printStackTrace();
             // rethrow given web exception
             throw e;// unavailable
 //        } catch (InvalidArgumentException e) {
@@ -96,9 +101,10 @@ public class JobOrdersResource {
 //            // rethrow as web exception
 //            throw new WebApplicationException(Response.status(400).build());
         } catch (Exception e) {
-            logger.error("Something went wrong while attempting to get place the JobOrder");
+            logger.error("Something went wrong while attempting to place JobOrder");
             logger.error(e.getMessage());
-            logger.debug(e.getStackTrace().toString());
+            e.printStackTrace();
+            logger.debug(e.getStackTrace());
             logger.debug("rethrowing web exception");
             // rethrow as web exception
             throw new WebApplicationException(Response.status(503).build());

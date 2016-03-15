@@ -28,6 +28,7 @@ public class JavaToDexTranslatorTest extends TestCase {
         // encode the slurpped java
         String encodedJava = DatatypeConverter.printBase64Binary(name.getBytes())
                             + "." + DatatypeConverter.printBase64Binary(java.getBytes());
+        System.out.println("encodedJava: \n" + encodedJava);
         // get the encodedDex
         JavaToDexTranslator jdTrans = new JavaToDexTranslator();
         String encodedDex = jdTrans.encodedJavaToDex(encodedJava);

@@ -1,10 +1,11 @@
 package com.sage.ws.models;
 
 import org.hibernate.annotations.*;
-import org.hibernate.annotations.Table;
+
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -13,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement()
 @Entity
-@Table(appliesTo = "user")
+@Table(name = "user")
 public class User {
 
     /**

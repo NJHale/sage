@@ -1,12 +1,12 @@
 package com.sage.ws.models;
 
-import org.hibernate.annotations.Table;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -20,7 +20,8 @@ import java.util.Date;
  */
 @XmlRootElement
 @Entity
-@Table(appliesTo = "job")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "job")
 public class Job {
 
     /**
@@ -91,6 +92,7 @@ public class Job {
     }
 
     @XmlTransient
+    @JsonIgnore
     public int getBounty() { return bounty; }
 
     public void setBounty(int bounty) { this.bounty = bounty; }
@@ -119,6 +121,7 @@ public class Job {
     public void setEncodedDex(String encodedDex) { this.encodedDex = encodedDex; }
 
     @XmlTransient
+    @JsonIgnore
     public String getEncodedJava() { return encodedJava; }
 
     public void setEncodedJava(String encodedJava) { this.encodedJava = encodedJava; }
