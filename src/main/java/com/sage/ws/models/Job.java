@@ -4,7 +4,6 @@ package com.sage.ws.models;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
@@ -38,6 +37,7 @@ public class Job {
     @Column(name = "nodeid")
     private int nodeId;
 
+    @JsonIgnore
     @Column(name = "bounty")
     private int bounty;
 
@@ -50,6 +50,7 @@ public class Job {
     @Column(name = "encoded_dex")
     private String encodedDex;
 
+    @JsonIgnore
     @Column(name = "encoded_java")
     private String encodedJava;
 
