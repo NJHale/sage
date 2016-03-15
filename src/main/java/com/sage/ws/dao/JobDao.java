@@ -35,14 +35,14 @@ public class JobDao extends Dao<Job> {
         Job job = null;
         // get a session
         Session session = sessionFactory.openSession();
-
+        logger.debug("Getting job by id...");
         try {
             session.beginTransaction();
             job = session.load(Job.class, id);
+            logger.debug("Transaction complete!");
         } catch (HibernateException e) {
             logger.error("An error has occurred while attempting to retrieve the Job");
-            logger.debug(e.getMessage());
-            logger.debug(e.getStackTrace());
+            logger.debug("Error : ", e);
         } finally {
             session.close();
         }

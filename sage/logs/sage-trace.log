@@ -1,0 +1,696 @@
+[2016-03-14 11:07:05.205] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 11:07:05.206] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 11:07:05.286] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 11:07:05.286] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 11:07:08.964] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 11:07:45.427] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 11:07:46.456] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 11:10:02.635] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 11:10:03.801] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 11:11:33.038] [INFO ] (SageServletContextListener) - ServletContextListener destroyed
+[2016-03-14 11:11:50.473] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 11:11:50.474] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 11:11:50.517] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 11:11:50.517] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 11:12:16.338] [ERROR] (SageServletContextListener) - An error occurred while attempting web service startup.
+[2016-03-14 11:12:16.339] [DEBUG] (SageServletContextListener) - Error: 
+org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:244) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:208) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:189) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.internal.JdbcServicesImpl.configure(JdbcServicesImpl.java:51) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.configureService(StandardServiceRegistryImpl.java:94) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:217) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:189) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.handleTypes(MetadataBuildingProcess.java:352) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:111) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.build(MetadataBuildingProcess.java:83) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.boot.internal.MetadataBuilderImpl.build(MetadataBuilderImpl.java:418) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.boot.internal.MetadataBuilderImpl.build(MetadataBuilderImpl.java:87) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:692) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at com.sage.ws.service.SageServletContextListener.contextInitialized(SageServletContextListener.java:80) [SageServletContextListener.class:?]
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:5016) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5524) [catalina.jar:7.0.59]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:649) [catalina.jar:7.0.59]
+	at org.apache.catalina.startup.HostConfig.manageApp(HostConfig.java:1760) [catalina.jar:7.0.59]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.7.0_79]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) ~[?:1.7.0_79]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.7.0_79]
+	at java.lang.reflect.Method.invoke(Method.java:606) ~[?:1.7.0_79]
+	at org.apache.tomcat.util.modeler.BaseModelMBean.invoke(BaseModelMBean.java:301) [tomcat-coyote.jar:7.0.59]
+	at com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:819) [?:1.7.0_79]
+	at com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:801) [?:1.7.0_79]
+	at org.apache.catalina.mbeans.MBeanFactory.createStandardContext(MBeanFactory.java:618) [catalina.jar:7.0.59]
+	at org.apache.catalina.mbeans.MBeanFactory.createStandardContext(MBeanFactory.java:565) [catalina.jar:7.0.59]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.7.0_79]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) ~[?:1.7.0_79]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.7.0_79]
+	at java.lang.reflect.Method.invoke(Method.java:606) ~[?:1.7.0_79]
+	at org.apache.tomcat.util.modeler.BaseModelMBean.invoke(BaseModelMBean.java:301) [tomcat-coyote.jar:7.0.59]
+	at com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:819) [?:1.7.0_79]
+	at com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:801) [?:1.7.0_79]
+	at javax.management.remote.rmi.RMIConnectionImpl.doOperation(RMIConnectionImpl.java:1487) [?:1.7.0_79]
+	at javax.management.remote.rmi.RMIConnectionImpl.access$300(RMIConnectionImpl.java:97) [?:1.7.0_79]
+	at javax.management.remote.rmi.RMIConnectionImpl$PrivilegedOperation.run(RMIConnectionImpl.java:1328) [?:1.7.0_79]
+	at javax.management.remote.rmi.RMIConnectionImpl.doPrivilegedOperation(RMIConnectionImpl.java:1420) [?:1.7.0_79]
+	at javax.management.remote.rmi.RMIConnectionImpl.invoke(RMIConnectionImpl.java:848) [?:1.7.0_79]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.7.0_79]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) ~[?:1.7.0_79]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.7.0_79]
+	at java.lang.reflect.Method.invoke(Method.java:606) ~[?:1.7.0_79]
+	at sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:322) [?:1.7.0_79]
+	at sun.rmi.transport.Transport$2.run(Transport.java:202) [?:1.7.0_79]
+	at sun.rmi.transport.Transport$2.run(Transport.java:199) [?:1.7.0_79]
+	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.7.0_79]
+	at sun.rmi.transport.Transport.serviceCall(Transport.java:198) [?:1.7.0_79]
+	at sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:567) [?:1.7.0_79]
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828) [?:1.7.0_79]
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.access$400(TCPTransport.java:619) [?:1.7.0_79]
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler$1.run(TCPTransport.java:684) [?:1.7.0_79]
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler$1.run(TCPTransport.java:681) [?:1.7.0_79]
+	at java.security.AccessController.doPrivileged(Native Method) ~[?:1.7.0_79]
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:681) [?:1.7.0_79]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [?:1.7.0_79]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [?:1.7.0_79]
+	at java.lang.Thread.run(Thread.java:745) [?:1.7.0_79]
+Caused by: org.hibernate.exception.JDBCConnectionException: Error calling Driver#connect
+	at org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:115) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.BasicConnectionCreator$1$1.convert(BasicConnectionCreator.java:101) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.BasicConnectionCreator.convertSqlException(BasicConnectionCreator.java:123) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverConnectionCreator.makeConnection(DriverConnectionCreator.java:41) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.BasicConnectionCreator.createConnection(BasicConnectionCreator.java:58) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.PooledConnections.addConnections(PooledConnections.java:106) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.PooledConnections.<init>(PooledConnections.java:40) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.PooledConnections.<init>(PooledConnections.java:19) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.PooledConnections$Builder.build(PooledConnections.java:138) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl.buildPool(DriverManagerConnectionProviderImpl.java:110) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl.configure(DriverManagerConnectionProviderImpl.java:74) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.configureService(StandardServiceRegistryImpl.java:94) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:217) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:189) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.buildJdbcConnectionAccess(JdbcEnvironmentInitiator.java:145) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:66) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:88) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:234) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	... 60 more
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+Last packet sent to the server was 0 ms ago.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.7.0_79]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57) ~[?:1.7.0_79]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.7.0_79]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526) ~[?:1.7.0_79]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:406) ~[mysql-connector-java-5.1.6.jar:?]
+	at com.mysql.jdbc.SQLError.createCommunicationsException(SQLError.java:1074) ~[mysql-connector-java-5.1.6.jar:?]
+	at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2103) ~[mysql-connector-java-5.1.6.jar:?]
+	at com.mysql.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:718) ~[mysql-connector-java-5.1.6.jar:?]
+	at com.mysql.jdbc.JDBC4Connection.<init>(JDBC4Connection.java:46) ~[mysql-connector-java-5.1.6.jar:?]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.7.0_79]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57) ~[?:1.7.0_79]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.7.0_79]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526) ~[?:1.7.0_79]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:406) ~[mysql-connector-java-5.1.6.jar:?]
+	at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:302) ~[mysql-connector-java-5.1.6.jar:?]
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:282) ~[mysql-connector-java-5.1.6.jar:?]
+	at org.hibernate.engine.jdbc.connections.internal.DriverConnectionCreator.makeConnection(DriverConnectionCreator.java:38) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.BasicConnectionCreator.createConnection(BasicConnectionCreator.java:58) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.PooledConnections.addConnections(PooledConnections.java:106) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.PooledConnections.<init>(PooledConnections.java:40) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.PooledConnections.<init>(PooledConnections.java:19) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.PooledConnections$Builder.build(PooledConnections.java:138) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl.buildPool(DriverManagerConnectionProviderImpl.java:110) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl.configure(DriverManagerConnectionProviderImpl.java:74) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.configureService(StandardServiceRegistryImpl.java:94) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:217) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:189) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.buildJdbcConnectionAccess(JdbcEnvironmentInitiator.java:145) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:66) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:88) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:234) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	... 60 more
+Caused by: java.net.UnknownHostException: sage-ws.ddns.net: No address associated with hostname
+	at java.net.Inet6AddressImpl.lookupAllHostAddr(Native Method) ~[?:1.7.0_79]
+	at java.net.InetAddress$1.lookupAllHostAddr(InetAddress.java:901) ~[?:1.7.0_79]
+	at java.net.InetAddress.getAddressesFromNameService(InetAddress.java:1295) ~[?:1.7.0_79]
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1248) ~[?:1.7.0_79]
+	at java.net.InetAddress.getAllByName(InetAddress.java:1164) ~[?:1.7.0_79]
+	at java.net.InetAddress.getAllByName(InetAddress.java:1098) ~[?:1.7.0_79]
+	at com.mysql.jdbc.StandardSocketFactory.connect(StandardSocketFactory.java:243) ~[mysql-connector-java-5.1.6.jar:?]
+	at com.mysql.jdbc.MysqlIO.<init>(MysqlIO.java:280) ~[mysql-connector-java-5.1.6.jar:?]
+	at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2026) ~[mysql-connector-java-5.1.6.jar:?]
+	at com.mysql.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:718) ~[mysql-connector-java-5.1.6.jar:?]
+	at com.mysql.jdbc.JDBC4Connection.<init>(JDBC4Connection.java:46) ~[mysql-connector-java-5.1.6.jar:?]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.7.0_79]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57) ~[?:1.7.0_79]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.7.0_79]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526) ~[?:1.7.0_79]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:406) ~[mysql-connector-java-5.1.6.jar:?]
+	at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:302) ~[mysql-connector-java-5.1.6.jar:?]
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:282) ~[mysql-connector-java-5.1.6.jar:?]
+	at org.hibernate.engine.jdbc.connections.internal.DriverConnectionCreator.makeConnection(DriverConnectionCreator.java:38) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.BasicConnectionCreator.createConnection(BasicConnectionCreator.java:58) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.PooledConnections.addConnections(PooledConnections.java:106) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.PooledConnections.<init>(PooledConnections.java:40) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.PooledConnections.<init>(PooledConnections.java:19) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.PooledConnections$Builder.build(PooledConnections.java:138) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl.buildPool(DriverManagerConnectionProviderImpl.java:110) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl.configure(DriverManagerConnectionProviderImpl.java:74) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.configureService(StandardServiceRegistryImpl.java:94) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:217) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:189) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.buildJdbcConnectionAccess(JdbcEnvironmentInitiator.java:145) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:66) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:88) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:234) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	... 60 more
+[2016-03-14 11:14:07.213] [INFO ] (SageServletContextListener) - ServletContextListener destroyed
+[2016-03-14 11:14:26.702] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 11:14:26.704] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 11:14:26.773] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 11:14:26.774] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 11:14:30.052] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 11:18:09.034] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 11:18:09.392] [DEBUG] (JavaToDexTranslator) - encodedJava: SGVsbG8=.aW1wb3J0IGNvbS5zYWdlLnRhc2suU2FnZVRhc2s7DQoNCnB1YmxpYyBjbGFzcyBIZWxsbyBpbXBsZW1lbnRzIFNhZ2VUYXNrIHsNCiAgICBwdWJsaWMgSGVsbG8oKSB7DQogICAgICAgIA0KICAgIH0NCgkNCiAgICBwdWJsaWMgYnl0ZVtdIHJ1blRhc2sobG9uZyB0YXNrTnVtLCBieXRlW10gZGF0YSkgew0KCWJ5dGVbXSBoZWxsbyA9IChuZXcgU3RyaW5nKCJIZWxsbyBXb3JsZCEiKSkuZ2V0Qnl0ZXMoKTsNCglyZXR1cm4gaGVsbG87DQogICAgfQ0KfQ==
+[2016-03-14 11:18:09.393] [DEBUG] (JavaToDexTranslator) - fqn: Hello
+[2016-03-14 11:18:09.393] [DEBUG] (JavaToDexTranslator) - src: import com.sage.task.SageTask;
+
+public class Hello implements SageTask {
+    public Hello() {
+        
+    }
+	
+    public byte[] runTask(long taskNum, byte[] data) {
+	byte[] hello = (new String("Hello World!")).getBytes();
+	return hello;
+    }
+}
+[2016-03-14 11:18:09.394] [DEBUG] (JavaToDexTranslator) - Making temp directory for compiled java and dex...
+[2016-03-14 11:18:09.394] [DEBUG] (JavaToDexTranslator) - Temp directory made!
+[2016-03-14 11:18:09.401] [DEBUG] (JavaToDexTranslator) - Running java2dex.sh ...
+[2016-03-14 11:18:09.746] [ERROR] (JavaToDexTranslator) - stdout: warning: [options] bootstrap class path not set in conjunction with -source 1.7
+[2016-03-14 11:18:10.291] [ERROR] (JavaToDexTranslator) - stdout: null
+[2016-03-14 11:18:10.292] [DEBUG] (JavaToDexTranslator) - Run of java2dex.sh completed with status code: 0
+[2016-03-14 11:18:10.293] [DEBUG] (JavaToDexTranslator) - loaded class instance
+[2016-03-14 11:18:10.293] [DEBUG] (JavaToDexTranslator) - SageTask URI: file:/var/lib/tomcat/webapps/ROOT/WEB-INF/lib
+[2016-03-14 11:18:10.296] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 11:30:56.340] [INFO ] (SageServletContextListener) - ServletContextListener destroyed
+[2016-03-14 11:47:39.284] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 11:47:39.286] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 11:47:39.366] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 11:47:39.366] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 11:47:43.325] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 11:47:45.715] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 11:47:45.717] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 11:47:45.803] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 11:47:45.804] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 11:47:49.325] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 11:47:51.158] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 11:47:51.401] [DEBUG] (JavaToDexTranslator) - encodedJava: SGVsbG8=.aW1wb3J0IGNvbS5zYWdlLnRhc2suU2FnZVRhc2s7DQoNCnB1YmxpYyBjbGFzcyBIZWxsbyBpbXBsZW1lbnRzIFNhZ2VUYXNrIHsNCiAgICBwdWJsaWMgSGVsbG8oKSB7DQogICAgICAgIA0KICAgIH0NCgkNCiAgICBwdWJsaWMgYnl0ZVtdIHJ1blRhc2sobG9uZyB0YXNrTnVtLCBieXRlW10gZGF0YSkgew0KCWJ5dGVbXSBoZWxsbyA9IChuZXcgU3RyaW5nKCJIZWxsbyBXb3JsZCEiKSkuZ2V0Qnl0ZXMoKTsNCglyZXR1cm4gaGVsbG87DQogICAgfQ0KfQ==
+[2016-03-14 11:47:51.401] [DEBUG] (JavaToDexTranslator) - fqn: Hello
+[2016-03-14 11:47:51.401] [DEBUG] (JavaToDexTranslator) - src: import com.sage.task.SageTask;
+
+public class Hello implements SageTask {
+    public Hello() {
+        
+    }
+	
+    public byte[] runTask(long taskNum, byte[] data) {
+	byte[] hello = (new String("Hello World!")).getBytes();
+	return hello;
+    }
+}
+[2016-03-14 11:47:51.402] [DEBUG] (JavaToDexTranslator) - Making temp directory for compiled java and dex...
+[2016-03-14 11:47:51.402] [ERROR] (JobOrdersResource) - Something went wrong while attempting to place JobOrder
+[2016-03-14 11:47:51.402] [ERROR] (JobOrdersResource) - Could not make the temporary directories required for dex compilation.
+[2016-03-14 11:47:51.405] [DEBUG] (JobOrdersResource) - [Ljava.lang.StackTraceElement;@67169142
+[2016-03-14 11:47:51.405] [DEBUG] (JobOrdersResource) - rethrowing web exception
+[2016-03-14 11:50:20.733] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 11:50:20.776] [DEBUG] (JavaToDexTranslator) - encodedJava: SGVsbG8=.aW1wb3J0IGNvbS5zYWdlLnRhc2suU2FnZVRhc2s7DQoNCnB1YmxpYyBjbGFzcyBIZWxsbyBpbXBsZW1lbnRzIFNhZ2VUYXNrIHsNCiAgICBwdWJsaWMgSGVsbG8oKSB7DQogICAgICAgIA0KICAgIH0NCgkNCiAgICBwdWJsaWMgYnl0ZVtdIHJ1blRhc2sobG9uZyB0YXNrTnVtLCBieXRlW10gZGF0YSkgew0KCWJ5dGVbXSBoZWxsbyA9IChuZXcgU3RyaW5nKCJIZWxsbyBXb3JsZCEiKSkuZ2V0Qnl0ZXMoKTsNCglyZXR1cm4gaGVsbG87DQogICAgfQ0KfQ==
+[2016-03-14 11:50:20.776] [DEBUG] (JavaToDexTranslator) - fqn: Hello
+[2016-03-14 11:50:20.776] [DEBUG] (JavaToDexTranslator) - src: import com.sage.task.SageTask;
+
+public class Hello implements SageTask {
+    public Hello() {
+        
+    }
+	
+    public byte[] runTask(long taskNum, byte[] data) {
+	byte[] hello = (new String("Hello World!")).getBytes();
+	return hello;
+    }
+}
+[2016-03-14 11:50:20.776] [DEBUG] (JavaToDexTranslator) - Making temp directory for compiled java and dex...
+[2016-03-14 11:50:20.777] [ERROR] (JobOrdersResource) - Something went wrong while attempting to place JobOrder
+[2016-03-14 11:50:20.777] [ERROR] (JobOrdersResource) - Could not make the temporary directories required for dex compilation.
+[2016-03-14 11:50:20.779] [DEBUG] (JobOrdersResource) - [Ljava.lang.StackTraceElement;@136449f7
+[2016-03-14 11:50:20.779] [DEBUG] (JobOrdersResource) - rethrowing web exception
+[2016-03-14 11:56:14.378] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 11:56:14.380] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 11:56:14.471] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 11:56:14.471] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 11:56:18.210] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 11:56:20.157] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 11:56:20.161] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 11:56:20.251] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 11:56:20.252] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 11:56:23.709] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 11:56:31.198] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 11:56:31.422] [DEBUG] (JavaToDexTranslator) - encodedJava: SGVsbG8=.aW1wb3J0IGNvbS5zYWdlLnRhc2suU2FnZVRhc2s7DQoNCnB1YmxpYyBjbGFzcyBIZWxsbyBpbXBsZW1lbnRzIFNhZ2VUYXNrIHsNCiAgICBwdWJsaWMgSGVsbG8oKSB7DQogICAgICAgIA0KICAgIH0NCgkNCiAgICBwdWJsaWMgYnl0ZVtdIHJ1blRhc2sobG9uZyB0YXNrTnVtLCBieXRlW10gZGF0YSkgew0KCWJ5dGVbXSBoZWxsbyA9IChuZXcgU3RyaW5nKCJIZWxsbyBXb3JsZCEiKSkuZ2V0Qnl0ZXMoKTsNCglyZXR1cm4gaGVsbG87DQogICAgfQ0KfQ==
+[2016-03-14 11:56:31.424] [DEBUG] (JavaToDexTranslator) - fqn: Hello
+[2016-03-14 11:56:31.425] [DEBUG] (JavaToDexTranslator) - src: import com.sage.task.SageTask;
+
+public class Hello implements SageTask {
+    public Hello() {
+        
+    }
+	
+    public byte[] runTask(long taskNum, byte[] data) {
+	byte[] hello = (new String("Hello World!")).getBytes();
+	return hello;
+    }
+}
+[2016-03-14 11:56:31.429] [DEBUG] (JavaToDexTranslator) - Making temp directory for compiled java and dex...
+[2016-03-14 11:56:31.430] [DEBUG] (JavaToDexTranslator) - Temp directory made!
+[2016-03-14 11:56:31.437] [DEBUG] (JavaToDexTranslator) - Running java2dex.sh ...
+[2016-03-14 11:56:31.869] [ERROR] (JavaToDexTranslator) - stdout: warning: [options] bootstrap class path not set in conjunction with -source 1.7
+[2016-03-14 11:56:32.551] [ERROR] (JavaToDexTranslator) - stdout: null
+[2016-03-14 11:56:32.551] [DEBUG] (JavaToDexTranslator) - Run of java2dex.sh completed with status code: 0
+[2016-03-14 11:56:32.555] [DEBUG] (JavaToDexTranslator) - loaded class instance
+[2016-03-14 11:56:32.555] [DEBUG] (JavaToDexTranslator) - SageTask URI: file:/var/lib/tomcat/webapps/sage/WEB-INF/lib
+[2016-03-14 11:56:32.562] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:08:42.273] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:08:42.475] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:08:42.922] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:08:42.924] [ERROR] (JobsResource) - Something went wrong while attempting to get the Job
+[2016-03-14 12:08:42.924] [ERROR] (JobsResource) - could not initialize proxy - no Session
+[2016-03-14 12:08:42.924] [DEBUG] (JobsResource) - [Ljava.lang.StackTraceElement;@3afac1cc
+[2016-03-14 12:08:42.924] [DEBUG] (JobsResource) - rethrowing web exception
+[2016-03-14 12:12:31.292] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:12:31.487] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:12:31.682] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:12:31.682] [ERROR] (JobsResource) - Something went wrong while attempting to get the Job
+[2016-03-14 12:12:31.682] [ERROR] (JobsResource) - could not initialize proxy - no Session
+[2016-03-14 12:12:31.683] [DEBUG] (JobsResource) - [Ljava.lang.StackTraceElement;@1f3cb030
+[2016-03-14 12:12:31.683] [DEBUG] (JobsResource) - rethrowing web exception
+[2016-03-14 12:13:15.236] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:13:15.431] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:13:15.626] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:13:15.626] [ERROR] (JobsResource) - Something went wrong while attempting to get the Job
+[2016-03-14 12:13:15.626] [ERROR] (JobsResource) - could not initialize proxy - no Session
+[2016-03-14 12:13:15.627] [DEBUG] (JobsResource) - [Ljava.lang.StackTraceElement;@37274a53
+[2016-03-14 12:13:15.627] [DEBUG] (JobsResource) - rethrowing web exception
+[2016-03-14 12:13:16.281] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:13:16.479] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:13:16.676] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:13:16.676] [ERROR] (JobsResource) - Something went wrong while attempting to get the Job
+[2016-03-14 12:13:16.676] [ERROR] (JobsResource) - could not initialize proxy - no Session
+[2016-03-14 12:13:16.677] [DEBUG] (JobsResource) - [Ljava.lang.StackTraceElement;@7afbf17f
+[2016-03-14 12:13:16.677] [DEBUG] (JobsResource) - rethrowing web exception
+[2016-03-14 12:14:03.582] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:14:03.779] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:14:04.248] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:14:04.248] [ERROR] (JobsResource) - Something went wrong while attempting to get the Job
+[2016-03-14 12:14:04.248] [ERROR] (JobsResource) - could not initialize proxy - no Session
+[2016-03-14 12:14:04.248] [DEBUG] (JobsResource) - [Ljava.lang.StackTraceElement;@1146495a
+[2016-03-14 12:14:04.248] [DEBUG] (JobsResource) - rethrowing web exception
+[2016-03-14 12:22:51.826] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 12:22:51.827] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 12:22:51.874] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 12:22:51.874] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 12:23:19.182] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 12:23:20.299] [DEBUG] (JobsResource) - Verifying tokens...
+[2016-03-14 12:23:20.548] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:23:21.984] [DEBUG] (JobsResource) - Tokens verified!
+[2016-03-14 12:23:21.984] [DEBUG] (JobsResource) - Attempting to retrieve job for given jobId 27 ...
+[2016-03-14 12:23:21.985] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:23:22.569] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:23:22.570] [ERROR] (JobsResource) - Something went wrong while attempting to get the Job
+[2016-03-14 12:23:22.570] [ERROR] (JobsResource) - could not initialize proxy - no Session
+[2016-03-14 12:23:22.571] [DEBUG] (JobsResource) - [Ljava.lang.StackTraceElement;@5d1bfe
+[2016-03-14 12:23:22.571] [DEBUG] (JobsResource) - rethrowing web exception
+[2016-03-14 12:27:54.248] [INFO ] (SageServletContextListener) - ServletContextListener destroyed
+[2016-03-14 12:28:32.907] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 12:28:32.908] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 12:28:32.949] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 12:28:32.949] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 12:28:52.870] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 12:29:05.872] [DEBUG] (JobsResource) - Verifying tokens...
+[2016-03-14 12:29:06.017] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:29:06.325] [DEBUG] (JobsResource) - Tokens verified!
+[2016-03-14 12:29:06.325] [DEBUG] (JobsResource) - Attempting to retrieve job for given jobId 27 ...
+[2016-03-14 12:29:06.325] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:29:06.325] [DEBUG] (Dao) - Getting job by id...
+[2016-03-14 12:29:06.745] [DEBUG] (Dao) - Job successfully retrieved!
+[2016-03-14 12:29:06.814] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:29:06.815] [ERROR] (JobsResource) - Something went wrong while attempting to get the Job
+[2016-03-14 12:29:06.815] [ERROR] (JobsResource) - could not initialize proxy - no Session
+[2016-03-14 12:29:06.815] [DEBUG] (JobsResource) - [Ljava.lang.StackTraceElement;@19c1eef
+[2016-03-14 12:29:06.815] [DEBUG] (JobsResource) - rethrowing web exception
+[2016-03-14 12:32:57.782] [INFO ] (SageServletContextListener) - ServletContextListener destroyed
+[2016-03-14 12:33:21.582] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 12:33:21.583] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 12:33:21.631] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 12:33:21.631] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 12:34:06.848] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 12:34:13.380] [DEBUG] (JobsResource) - Verifying tokens...
+[2016-03-14 12:34:13.540] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:34:16.335] [DEBUG] (JobsResource) - Tokens verified!
+[2016-03-14 12:34:16.335] [DEBUG] (JobsResource) - Attempting to retrieve job for given jobId 27 ...
+[2016-03-14 12:34:16.336] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:34:16.336] [DEBUG] (Dao) - Getting job by id...
+[2016-03-14 12:34:16.754] [DEBUG] (Dao) - Transaction complete!
+[2016-03-14 12:34:17.649] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:34:17.650] [ERROR] (JobsResource) - Something went wrong while attempting to get the Job
+[2016-03-14 12:34:17.650] [DEBUG] (JobsResource) - Error : 
+org.hibernate.LazyInitializationException: could not initialize proxy - no Session
+	at org.hibernate.proxy.AbstractLazyInitializer.initialize(AbstractLazyInitializer.java:147) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.proxy.AbstractLazyInitializer.getImplementation(AbstractLazyInitializer.java:260) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.proxy.pojo.javassist.JavassistLazyInitializer.invoke(JavassistLazyInitializer.java:68) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at com.sage.ws.models.Job_$$_jvst4db_0.getNodeId(Job_$$_jvst4db_0.java) ~[Job.class:?]
+	at com.sage.ws.resources.JobsResource.getJob(JobsResource.java:86) [JobsResource.class:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.7.0_79]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) ~[?:1.7.0_79]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.7.0_79]
+	at java.lang.reflect.Method.invoke(Method.java:606) ~[?:1.7.0_79]
+	at com.sun.jersey.spi.container.JavaMethodInvokerFactory$1.invoke(JavaMethodInvokerFactory.java:60) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.model.method.dispatch.AbstractResourceMethodDispatchProvider$TypeOutInvoker._dispatch(AbstractResourceMethodDispatchProvider.java:185) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.model.method.dispatch.ResourceJavaMethodDispatcher.dispatch(ResourceJavaMethodDispatcher.java:75) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.uri.rules.HttpMethodRule.accept(HttpMethodRule.java:302) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.uri.rules.RightHandPathRule.accept(RightHandPathRule.java:147) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.uri.rules.ResourceClassRule.accept(ResourceClassRule.java:108) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.uri.rules.RightHandPathRule.accept(RightHandPathRule.java:147) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.uri.rules.RootResourceClassesRule.accept(RootResourceClassesRule.java:84) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1542) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1473) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1419) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1409) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.spi.container.servlet.WebComponent.service(WebComponent.java:409) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.spi.container.servlet.ServletContainer.service(ServletContainer.java:558) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.spi.container.servlet.ServletContainer.service(ServletContainer.java:733) [jersey-bundle-1.18.3.jar:1.18.3]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727) [tomcat-servlet-3.0-api.jar:?]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208) [catalina.jar:7.0.59]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52) [tomcat7-websocket.jar:7.0.59]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:221) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122) [catalina.jar:7.0.59]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:504) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170) [catalina.jar:7.0.59]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103) [catalina.jar:7.0.59]
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:950) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116) [catalina.jar:7.0.59]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:421) [catalina.jar:7.0.59]
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1074) [tomcat-coyote.jar:7.0.59]
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:611) [tomcat-coyote.jar:7.0.59]
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:314) [tomcat-coyote.jar:7.0.59]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [?:1.7.0_79]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [?:1.7.0_79]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-coyote.jar:7.0.59]
+	at java.lang.Thread.run(Thread.java:745) [?:1.7.0_79]
+[2016-03-14 12:34:17.655] [DEBUG] (JobsResource) - rethrowing web exception
+[2016-03-14 12:43:38.362] [INFO ] (SageServletContextListener) - ServletContextListener destroyed
+[2016-03-14 12:43:47.867] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 12:43:47.868] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 12:43:47.915] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 12:43:47.915] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 12:43:50.692] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 12:44:11.703] [DEBUG] (JobsResource) - Verifying tokens...
+[2016-03-14 12:44:11.860] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:44:12.002] [DEBUG] (JobsResource) - Tokens verified!
+[2016-03-14 12:44:12.002] [DEBUG] (JobsResource) - Attempting to retrieve job for given jobId 27 ...
+[2016-03-14 12:44:12.003] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:44:12.003] [DEBUG] (Dao) - Getting job by id...
+[2016-03-14 12:44:12.039] [DEBUG] (Dao) - Transaction complete!
+[2016-03-14 12:44:12.053] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:44:12.054] [ERROR] (JobsResource) - Something went wrong while attempting to get the Job
+[2016-03-14 12:44:12.054] [DEBUG] (JobsResource) - Error : 
+org.hibernate.LazyInitializationException: could not initialize proxy - no Session
+	at org.hibernate.proxy.AbstractLazyInitializer.initialize(AbstractLazyInitializer.java:147) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.proxy.AbstractLazyInitializer.getImplementation(AbstractLazyInitializer.java:260) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.proxy.pojo.javassist.JavassistLazyInitializer.invoke(JavassistLazyInitializer.java:68) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at com.sage.ws.models.Job_$$_jvst8f_0.getNodeId(Job_$$_jvst8f_0.java) ~[Job.class:?]
+	at com.sage.ws.resources.JobsResource.getJob(JobsResource.java:86) [JobsResource.class:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.7.0_79]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) ~[?:1.7.0_79]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.7.0_79]
+	at java.lang.reflect.Method.invoke(Method.java:606) ~[?:1.7.0_79]
+	at com.sun.jersey.spi.container.JavaMethodInvokerFactory$1.invoke(JavaMethodInvokerFactory.java:60) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.model.method.dispatch.AbstractResourceMethodDispatchProvider$TypeOutInvoker._dispatch(AbstractResourceMethodDispatchProvider.java:185) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.model.method.dispatch.ResourceJavaMethodDispatcher.dispatch(ResourceJavaMethodDispatcher.java:75) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.uri.rules.HttpMethodRule.accept(HttpMethodRule.java:302) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.uri.rules.RightHandPathRule.accept(RightHandPathRule.java:147) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.uri.rules.ResourceClassRule.accept(ResourceClassRule.java:108) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.uri.rules.RightHandPathRule.accept(RightHandPathRule.java:147) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.uri.rules.RootResourceClassesRule.accept(RootResourceClassesRule.java:84) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1542) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1473) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1419) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1409) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.spi.container.servlet.WebComponent.service(WebComponent.java:409) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.spi.container.servlet.ServletContainer.service(ServletContainer.java:558) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.spi.container.servlet.ServletContainer.service(ServletContainer.java:733) [jersey-bundle-1.18.3.jar:1.18.3]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727) [tomcat-servlet-3.0-api.jar:?]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208) [catalina.jar:7.0.59]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52) [tomcat7-websocket.jar:7.0.59]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:221) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122) [catalina.jar:7.0.59]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:504) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170) [catalina.jar:7.0.59]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103) [catalina.jar:7.0.59]
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:950) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116) [catalina.jar:7.0.59]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:421) [catalina.jar:7.0.59]
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1074) [tomcat-coyote.jar:7.0.59]
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:611) [tomcat-coyote.jar:7.0.59]
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:314) [tomcat-coyote.jar:7.0.59]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [?:1.7.0_79]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [?:1.7.0_79]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-coyote.jar:7.0.59]
+	at java.lang.Thread.run(Thread.java:745) [?:1.7.0_79]
+[2016-03-14 12:44:12.059] [DEBUG] (JobsResource) - rethrowing web exception
+[2016-03-14 12:45:19.659] [INFO ] (SageServletContextListener) - ServletContextListener destroyed
+[2016-03-14 12:45:28.840] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 12:45:28.841] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 12:45:28.887] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 12:45:28.887] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 12:45:31.435] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 12:46:21.631] [INFO ] (SageServletContextListener) - ServletContextListener destroyed
+[2016-03-14 12:46:30.129] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 12:46:30.130] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 12:46:30.176] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 12:46:30.176] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 12:46:32.802] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 12:46:49.604] [DEBUG] (JobsResource) - Verifying tokens...
+[2016-03-14 12:46:49.755] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:46:49.902] [DEBUG] (JobsResource) - Tokens verified!
+[2016-03-14 12:46:49.902] [DEBUG] (JobsResource) - Attempting to retrieve job for given jobId 27 ...
+[2016-03-14 12:46:49.902] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:46:49.903] [DEBUG] (Dao) - Getting job by id...
+[2016-03-14 12:46:49.937] [DEBUG] (Dao) - Transaction complete!
+[2016-03-14 12:46:49.951] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:46:49.952] [ERROR] (JobsResource) - Something went wrong while attempting to get the Job
+[2016-03-14 12:46:49.952] [DEBUG] (JobsResource) - Error : 
+org.hibernate.LazyInitializationException: could not initialize proxy - no Session
+	at org.hibernate.proxy.AbstractLazyInitializer.initialize(AbstractLazyInitializer.java:147) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.proxy.AbstractLazyInitializer.getImplementation(AbstractLazyInitializer.java:260) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at org.hibernate.proxy.pojo.javassist.JavassistLazyInitializer.invoke(JavassistLazyInitializer.java:68) ~[hibernate-core-5.1.0.Final.jar:5.1.0.Final]
+	at com.sage.ws.models.Job_$$_jvst87b_0.getNodeId(Job_$$_jvst87b_0.java) ~[Job.class:?]
+	at com.sage.ws.resources.JobsResource.getJob(JobsResource.java:86) [JobsResource.class:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.7.0_79]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) ~[?:1.7.0_79]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.7.0_79]
+	at java.lang.reflect.Method.invoke(Method.java:606) ~[?:1.7.0_79]
+	at com.sun.jersey.spi.container.JavaMethodInvokerFactory$1.invoke(JavaMethodInvokerFactory.java:60) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.model.method.dispatch.AbstractResourceMethodDispatchProvider$TypeOutInvoker._dispatch(AbstractResourceMethodDispatchProvider.java:185) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.model.method.dispatch.ResourceJavaMethodDispatcher.dispatch(ResourceJavaMethodDispatcher.java:75) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.uri.rules.HttpMethodRule.accept(HttpMethodRule.java:302) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.uri.rules.RightHandPathRule.accept(RightHandPathRule.java:147) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.uri.rules.ResourceClassRule.accept(ResourceClassRule.java:108) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.uri.rules.RightHandPathRule.accept(RightHandPathRule.java:147) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.uri.rules.RootResourceClassesRule.accept(RootResourceClassesRule.java:84) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1542) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.application.WebApplicationImpl._handleRequest(WebApplicationImpl.java:1473) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1419) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.server.impl.application.WebApplicationImpl.handleRequest(WebApplicationImpl.java:1409) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.spi.container.servlet.WebComponent.service(WebComponent.java:409) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.spi.container.servlet.ServletContainer.service(ServletContainer.java:558) [jersey-bundle-1.18.3.jar:1.18.3]
+	at com.sun.jersey.spi.container.servlet.ServletContainer.service(ServletContainer.java:733) [jersey-bundle-1.18.3.jar:1.18.3]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727) [tomcat-servlet-3.0-api.jar:?]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208) [catalina.jar:7.0.59]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52) [tomcat7-websocket.jar:7.0.59]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:221) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122) [catalina.jar:7.0.59]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:504) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170) [catalina.jar:7.0.59]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103) [catalina.jar:7.0.59]
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:950) [catalina.jar:7.0.59]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116) [catalina.jar:7.0.59]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:421) [catalina.jar:7.0.59]
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1074) [tomcat-coyote.jar:7.0.59]
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:611) [tomcat-coyote.jar:7.0.59]
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:314) [tomcat-coyote.jar:7.0.59]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [?:1.7.0_79]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [?:1.7.0_79]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-coyote.jar:7.0.59]
+	at java.lang.Thread.run(Thread.java:745) [?:1.7.0_79]
+[2016-03-14 12:46:49.957] [DEBUG] (JobsResource) - rethrowing web exception
+[2016-03-14 12:47:48.401] [INFO ] (SageServletContextListener) - ServletContextListener destroyed
+[2016-03-14 12:47:56.957] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 12:47:56.958] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 12:47:57.004] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 12:47:57.004] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 12:47:59.805] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 12:48:07.590] [DEBUG] (JobsResource) - Verifying tokens...
+[2016-03-14 12:48:07.751] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:48:07.890] [DEBUG] (JobsResource) - Tokens verified!
+[2016-03-14 12:48:07.890] [DEBUG] (JobsResource) - Attempting to retrieve job for given jobId 27 ...
+[2016-03-14 12:48:07.890] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:48:07.891] [DEBUG] (Dao) - Getting job by id...
+[2016-03-14 12:48:07.923] [DEBUG] (Dao) - Transaction complete!
+[2016-03-14 12:48:07.941] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:48:08.015] [DEBUG] (JobsResource) - Job successfully retrieved!
+[2016-03-14 12:50:15.578] [INFO ] (SageServletContextListener) - ServletContextListener destroyed
+[2016-03-14 12:50:29.121] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 12:50:29.122] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 12:50:29.191] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 12:50:29.191] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 12:50:31.821] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 12:50:39.570] [DEBUG] (JobsResource) - Verifying tokens...
+[2016-03-14 12:50:39.724] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:50:39.869] [DEBUG] (JobsResource) - Tokens verified!
+[2016-03-14 12:50:39.869] [DEBUG] (JobsResource) - Attempting to retrieve job for given jobId 27 ...
+[2016-03-14 12:50:39.870] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:50:39.870] [DEBUG] (Dao) - Getting job by id...
+[2016-03-14 12:50:39.905] [DEBUG] (Dao) - Transaction complete!
+[2016-03-14 12:50:39.919] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:50:39.994] [DEBUG] (JobsResource) - Job successfully retrieved!
+[2016-03-14 12:57:04.063] [INFO ] (SageServletContextListener) - ServletContextListener destroyed
+[2016-03-14 12:57:13.726] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 12:57:13.728] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 12:57:13.777] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 12:57:13.777] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 12:57:16.619] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 12:57:23.224] [DEBUG] (JobsResource) - Verifying tokens...
+[2016-03-14 12:57:23.376] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:57:23.523] [DEBUG] (JobsResource) - Tokens verified!
+[2016-03-14 12:57:23.523] [DEBUG] (JobsResource) - Attempting to retrieve job for given jobId 27 ...
+[2016-03-14 12:57:23.524] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:57:23.524] [DEBUG] (Dao) - Getting job by id...
+[2016-03-14 12:57:23.557] [DEBUG] (Dao) - Transaction complete!
+[2016-03-14 12:57:23.570] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:57:23.646] [DEBUG] (JobsResource) - Job successfully retrieved!
+[2016-03-14 12:58:22.435] [INFO ] (SageServletContextListener) - ServletContextListener destroyed
+[2016-03-14 12:58:32.177] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 12:58:32.178] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 12:58:32.222] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 12:58:32.222] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 12:58:34.724] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 12:58:41.089] [DEBUG] (JobsResource) - Verifying tokens...
+[2016-03-14 12:58:41.307] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:58:41.475] [DEBUG] (JobsResource) - Tokens verified!
+[2016-03-14 12:58:41.475] [DEBUG] (JobsResource) - Attempting to retrieve job for given jobId 27 ...
+[2016-03-14 12:58:41.476] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:58:41.476] [DEBUG] (Dao) - Getting job by id...
+[2016-03-14 12:58:41.521] [DEBUG] (Dao) - Transaction complete!
+[2016-03-14 12:58:41.536] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 12:58:41.611] [DEBUG] (JobsResource) - Job successfully retrieved!
+[2016-03-14 12:58:41.612] [DEBUG] (JobsResource) - 100
+[2016-03-14 12:58:41.613] [DEBUG] (JobsResource) - Q2xhc3NXaXRoU2FnZVRhc2s=.ZGV4CjAzNQDvv71Z77+9fxgQY++/ve+/ve+/vU4D77+977+9cO+/vTfqsYXvv73vv70CAABwAAAAeFY0EgAAAAAAAAAANAIAAA4AAABwAAAABwAAAO+/vQAAAAMAAADvv70AAAAAAAAAAAAAAAQAAADvv70AAAABAAAACAEAAO+/vQEAACgBAABwAQAAeAEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAAICAAAGAgAAEAIAAAMAAAAFAAAABwAAAAgAAAAJAAAACgAAAAsAAAAKAAAABQAAAAAAAAAEAAAABgAAAAAAAAAGAAAABgAAAGgBAAABAAAAAAAAAAEAAgANAAAAAwAAAAAAAAAEAAEADAAAAAEAAAABAAAAAwAAAGABAAABAAAAAAAAACUCAAAAAAAAAQABAAEAAAAZAgAABAAAAHAQAgAAAA4ABQAEAAEAAAAeAgAABwAAABoAAgBuEAMAAAAMABEAAAABAAAAAgAAAAIAAAAAAAYABjxpbml0PgAWQ2xhc3NXaXRoU2FnZVRhc2suamF2YQALR2FyYmFnZURhdGEAAUoAAUwAE0xDbGFzc1dpdGhTYWdlVGFzazsAA0xKTAAYTGNvbS9zYWdlL3Rhc2svU2FnZVRhc2s7ABJMamF2YS9sYW5nL09iamVjdDsAEkxqYXZhL2xhbmcvU3RyaW5nOwABVgACW0IACGdldEJ5dGVzAAdydW5UYXNrAAYABw4ACAIAAAcOAAAAAQEA77+977+9BO+/vQIBAe+/vQIADAAAAAAAAAABAAAAAAAAAAEAAAAOAAAAcAAAAAIAAAAHAAAA77+9AAAAAwAAAAMAAADvv70AAAAFAAAABAAAAO+/vQAAAAYAAAABAAAACAEAAAEgAAACAAAAKAEAAAEQAAACAAAAYAEAAAIgAAAOAAAAcAEAAAMgAAACAAAAGQIAAAAgAAABAAAAJQIAAAAQAAABAAAANAIAAA==
+[2016-03-14 13:00:08.777] [INFO ] (SageServletContextListener) - ServletContextListener destroyed
+[2016-03-14 13:00:17.887] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 13:00:17.888] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 13:00:17.934] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 13:00:17.934] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 13:00:20.707] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 13:00:28.020] [DEBUG] (JobsResource) - Verifying tokens...
+[2016-03-14 13:00:28.184] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 13:00:28.327] [DEBUG] (JobsResource) - Tokens verified!
+[2016-03-14 13:00:28.328] [DEBUG] (JobsResource) - Attempting to retrieve job for given jobId 27 ...
+[2016-03-14 13:00:28.328] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 13:00:28.328] [DEBUG] (Dao) - Getting job by id...
+[2016-03-14 13:00:28.582] [DEBUG] (Dao) - Transaction complete!
+[2016-03-14 13:00:28.599] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 13:00:28.673] [DEBUG] (JobsResource) - Job successfully retrieved!
+[2016-03-14 13:00:28.674] [DEBUG] (JobsResource) - 100
+[2016-03-14 13:00:28.674] [DEBUG] (JobsResource) - Q2xhc3NXaXRoU2FnZVRhc2s=.ZGV4CjAzNQDvv71Z77+9fxgQY++/ve+/ve+/vU4D77+977+9cO+/vTfqsYXvv73vv70CAABwAAAAeFY0EgAAAAAAAAAANAIAAA4AAABwAAAABwAAAO+/vQAAAAMAAADvv70AAAAAAAAAAAAAAAQAAADvv70AAAABAAAACAEAAO+/vQEAACgBAABwAQAAeAEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAAICAAAGAgAAEAIAAAMAAAAFAAAABwAAAAgAAAAJAAAACgAAAAsAAAAKAAAABQAAAAAAAAAEAAAABgAAAAAAAAAGAAAABgAAAGgBAAABAAAAAAAAAAEAAgANAAAAAwAAAAAAAAAEAAEADAAAAAEAAAABAAAAAwAAAGABAAABAAAAAAAAACUCAAAAAAAAAQABAAEAAAAZAgAABAAAAHAQAgAAAA4ABQAEAAEAAAAeAgAABwAAABoAAgBuEAMAAAAMABEAAAABAAAAAgAAAAIAAAAAAAYABjxpbml0PgAWQ2xhc3NXaXRoU2FnZVRhc2suamF2YQALR2FyYmFnZURhdGEAAUoAAUwAE0xDbGFzc1dpdGhTYWdlVGFzazsAA0xKTAAYTGNvbS9zYWdlL3Rhc2svU2FnZVRhc2s7ABJMamF2YS9sYW5nL09iamVjdDsAEkxqYXZhL2xhbmcvU3RyaW5nOwABVgACW0IACGdldEJ5dGVzAAdydW5UYXNrAAYABw4ACAIAAAcOAAAAAQEA77+977+9BO+/vQIBAe+/vQIADAAAAAAAAAABAAAAAAAAAAEAAAAOAAAAcAAAAAIAAAAHAAAA77+9AAAAAwAAAAMAAADvv70AAAAFAAAABAAAAO+/vQAAAAYAAAABAAAACAEAAAEgAAACAAAAKAEAAAEQAAACAAAAYAEAAAIgAAAOAAAAcAEAAAMgAAACAAAAGQIAAAAgAAABAAAAJQIAAAAQAAABAAAANAIAAA==
+[2016-03-14 13:02:26.017] [INFO ] (SageServletContextListener) - ServletContextListener destroyed
+[2016-03-14 13:02:35.446] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 13:02:35.448] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 13:02:35.506] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 13:02:35.506] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 13:02:38.151] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 13:02:45.370] [DEBUG] (JobsResource) - Verifying tokens...
+[2016-03-14 13:02:45.555] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 13:02:45.727] [DEBUG] (JobsResource) - Tokens verified!
+[2016-03-14 13:02:45.727] [DEBUG] (JobsResource) - Attempting to retrieve job for given jobId 27 ...
+[2016-03-14 13:02:45.727] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 13:02:45.728] [DEBUG] (Dao) - Getting job by id...
+[2016-03-14 13:02:45.760] [DEBUG] (Dao) - Transaction complete!
+[2016-03-14 13:02:45.775] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 13:02:45.851] [DEBUG] (JobsResource) - Job successfully retrieved!
+[2016-03-14 13:02:45.853] [DEBUG] (JobsResource) - 100
+[2016-03-14 13:02:45.853] [DEBUG] (JobsResource) - Q2xhc3NXaXRoU2FnZVRhc2s=.ZGV4CjAzNQDvv71Z77+9fxgQY++/ve+/ve+/vU4D77+977+9cO+/vTfqsYXvv73vv70CAABwAAAAeFY0EgAAAAAAAAAANAIAAA4AAABwAAAABwAAAO+/vQAAAAMAAADvv70AAAAAAAAAAAAAAAQAAADvv70AAAABAAAACAEAAO+/vQEAACgBAABwAQAAeAEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAAICAAAGAgAAEAIAAAMAAAAFAAAABwAAAAgAAAAJAAAACgAAAAsAAAAKAAAABQAAAAAAAAAEAAAABgAAAAAAAAAGAAAABgAAAGgBAAABAAAAAAAAAAEAAgANAAAAAwAAAAAAAAAEAAEADAAAAAEAAAABAAAAAwAAAGABAAABAAAAAAAAACUCAAAAAAAAAQABAAEAAAAZAgAABAAAAHAQAgAAAA4ABQAEAAEAAAAeAgAABwAAABoAAgBuEAMAAAAMABEAAAABAAAAAgAAAAIAAAAAAAYABjxpbml0PgAWQ2xhc3NXaXRoU2FnZVRhc2suamF2YQALR2FyYmFnZURhdGEAAUoAAUwAE0xDbGFzc1dpdGhTYWdlVGFzazsAA0xKTAAYTGNvbS9zYWdlL3Rhc2svU2FnZVRhc2s7ABJMamF2YS9sYW5nL09iamVjdDsAEkxqYXZhL2xhbmcvU3RyaW5nOwABVgACW0IACGdldEJ5dGVzAAdydW5UYXNrAAYABw4ACAIAAAcOAAAAAQEA77+977+9BO+/vQIBAe+/vQIADAAAAAAAAAABAAAAAAAAAAEAAAAOAAAAcAAAAAIAAAAHAAAA77+9AAAAAwAAAAMAAADvv70AAAAFAAAABAAAAO+/vQAAAAYAAAABAAAACAEAAAEgAAACAAAAKAEAAAEQAAACAAAAYAEAAAIgAAAOAAAAcAEAAAMgAAACAAAAGQIAAAAgAAABAAAAJQIAAAAQAAABAAAANAIAAA==
+[2016-03-14 13:03:27.871] [INFO ] (SageServletContextListener) - ServletContextListener destroyed
+[2016-03-14 13:03:37.021] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 13:03:37.022] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 13:03:37.070] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 13:03:37.070] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 13:03:39.703] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 13:03:45.930] [DEBUG] (JobsResource) - Verifying tokens...
+[2016-03-14 13:03:46.094] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 13:03:46.245] [DEBUG] (JobsResource) - Tokens verified!
+[2016-03-14 13:03:46.245] [DEBUG] (JobsResource) - Attempting to retrieve job for given jobId 27 ...
+[2016-03-14 13:03:46.245] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 13:03:46.245] [DEBUG] (Dao) - Getting job by id...
+[2016-03-14 13:03:46.289] [DEBUG] (Dao) - Transaction complete!
+[2016-03-14 13:03:46.303] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 13:03:46.380] [DEBUG] (JobsResource) - Job successfully retrieved!
+[2016-03-14 13:03:46.381] [DEBUG] (JobsResource) - 100
+[2016-03-14 13:03:46.381] [DEBUG] (JobsResource) - Q2xhc3NXaXRoU2FnZVRhc2s=.ZGV4CjAzNQDvv71Z77+9fxgQY++/ve+/ve+/vU4D77+977+9cO+/vTfqsYXvv73vv70CAABwAAAAeFY0EgAAAAAAAAAANAIAAA4AAABwAAAABwAAAO+/vQAAAAMAAADvv70AAAAAAAAAAAAAAAQAAADvv70AAAABAAAACAEAAO+/vQEAACgBAABwAQAAeAEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAAICAAAGAgAAEAIAAAMAAAAFAAAABwAAAAgAAAAJAAAACgAAAAsAAAAKAAAABQAAAAAAAAAEAAAABgAAAAAAAAAGAAAABgAAAGgBAAABAAAAAAAAAAEAAgANAAAAAwAAAAAAAAAEAAEADAAAAAEAAAABAAAAAwAAAGABAAABAAAAAAAAACUCAAAAAAAAAQABAAEAAAAZAgAABAAAAHAQAgAAAA4ABQAEAAEAAAAeAgAABwAAABoAAgBuEAMAAAAMABEAAAABAAAAAgAAAAIAAAAAAAYABjxpbml0PgAWQ2xhc3NXaXRoU2FnZVRhc2suamF2YQALR2FyYmFnZURhdGEAAUoAAUwAE0xDbGFzc1dpdGhTYWdlVGFzazsAA0xKTAAYTGNvbS9zYWdlL3Rhc2svU2FnZVRhc2s7ABJMamF2YS9sYW5nL09iamVjdDsAEkxqYXZhL2xhbmcvU3RyaW5nOwABVgACW0IACGdldEJ5dGVzAAdydW5UYXNrAAYABw4ACAIAAAcOAAAAAQEA77+977+9BO+/vQIBAe+/vQIADAAAAAAAAAABAAAAAAAAAAEAAAAOAAAAcAAAAAIAAAAHAAAA77+9AAAAAwAAAAMAAADvv70AAAAFAAAABAAAAO+/vQAAAAYAAAABAAAACAEAAAEgAAACAAAAKAEAAAEQAAACAAAAYAEAAAIgAAAOAAAAcAEAAAMgAAACAAAAGQIAAAAgAAABAAAAJQIAAAAQAAABAAAANAIAAA==
+[2016-03-14 13:04:01.551] [DEBUG] (JobsResource) - Verifying tokens...
+[2016-03-14 13:04:01.553] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 13:04:01.598] [DEBUG] (JobsResource) - Tokens verified!
+[2016-03-14 13:04:01.598] [DEBUG] (JobsResource) - Attempting to retrieve job for given jobId 28 ...
+[2016-03-14 13:04:01.598] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 13:04:01.599] [DEBUG] (Dao) - Getting job by id...
+[2016-03-14 13:04:01.625] [DEBUG] (Dao) - Transaction complete!
+[2016-03-14 13:04:01.640] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 13:04:01.712] [DEBUG] (JobsResource) - Job successfully retrieved!
+[2016-03-14 13:04:01.712] [DEBUG] (JobsResource) - 20
+[2016-03-14 13:04:01.712] [DEBUG] (JobsResource) - SGVsbG8=.ZGV4CjAzNQDvv71TyLYq77+977+9XFMTDO+/ve+/vVt6NCwyCO+/ve+/ve+/ve+/ve+/vQIAAHAAAAB4VjQSAAAAAAAAAABMAgAADwAAAHAAAAAHAAAA77+9AAAABAAAAO+/vQAAAAAAAAAAAAAABQAAAO+/vQAAAAEAAAAgAQAA77+9AQAAQAEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAABACAAATAgAAFwIAABsCAAAlAgAAAwAAAAUAAAAHAAAACAAAAAkAAAAKAAAADAAAAAoAAAAFAAAAAAAAAAsAAAAFAAAA77+9AQAABAAAAAYAAAAAAAAABgAAAAYAAADvv70BAAABAAAAAAAAAAEAAwAOAAAAAwAAAAAAAAAEAAEAAAAAAAQAAgANAAAAAQAAAAEAAAADAAAA77+9AQAAAgAAAAAAAAA8AgAAAAAAAAEAAQABAAAALgIAAAQAAABwEAIAAAAOAAYABAACAAAANAIAAAwAAAAiAAQAGgEBAHAgAwAQAG4QBAAAAAwAEQABAAAAAgAAAAEAAAAEAAAAAgAAAAAABgAGPGluaXQ+AAxIZWxsbyBXb3JsZCEACkhlbGxvLmphdmEAAUoAAUwAB0xIZWxsbzsAA0xKTAAYTGNvbS9zYWdlL3Rhc2svU2FnZVRhc2s7ABJMamF2YS9sYW5nL09iamVjdDsAEkxqYXZhL2xhbmcvU3RyaW5nOwABVgACVkwAAltCAAhnZXRCeXRlcwAHcnVuVGFzawAEAAcOPQAJAgAABw7vv70AAAABAQDvv73vv70E77+9AgEB77+9AgAADAAAAAAAAAABAAAAAAAAAAEAAAAPAAAAcAAAAAIAAAAHAAAA77+9AAAAAwAAAAQAAADvv70AAAAFAAAABQAAAO+/vQAAAAYAAAABAAAAIAEAAAEgAAACAAAAQAEAAAEQAAADAAAA77+9AQAAAiAAAA8AAADvv70BAAADIAAAAgAAAC4CAAAAIAAAAQAAADwCAAAAEAAAAQAAAEwCAAA=
+[2016-03-14 13:05:41.342] [DEBUG] (JobsResource) - Verifying tokens...
+[2016-03-14 13:05:41.343] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 13:05:41.384] [DEBUG] (JobsResource) - Tokens verified!
+[2016-03-14 13:05:41.385] [DEBUG] (JobsResource) - Attempting to retrieve job for given jobId 27 ...
+[2016-03-14 13:05:41.385] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 13:05:41.385] [DEBUG] (Dao) - Getting job by id...
+[2016-03-14 13:05:41.419] [DEBUG] (Dao) - Transaction complete!
+[2016-03-14 13:05:41.434] [INFO ] (Dao) - SessionFactory successfully referenced
+[2016-03-14 13:05:41.502] [DEBUG] (JobsResource) - Job successfully retrieved!
+[2016-03-14 13:05:41.503] [DEBUG] (JobsResource) - 100
+[2016-03-14 13:05:41.503] [DEBUG] (JobsResource) - Q2xhc3NXaXRoU2FnZVRhc2s=.ZGV4CjAzNQDvv71Z77+9fxgQY++/ve+/ve+/vU4D77+977+9cO+/vTfqsYXvv73vv70CAABwAAAAeFY0EgAAAAAAAAAANAIAAA4AAABwAAAABwAAAO+/vQAAAAMAAADvv70AAAAAAAAAAAAAAAQAAADvv70AAAABAAAACAEAAO+/vQEAACgBAABwAQAAeAEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAO+/vQEAAAICAAAGAgAAEAIAAAMAAAAFAAAABwAAAAgAAAAJAAAACgAAAAsAAAAKAAAABQAAAAAAAAAEAAAABgAAAAAAAAAGAAAABgAAAGgBAAABAAAAAAAAAAEAAgANAAAAAwAAAAAAAAAEAAEADAAAAAEAAAABAAAAAwAAAGABAAABAAAAAAAAACUCAAAAAAAAAQABAAEAAAAZAgAABAAAAHAQAgAAAA4ABQAEAAEAAAAeAgAABwAAABoAAgBuEAMAAAAMABEAAAABAAAAAgAAAAIAAAAAAAYABjxpbml0PgAWQ2xhc3NXaXRoU2FnZVRhc2suamF2YQALR2FyYmFnZURhdGEAAUoAAUwAE0xDbGFzc1dpdGhTYWdlVGFzazsAA0xKTAAYTGNvbS9zYWdlL3Rhc2svU2FnZVRhc2s7ABJMamF2YS9sYW5nL09iamVjdDsAEkxqYXZhL2xhbmcvU3RyaW5nOwABVgACW0IACGdldEJ5dGVzAAdydW5UYXNrAAYABw4ACAIAAAcOAAAAAQEA77+977+9BO+/vQIBAe+/vQIADAAAAAAAAAABAAAAAAAAAAEAAAAOAAAAcAAAAAIAAAAHAAAA77+9AAAAAwAAAAMAAADvv70AAAAFAAAABAAAAO+/vQAAAAYAAAABAAAACAEAAAEgAAACAAAAKAEAAAEQAAACAAAAYAEAAAIgAAAOAAAAcAEAAAMgAAACAAAAGQIAAAAgAAABAAAAJQIAAAAQAAABAAAANAIAAA==
+[2016-03-14 13:06:45.080] [INFO ] (SageServletContextListener) - ServletContextListener destroyed
+[2016-03-14 13:06:55.215] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 13:06:55.216] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 13:06:55.284] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 13:06:55.284] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 13:06:57.868] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!
+[2016-03-14 13:19:17.910] [INFO ] (SageServletContextListener) - ServletContextListener destroyed
+[2016-03-14 13:19:28.830] [INFO ] (SageServletContextListener) - ServletContextListener started
+[2016-03-14 13:19:28.831] [DEBUG] (SageServletContextListener) - Demarshalling sage config.json...
+[2016-03-14 13:19:28.875] [DEBUG] (SageServletContextListener) - Sage config.json successfully demarshalled!
+[2016-03-14 13:19:28.875] [DEBUG] (SageServletContextListener) - Building Hibernate session factory...
+[2016-03-14 13:19:31.631] [INFO ] (SageServletContextListener) - Hibernate SessionFactory successfully built!

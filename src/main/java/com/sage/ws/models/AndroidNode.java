@@ -1,9 +1,8 @@
 package com.sage.ws.models;
 
-
-
-
-import org.hibernate.annotations.Table;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
@@ -17,7 +16,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @Entity
-@Table(appliesTo = "android_node")
+@JsonSerialize
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "android_node")
 public class AndroidNode {
 
     /**
@@ -49,6 +50,7 @@ public class AndroidNode {
      */
 
     @XmlElement(name = "androidId")
+    @JsonProperty
     public String getAndroidId() { return androidId; }
 
     public void setAndroidId(String androidId) {
@@ -56,6 +58,7 @@ public class AndroidNode {
     }
 
     @XmlElement(name = "nodeId")
+    @JsonProperty
     public int getNodeId(){
         return nodeId;
     }
@@ -65,6 +68,7 @@ public class AndroidNode {
     }
 
     @XmlElement(name = "ownerId")
+    @JsonProperty
     public int getOwnerId(){
         return ownerId;
     }
@@ -74,6 +78,7 @@ public class AndroidNode {
     }
 
     @XmlElement(name = "info")
+    @JsonProperty
     public String getInfo(){
         return info;
     }

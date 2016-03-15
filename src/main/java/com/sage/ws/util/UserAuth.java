@@ -12,6 +12,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.sage.ws.dao.UserDao;
 import com.sage.ws.models.JobStatus;
 import com.sage.ws.models.User;
+import com.sage.ws.service.SageServletContextListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.criterion.Criterion;
@@ -37,11 +38,7 @@ public class UserAuth {
         }
     }
 
-    //665551274466-15p0nifusupk4r9rjgrdtq773ua6m2b8.apps.googleusercontent.com
-    // TODO: Move client-id and client secret into config file
-    private static final String CLIENT_ID = "665551274466-k9e5oun21che7qamm2ct9bn603dss65n.apps.googleusercontent.com";
-    //X21gLK_nImHfJLuEVsgqASBf
-    private static final String CLIENT_SECRET = "T3MOi4HvzoAo-ayP3Mv-g6TT";
+    private String clientId;
 
     private JsonFactory jsonFactory;
 
@@ -58,13 +55,15 @@ public class UserAuth {
      */
     public UserAuth() throws Exception
     {
+        // set the clientId
+        clientId = SageServletContextListener.config.googleClientId;
         // setup the HttpTransport
         transport = GoogleNetHttpTransport.newTrustedTransport();
         // setup the JsonFactory
         jsonFactory = JacksonFactory.getDefaultInstance();
         // instantiate the token verifier
         verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
-                .setAudience(Arrays.asList(CLIENT_ID))
+                .setAudience(Arrays.asList(clientId))
                 // If you retrieved the token on Android using the Play Services 8.3 API or newer, set
                 // the issuer to "https://accounts.google.com". Otherwise, set the issuer to
                 // "accounts.google.com". If you need to verify tokens from multiple sources, build
@@ -92,9 +91,9 @@ public class UserAuth {
             // verify the token and make sure it is valid
             if (verifier.verify(token)) {
                 GoogleIdToken.Payload tempPayload = token.getPayload();
-                if (!tempPayload.getAudience().equals(CLIENT_ID))
+                if (!tempPayload.getAudience().equals(clientId))
                     problem = "Audience mismatch";
-                else if (!CLIENT_ID.equals(tempPayload.getAuthorizedParty()))
+                else if (!clientId.equals(tempPayload.getAuthorizedParty()))
                     problem = "Client ID mismatch";
                 else
                     payload = tempPayload;
@@ -113,7 +112,7 @@ public class UserAuth {
             // try to get the user by their email
             UserDao uDao = new UserDao();
             List<Criterion> crits = new ArrayList<Criterion>();
-            crits.add(Restrictions.eq("user_email", payload.getEmail()));
+            crits.add(Restrictions.eq("userEmail", payload.getEmail()));
             List<User> users = uDao.get(crits, null, 1);
             // we should only get one result back if the user exists
             if (users.size() > 0) {

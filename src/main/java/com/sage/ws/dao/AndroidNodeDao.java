@@ -38,7 +38,7 @@ public class AndroidNodeDao extends Dao<AndroidNode> {
         Session session = sessionFactory.openSession();
 
         try {
-            session.beginTransaction();
+            //session.beginTransaction();
             node = session.load(AndroidNode.class, id);
         } catch (HibernateException e) {
             logger.error("An error has occurred while attempting to retrieve the AndroidNode");

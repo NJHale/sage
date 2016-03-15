@@ -55,6 +55,7 @@ public class JobsResource {
         // create job reference
         Job job = null;
         try {
+            logger.debug("Verifying tokens...");
             // get the acting user
             User user = null;
             UserAuth auth = new UserAuth();
@@ -71,6 +72,9 @@ public class JobsResource {
                 throw new WebApplicationException(Response.status(401).build());// unauthorized
             }
 
+            logger.debug("Tokens verified!");
+            logger.debug("Attempting to retrieve job for given jobId " + jobId + " ...");
+
             // get the job by its id
             Dao<Job> jobDao = new JobDao();
             job = jobDao.get(jobId);
@@ -86,18 +90,17 @@ public class JobsResource {
                     throw new WebApplicationException(Response.status(403).build());// forbidden
                 }
             }
+            logger.debug("Job successfully retrieved!");
 
         } catch (WebApplicationException e) {
             logger.error("Something went wrong while attempting to get the Job");
-            logger.error(e.getMessage());
-            logger.debug(e.getStackTrace().toString());
+            logger.error("Error : ", e);
             logger.debug("rethrowing web exception");
             // rethrow given web exception
             throw e;// unavailable
         } catch (Exception e) {
             logger.error("Something went wrong while attempting to get the Job");
-            logger.error(e.getMessage());
-            logger.debug(e.getStackTrace().toString());
+            logger.debug("Error : ", e);
             logger.debug("rethrowing web exception");
             // rethrow as web exception
             throw new WebApplicationException(Response.status(503).build());
