@@ -303,7 +303,7 @@ public class JobsResource {
             @QueryParam("count") int count,
             @QueryParam("dir") String dir,
             @QueryParam("orderBy") String orderBy,
-            @QueryParam("status") int status,
+            @QueryParam("status") String status,
             @QueryParam("upperBounty") int uBounty,
             @QueryParam("lowerBounty") int lBounty,
             @QueryParam("nodeId") int nodeId,
@@ -333,7 +333,7 @@ public class JobsResource {
             Order order = null;
             // create the criterion to filter by
             List<Criterion> crits = new ArrayList<Criterion>();
-            if ( status >= 0 ) crits.add(Restrictions.eq("status", status));// include status
+            if ( status != null && !status.equals("") ) crits.add(Restrictions.eq("status", status));// include status
             // apply direction and orderBy
             if ( dir != null ) {
                 if (orderBy != null) {

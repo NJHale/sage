@@ -70,8 +70,7 @@ public class JobDao extends Dao<Job> {
             jobs = cr.list();
         } catch (HibernateException e) {
             logger.error("Something went wrong when attempting to get jobs from the datastore");
-            logger.debug(e.getMessage());
-            logger.debug(e.getStackTrace());
+            logger.debug("Error: ", e);
         } finally {
             session.close();
         }
