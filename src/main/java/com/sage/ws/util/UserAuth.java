@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class UserAuth {
 
-    private static final Logger logger = LogManager.getLogger("UserAuth");
+    private static final Logger logger = LogManager.getLogger(UserAuth.class);
 
     public class InvalidIdTokenException extends Exception {
         public InvalidIdTokenException(String idTokenString, String problem) {
@@ -112,7 +112,7 @@ public class UserAuth {
             // try to get the user by their email
             UserDao uDao = new UserDao();
             List<Criterion> crits = new ArrayList<Criterion>();
-            crits.add(Restrictions.eq("userEmail", payload.getEmail()));
+            crits.add(Restrictions.eq("userEmail", payload.getEmail()));        logger.debug("User Email: " + payload.getEmail());
             List<User> users = uDao.get(crits, null, 1);
             // we should only get one result back if the user exists
             if (users.size() > 0) {

@@ -37,8 +37,8 @@ public class UserDao extends Dao<User> {
         Session session = sessionFactory.openSession();
 
         try {
-            session.beginTransaction();
-            user = session.load(User.class, id);
+            //session.beginTransaction();
+            user = session.get(User.class, id);
         } catch (HibernateException e) {
             logger.error("An error has occurred while attempting to retrieve the User");
             logger.debug(e.getMessage());

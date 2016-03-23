@@ -37,8 +37,8 @@ public class SageTokenDao extends Dao<SageToken> {
         Session session = sessionFactory.openSession();
 
         try {
-            session.beginTransaction();
-            token = session.load(SageToken.class, id);
+            //session.beginTransaction();
+            token = session.get(SageToken.class, id);
         } catch (HibernateException e) {
             logger.error("An error has occurred while attempting to retrieve the SageToken");
             logger.debug(e.getMessage());

@@ -32,6 +32,7 @@ public class Job {
     private int jobId;
 
     @Column(name = "orderer_id")
+    @Basic(fetch = FetchType.EAGER)
     private int ordererId;
 
     @Column(name = "node_id")
