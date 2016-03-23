@@ -32,9 +32,10 @@ public class Job {
     private int jobId;
 
     @Column(name = "orderer_id")
+    @Basic(fetch = FetchType.EAGER)
     private int ordererId;
 
-    @Column(name = "nodeid")
+    @Column(name = "node_id")
     private int nodeId;
 
     @JsonIgnore
@@ -42,6 +43,7 @@ public class Job {
     private int bounty;
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private JobStatus status;
 
     @Column(name = "timeout")

@@ -82,13 +82,19 @@ public class JobsResource {
             // check to make sure the user is authorized to get the job
             if (job != null) {
                 // get the related android node
-                Dao<AndroidNode> nodeDao = new AndroidNodeDao();
-                AndroidNode node = nodeDao.get(job.getNodeId());
-                if (job.getOrdererId() != user.getUserId() &&
-                        node.getOwnerId() != user.getUserId()) {
+                if (job.getNodeId() > 0) {
+                    Dao<AndroidNode> nodeDao = new AndroidNodeDao();
+                    AndroidNode node = nodeDao.get(job.getNodeId());
+                    if (job.getOrdererId() != user.getUserId() &&
+                            node.getOwnerId() != user.getUserId()) {
+                        // the user is neither the orderer or the node owner
+                        throw new WebApplicationException(Response.status(403).build());// forbidden
+                    }
+                } else if (job.getOrdererId() != user.getUserId()) {
                     // the user is neither the orderer or the node owner
                     throw new WebApplicationException(Response.status(403).build());// forbidden
                 }
+
             }
             logger.debug("Job successfully retrieved!");
 
@@ -107,6 +113,72 @@ public class JobsResource {
         }
         // return the job
         return job;
+    }
+
+    /**
+     * Gets Job associated with the given jobId
+     * @param googleTokenStr
+     * @param sageTokenStr
+     * @param jobId
+     * @return Gets Job associated with the given jobId
+     */
+    @GET
+    @Path("/{jobId}/status")
+    public JobStatus getJobStatus(
+            @HeaderParam("GoogleToken") String googleTokenStr,
+            @HeaderParam("SageToken") String sageTokenStr,
+            @PathParam("jobId") int jobId ) {
+
+        // create JobStatus reference
+        JobStatus status = null;
+        try {
+            logger.debug("Verifying tokens...");
+            // get the acting user
+            User user = null;
+            UserAuth auth = new UserAuth();
+            // verify token(s)
+            if (googleTokenStr != null && !googleTokenStr.equals("") ) {
+                user = auth.verifyGoogleToken(googleTokenStr);
+            } else if (sageTokenStr != null && !googleTokenStr.equals("")) {
+                //TODO: Change to verifySageToken()
+                user = auth.verifyGoogleToken(googleTokenStr);
+            }
+
+            if (user == null) {
+                // The user is unauthorized
+                throw new WebApplicationException(Response.status(401).build());// unauthorized
+            }
+
+            logger.debug("Tokens verified!");
+            logger.debug("Attempting to retrieve job for given jobId " + jobId + " ...");
+
+            // get the job by its id
+            Dao<Job> jobDao = new JobDao();
+            Job job = jobDao.get(jobId);
+
+            // check to make sure the user is authorized to get the job
+            if (job != null && job.getOrdererId() != user.getUserId()) {
+                // the user is neither the orderer or the node owner
+                throw new WebApplicationException(Response.status(403).build());// forbidden
+            }
+            logger.debug("Job status successfully retrieved!");
+            status = job.getStatus();
+
+        } catch (WebApplicationException e) {
+            logger.error("Something went wrong while attempting to get the Job");
+            logger.error("Error : ", e);
+            logger.debug("rethrowing web exception");
+            // rethrow given web exception
+            throw e;// unavailable
+        } catch (Exception e) {
+            logger.error("Something went wrong while attempting to get the Job");
+            logger.debug("Error : ", e);
+            logger.debug("rethrowing web exception");
+            // rethrow as web exception
+            throw new WebApplicationException(Response.status(503).build());
+        }
+        // return the JobStatus
+        return status;
     }
 
     /**
@@ -303,7 +375,7 @@ public class JobsResource {
             @QueryParam("count") int count,
             @QueryParam("dir") String dir,
             @QueryParam("orderBy") String orderBy,
-            @QueryParam("status") int status,
+            @QueryParam("status") String status,
             @QueryParam("upperBounty") int uBounty,
             @QueryParam("lowerBounty") int lBounty,
             @QueryParam("nodeId") int nodeId,
@@ -333,7 +405,7 @@ public class JobsResource {
             Order order = null;
             // create the criterion to filter by
             List<Criterion> crits = new ArrayList<Criterion>();
-            if ( status >= 0 ) crits.add(Restrictions.eq("status", status));// include status
+            if ( status != null && !status.equals("") ) crits.add(Restrictions.eq("status", status));// include status
             // apply direction and orderBy
             if ( dir != null ) {
                 if (orderBy != null) {

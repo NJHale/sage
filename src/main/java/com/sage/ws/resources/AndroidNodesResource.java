@@ -122,18 +122,21 @@ public class AndroidNodesResource {
                 if (orderBy != null) {
                     order = dir.equals("asc") ? Order.asc(orderBy) : Order.desc(orderBy);
                 } else {
-                    order = dir.equals("asc") ? Order.asc("jobId") : Order.desc("jobId");
+                    order = dir.equals("asc") ? Order.asc("nodeId") : Order.desc("nodeId");
                 }
             } else {
                 if (orderBy != null) {
                     order = Order.desc(orderBy);// always descending
                 } else {
-                    order = Order.desc("jobId");
+                    order = Order.desc("nodeId");
                 }
             }
 
+
             if (androidId != null) crits.add(Restrictions.eq("androidId", androidId));
             if ( ownerId > 0 ) crits.add(Restrictions.eq("ownerId", ownerId));
+
+            logger.debug("crits size: "  + crits.size());
 
             // retrieve jobs from the datastore
             nodes = nodeDao.get(crits, order, count);

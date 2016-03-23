@@ -16,7 +16,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @Entity
-@JsonSerialize
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "android_node")
 public class AndroidNode {
@@ -50,7 +49,6 @@ public class AndroidNode {
      */
 
     @XmlElement(name = "androidId")
-    @JsonProperty
     public String getAndroidId() { return androidId; }
 
     public void setAndroidId(String androidId) {
@@ -58,7 +56,6 @@ public class AndroidNode {
     }
 
     @XmlElement(name = "nodeId")
-    @JsonProperty
     public int getNodeId(){
         return nodeId;
     }
@@ -68,7 +65,6 @@ public class AndroidNode {
     }
 
     @XmlElement(name = "ownerId")
-    @JsonProperty
     public int getOwnerId(){
         return ownerId;
     }
@@ -78,7 +74,6 @@ public class AndroidNode {
     }
 
     @XmlElement(name = "info")
-    @JsonProperty
     public String getInfo(){
         return info;
     }

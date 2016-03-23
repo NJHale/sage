@@ -37,8 +37,9 @@ public class JobDao extends Dao<Job> {
         Session session = sessionFactory.openSession();
         logger.debug("Getting job by id...");
         try {
-            session.beginTransaction();
-            job = session.load(Job.class, id);
+            //session.beginTransaction();
+            job = session.get(Job.class, id);
+//            job.getOrdererId();// beat up lazy-load
             logger.debug("Transaction complete!");
         } catch (HibernateException e) {
             logger.error("An error has occurred while attempting to retrieve the Job");
@@ -70,8 +71,7 @@ public class JobDao extends Dao<Job> {
             jobs = cr.list();
         } catch (HibernateException e) {
             logger.error("Something went wrong when attempting to get jobs from the datastore");
-            logger.debug(e.getMessage());
-            logger.debug(e.getStackTrace());
+            logger.debug("Error: ", e);
         } finally {
             session.close();
         }

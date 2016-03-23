@@ -126,9 +126,9 @@ public class JavaToDexTranslator {
                 + "." + DatatypeConverter.printBase64Binary(dex.getBytes());
 
         // delete the temporary directory
-        if (!recDelete(root)) {
-            logger.error("An error occurred while attempting to delete the temporary directory.");
-        }
+//        if (!recDelete(root)) {
+//            logger.error("An error occurred while attempting to delete the temporary directory.");
+//        }
 
         return encodedDex;
     }
