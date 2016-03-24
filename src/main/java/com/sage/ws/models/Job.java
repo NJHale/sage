@@ -38,7 +38,6 @@ public class Job {
     @Column(name = "node_id")
     private int nodeId;
 
-    @JsonIgnore
     @Column(name = "bounty")
     private int bounty;
 
@@ -94,8 +93,7 @@ public class Job {
         this.nodeId = nodeId;
     }
 
-    @XmlTransient
-    @JsonIgnore
+    @XmlElement(name = "bounty")
     public int getBounty() { return bounty; }
 
     public void setBounty(int bounty) { this.bounty = bounty; }

@@ -41,6 +41,7 @@ public class ModelValidator {
                     mod.getStatus().ordinal() >= JobStatus.DONE.ordinal() &&
                     mod.getStatus().ordinal() <= JobStatus.TIMED_OUT.ordinal() &&
                     mod.getResult() != null &&
+                    mod.getBounty() == src.getBounty() &&
                     !( mod.getOrdererId() != src.getOrdererId() ||
                     !mod.getEncodedDex().equals(src.getEncodedDex()) ||
                     !mod.getData().equals(src.getData()) ||
