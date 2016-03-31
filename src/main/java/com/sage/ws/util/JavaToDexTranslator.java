@@ -117,8 +117,16 @@ public class JavaToDexTranslator {
         // make sure the compiled class can be cast to type SageTask
         logger.debug("loaded class instance");
         //SageTask task = (SageTask) cls.newInstance();
-        logger.debug("SageTask URI: " + getJarDir(SageTask.class).toURI().toString());
-        Object task = cls.newInstance();
+        // logger.debug("SageTask URI: " + getJarDir(SageTask.class).toURI().toString());
+
+
+        try {
+            Object task = cls.newInstance();
+        } catch (Exception e) {
+            logger.error("An error occurred when attempting to get an instance of the dynamically created object");
+            logger.debug("Error", e);
+        }
+
         // read the dex file into a String
         File dexFile = new File(root.getAbsolutePath() + "/" + fqn + ".dex");
         byte[] dex = Files.toByteArray(dexFile);

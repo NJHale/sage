@@ -5,6 +5,6 @@ package com.sage.ws.models;
  */
 public enum JobStatus {
 
-    READY, RUNNING, DONE, ERROR, TIMED_OUT
+    READY, RUNNING, DONE, ERROR, TIMED_OUT, PENDING
 
 }

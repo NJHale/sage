@@ -1,5 +1,6 @@
 package com.sage.ws.resources;
 
+import com.sage.ws.dao.Dao;
 import com.sage.ws.dao.JobDao;
 import com.sage.ws.models.Job;
 import com.sage.ws.models.JobStatus;
@@ -13,6 +14,9 @@ import org.apache.logging.log4j.Logger;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by Nick Hale on 2/21/16.
@@ -24,9 +28,76 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/jobOrders")
 public class JobOrdersResource {
-
     // logging
     private static final Logger logger = LogManager.getLogger(JobOrdersResource.class);
+
+    private static final ExecutorService pool =
+            Executors.newFixedThreadPool(4 * Runtime.getRuntime().availableProcessors());
+
+    protected class JobCompilationCallable<Void> implements Callable {
+
+        private Job job;
+
+        public JobCompilationCallable(Job job) {
+            this.job = job;
+        }
+
+        public Void call() throws Exception {
+            // create a new JobDAO
+            Dao<Job> jobDao = new JobDao();
+            try {
+                JavaToDexTranslator jdTrans = new JavaToDexTranslator();
+                String encodedDex = jdTrans.encodedJavaToDex(job.getEncodedJava());
+                // translation succeeded, update the job with encodedDex and ready status
+                job.setEncodedDex(encodedDex);
+                job.setStatus(JobStatus.READY);
+                // update the job
+                jobDao.upsert(job);
+
+            } catch (Exception e) {
+                // translation failed, switch the job status to error and update
+                job.setStatus(JobStatus.ERROR);
+                // update the job
+                jobDao.upsert(job);
+                logger.error("An error occurred when attempting to translate encodedJava asynchronously");
+                logger.debug("Error: ", e);
+            }
+            // return null to satisfy Void return type
+            return null;
+        }
+    }
+
+    public static byte[] int2byte(int[]src) {
+        int srcLength = src.length;
+        byte[]dst = new byte[srcLength << 2];
+
+        for (int i=0; i<srcLength; i++) {
+            int x = src[i];
+            int j = i << 2;
+            dst[j++] = (byte) ((x >>> 0) & 0xff);
+            dst[j++] = (byte) ((x >>> 8) & 0xff);
+            dst[j++] = (byte) ((x >>> 16) & 0xff);
+            dst[j++] = (byte) ((x >>> 24) & 0xff);
+        }
+        return dst;
+    }
+
+    public static int[] byte2int(byte[]src) {
+        int dstLength = src.length >>> 2;
+        int[]dst = new int[dstLength];
+
+        for (int i=0; i<dstLength; i++) {
+            int j = i << 2;
+            int x = 0;
+            x += (src[j++] & 0xff) << 0;
+            x += (src[j++] & 0xff) << 8;
+            x += (src[j++] & 0xff) << 16;
+            x += (src[j++] & 0xff) << 24;
+            dst[i] = x;
+        }
+        return dst;
+    }
+
 
     /**
      *
@@ -70,20 +141,18 @@ public class JobOrdersResource {
             job.setTimeOut(order.getTimeOut());
             job.setEncodedJava(order.getEncodedJava());
 
+            // set the job status to pending and add the job
+            job.setStatus(JobStatus.PENDING);
 
-            //TODO: Handle JavaToDexTranslator.encodeJavaToDex() exceptions
-            JavaToDexTranslator jdTrans = new JavaToDexTranslator();
-            String encodedDex = jdTrans.encodedJavaToDex(job.getEncodedJava());
-
-            // set the encoded dex string
-            job.setEncodedDex(encodedDex);
-
-            // set the status to READY
-            job.setStatus(JobStatus.READY);
-
-            // save the Job and get its id
             JobDao jobDao = new JobDao();
             jobId = jobDao.add(job);
+
+            // stuff the jobId back into the job
+            job.setJobId(jobId);
+
+            // enqueue a job compilation callable to finish job compilation
+            Callable<Void> jcc = new JobCompilationCallable<Void>(job);
+            pool.submit(jcc);
 
         } catch (WebApplicationException e) {
             logger.error("Something went wrong while attempting to place JobOrder");
