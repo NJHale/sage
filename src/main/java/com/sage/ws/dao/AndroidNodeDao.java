@@ -66,7 +66,7 @@ public class AndroidNodeDao extends Dao<AndroidNode> {
             // add the order
             cr.addOrder(order);
             // trim the resilt set
-            if (setSize > 0) cr.setFetchSize(setSize);
+            if (setSize > 0) cr.setMaxResults(setSize);
             // retrieve the AndroidNodes
             nodes = cr.list();
         } catch (HibernateException e) {

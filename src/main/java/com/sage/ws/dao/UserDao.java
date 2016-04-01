@@ -65,7 +65,7 @@ public class UserDao extends Dao<User> {
             // add the order
             if (order != null) cr.addOrder(order);
             // trim the resilt set
-            if (setSize > 0) cr.setFetchSize(setSize);
+            if (setSize > 0) cr.setMaxResults(setSize);
             // retrieve the Users
             users = cr.list();
         } catch (HibernateException e) {

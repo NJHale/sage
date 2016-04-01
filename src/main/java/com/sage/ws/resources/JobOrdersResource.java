@@ -10,10 +10,15 @@ import com.sage.ws.util.UserAuth;
 import com.sage.ws.models.JobOrder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -141,18 +146,41 @@ public class JobOrdersResource {
             job.setTimeOut(order.getTimeOut());
             job.setEncodedJava(order.getEncodedJava());
 
-            // set the job status to pending and add the job
-            job.setStatus(JobStatus.PENDING);
+
 
             JobDao jobDao = new JobDao();
-            jobId = jobDao.add(job);
 
-            // stuff the jobId back into the job
-            job.setJobId(jobId);
 
-            // enqueue a job compilation callable to finish job compilation
-            Callable<Void> jcc = new JobCompilationCallable<Void>(job);
-            pool.submit(jcc);
+            // attempt to find precompiled encodedDex for the given encodedJava
+            // create the criterion to filter by
+            List<Criterion> crits = new ArrayList<Criterion>();
+            crits.add(Restrictions.eq("encodedJava", order.getEncodedJava()));
+            crits.add(Restrictions.ne("encodedDex", ""));
+            // create the ordering
+            Order ord = Order.desc("status");
+            // make sure to only get the first result - setSize = 1
+            List<Job> jobs = jobDao.get(crits, ord, 1);
+
+            logger.debug("jobs.size(): " + jobs.size());
+
+            if (jobs.size() > 0) {
+                //
+                // set reclaimedDex
+                job.setEncodedDex(jobs.get(0).getEncodedDex());
+                // add the new job to the database
+                job.setStatus(JobStatus.READY);
+                // set the jobId
+                jobId = jobDao.add(job);
+            } else {
+                // set the job status to pending and add the job
+                job.setStatus(JobStatus.PENDING);
+                jobId = jobDao.add(job);
+                // stuff the jobId back into the job
+                job.setJobId(jobId);
+                // enqueue a job compilation callable to finish job compilation
+                Callable<Void> jcc = new JobCompilationCallable<Void>(job);
+                pool.submit(jcc);
+            }
 
         } catch (WebApplicationException e) {
             logger.error("Something went wrong while attempting to place JobOrder");

@@ -65,7 +65,7 @@ public class SageTokenDao extends Dao<SageToken> {
             // add the order
             cr.addOrder(order);
             // trim the resilt set
-            if (setSize > 0) cr.setFetchSize(setSize);
+            if (setSize > 0) cr.setMaxResults(setSize);
             // retrieve the tokens
             tokens = cr.list();
         } catch (HibernateException e) {
