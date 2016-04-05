@@ -51,13 +51,37 @@ public class JobOrdersResource {
             // create a new JobDAO
             Dao<Job> jobDao = new JobDao();
             try {
-                JavaToDexTranslator jdTrans = new JavaToDexTranslator();
-                String encodedDex = jdTrans.encodedJavaToDex(job.getEncodedJava());
-                // translation succeeded, update the job with encodedDex and ready status
-                job.setEncodedDex(encodedDex);
-                job.setStatus(JobStatus.READY);
-                // update the job
-                jobDao.upsert(job);
+                // attempt to find precompiled encodedDex in case we
+                // got enqueued while identical encodedJava was being compiled
+
+                // create the criterion to filter by
+                List<Criterion> crits = new ArrayList<Criterion>();
+                crits.add(Restrictions.eq("encodedJava", job.getEncodedJava()));
+                crits.add(Restrictions.ne("encodedDex", ""));
+                // create the ordering
+                Order ord = Order.desc("status");
+                // make sure to only get the first result - setSize = 1
+                List<Job> jobs = jobDao.get(crits, ord, 1);
+
+                logger.debug("jobs.size(): " + jobs.size());
+
+                if (jobs.size() > 0) {
+                    // set reclaimedDex
+                    job.setEncodedDex(jobs.get(0).getEncodedDex());
+                    // add the new job to the database
+                    job.setStatus(JobStatus.READY);
+                    // update the job
+                    jobDao.upsert(job);
+                } else {
+                    // we must compile the dex
+                    JavaToDexTranslator jdTrans = new JavaToDexTranslator();
+                    String encodedDex = jdTrans.encodedJavaToDex(job.getEncodedJava());
+                    // translation succeeded, update the job with encodedDex and ready status
+                    job.setEncodedDex(encodedDex);
+                    job.setStatus(JobStatus.READY);
+                    // update the job
+                    jobDao.upsert(job);
+                }
 
             } catch (Exception e) {
                 // translation failed, switch the job status to error and update

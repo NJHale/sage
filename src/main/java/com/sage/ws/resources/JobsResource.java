@@ -24,6 +24,7 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 /**
  * Created by Nick Hale on 2/21/16.
@@ -37,6 +38,8 @@ import java.util.List;
 public class JobsResource {
 
     private static final Logger logger = LogManager.getLogger(JobsResource.class);
+
+    private static final Semaphore sema = new Semaphore(1);
 
     /**
      * Gets Job associated with the given jobId
@@ -241,6 +244,8 @@ public class JobsResource {
             crits.add(Restrictions.eq("status", JobStatus.READY));
             // create the ordering
             Order order = Order.desc("bounty");
+
+            sema.acquire();
             // make sure to only get the first result - setSize = 1
             List<Job> jobs = jobDao.get(crits, order, 1);
 
@@ -258,7 +263,7 @@ public class JobsResource {
             } else {
                 logger.info("No next ready job available.");
             }
-
+            sema.release();
 
         } catch (WebApplicationException e) {
             logger.error("Something went wrong while attempting to get the next ready Job");
@@ -266,12 +271,14 @@ public class JobsResource {
             logger.debug(e.getStackTrace().toString());
             logger.debug("rethrowing web exception");
             // rethrow as web exception
+            sema.release();
             throw e;
         } catch (Exception e) {
             logger.error("Something went wrong while attempting to get the next ready Job");
             logger.error(e.getMessage());
             logger.debug(e.getStackTrace().toString());
             logger.error("Silently withering...");
+            sema.release();
         }
         // return the job
         return job;
