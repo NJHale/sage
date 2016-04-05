@@ -5,6 +5,7 @@ import com.sage.task.SageTask;
 import com.google.common.io.Files;
 
 import com.sage.ws.service.SageServletContextListener;
+import com.sun.jersey.core.util.Base64;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -116,19 +117,27 @@ public class JavaToDexTranslator {
         // make sure the compiled class can be cast to type SageTask
         logger.debug("loaded class instance");
         //SageTask task = (SageTask) cls.newInstance();
-        logger.debug("SageTask URI: " + getJarDir(SageTask.class).toURI().toString());
-        Object task = cls.newInstance();
+        // logger.debug("SageTask URI: " + getJarDir(SageTask.class).toURI().toString());
+
+
+        try {
+            Object task = cls.newInstance();
+        } catch (Exception e) {
+            logger.error("An error occurred when attempting to get an instance of the dynamically created object");
+            logger.debug("Error", e);
+        }
+
         // read the dex file into a String
         File dexFile = new File(root.getAbsolutePath() + "/" + fqn + ".dex");
-        String dex = Files.toString(dexFile, StandardCharsets.UTF_8);
+        byte[] dex = Files.toByteArray(dexFile);
         // encode the dex
-        String encodedDex = DatatypeConverter.printBase64Binary(fqn.getBytes())
-                + "." + DatatypeConverter.printBase64Binary(dex.getBytes());
+        String encodedDex = new String(Base64.encode(fqn))
+                + "." + new String(Base64.encode(dex));
 
         // delete the temporary directory
-//        if (!recDelete(root)) {
-//            logger.error("An error occurred while attempting to delete the temporary directory.");
-//        }
+        if (!recDelete(root)) {
+            logger.error("An error occurred while attempting to delete the temporary directory.");
+        }
 
         return encodedDex;
     }

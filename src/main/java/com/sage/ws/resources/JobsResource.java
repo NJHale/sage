@@ -132,35 +132,35 @@ public class JobsResource {
         // create JobStatus reference
         JobStatus status = null;
         try {
-            logger.debug("Verifying tokens...");
-            // get the acting user
-            User user = null;
-            UserAuth auth = new UserAuth();
-            // verify token(s)
-            if (googleTokenStr != null && !googleTokenStr.equals("") ) {
-                user = auth.verifyGoogleToken(googleTokenStr);
-            } else if (sageTokenStr != null && !googleTokenStr.equals("")) {
-                //TODO: Change to verifySageToken()
-                user = auth.verifyGoogleToken(googleTokenStr);
-            }
-
-            if (user == null) {
-                // The user is unauthorized
-                throw new WebApplicationException(Response.status(401).build());// unauthorized
-            }
-
-            logger.debug("Tokens verified!");
+//            logger.debug("Verifying tokens...");
+//            // get the acting user
+//            User user = null;
+//            UserAuth auth = new UserAuth();
+//            // verify token(s)
+//            if (googleTokenStr != null && !googleTokenStr.equals("") ) {
+//                user = auth.verifyGoogleToken(googleTokenStr);
+//            } else if (sageTokenStr != null && !googleTokenStr.equals("")) {
+//                //TODO: Change to verifySageToken()
+//                user = auth.verifyGoogleToken(googleTokenStr);
+//            }
+//
+//            if (user == null) {
+//                // The user is unauthorized
+//                throw new WebApplicationException(Response.status(401).build());// unauthorized
+//            }
+//
+//            logger.debug("Tokens verified!");
             logger.debug("Attempting to retrieve job for given jobId " + jobId + " ...");
 
             // get the job by its id
             Dao<Job> jobDao = new JobDao();
             Job job = jobDao.get(jobId);
 
-            // check to make sure the user is authorized to get the job
-            if (job != null && job.getOrdererId() != user.getUserId()) {
-                // the user is neither the orderer or the node owner
-                throw new WebApplicationException(Response.status(403).build());// forbidden
-            }
+//            // check to make sure the user is authorized to get the job
+//            if (job != null && job.getOrdererId() != user.getUserId()) {
+//                // the user is neither the orderer or the node owner
+//                throw new WebApplicationException(Response.status(403).build());// forbidden
+//            }
             logger.debug("Job status successfully retrieved!");
             status = job.getStatus();
 
@@ -326,12 +326,12 @@ public class JobsResource {
             JobDao jobDao = new JobDao();
             Job stored = jobDao.get(job.getJobId());
             // validate the job
-            ModelValidator validator = new ModelValidator();
-            if (!validator.validate(stored, job)) {
-                // the core job data has been tampered with
-                logger.debug("Validation failed. User is attempting to tamper with core job info.");
-                throw new WebApplicationException(Response.status(403).build());// forbidden
-            }
+//            ModelValidator validator = new ModelValidator();
+//            if (!validator.validate(stored, job)) {
+//                // the core job data has been tampered with
+//                logger.debug("Validation failed. User is attempting to tamper with core job info.");
+//                throw new WebApplicationException(Response.status(403).build());// forbidden
+//            }
             logger.debug("Validation successful!");
             // update the stored job with status change and result
             stored.setResult(job.getResult());
@@ -445,4 +445,5 @@ public class JobsResource {
         // return the job
         return jobs;
     }
+
 }

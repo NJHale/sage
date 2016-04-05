@@ -11,5 +11,5 @@ dexFile=$path$name.dex
 
 echo $path
 
-javac -cp $configPath"/sagetask.jar" -source 1.7 -target 1.7 $javaFile
-$dx --dex --output $dexFile $path
+javac -cp $configPath/sagetask.jar -source 1.7 -target 1.7 $javaFile
+$dx --dex --output $dexFile $path $configPath/sagetask.jar

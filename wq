@@ -1,0 +1,114 @@
+[1mdiff --git a/src/main/java/com/sage/ws/resources/JobOrdersResource.java b/src/main/java/com/sage/ws/resources/JobOrdersResource.java[m
+[1mindex 2d989fe..64b5fb5 100644[m
+[1m--- a/src/main/java/com/sage/ws/resources/JobOrdersResource.java[m
+[1m+++ b/src/main/java/com/sage/ws/resources/JobOrdersResource.java[m
+[36m@@ -8,15 +8,19 @@[m [mimport com.sage.ws.models.User;[m
+ import com.sage.ws.util.JavaToDexTranslator;[m
+ import com.sage.ws.util.UserAuth;[m
+ import com.sage.ws.models.JobOrder;[m
+[32m+[m[32mimport javafx.concurrent.Task;[m
+ import org.apache.logging.log4j.LogManager;[m
+ import org.apache.logging.log4j.Logger;[m
+ [m
+ import javax.ws.rs.*;[m
+ import javax.ws.rs.core.MediaType;[m
+ import javax.ws.rs.core.Response;[m
+[32m+[m[32mimport java.util.HashMap;[m
+[32m+[m[32mimport java.util.Map;[m
+ import java.util.concurrent.Callable;[m
+ import java.util.concurrent.ExecutorService;[m
+ import java.util.concurrent.Executors;[m
+[32m+[m[32mimport java.util.concurrent.Future;[m
+ [m
+ /**[m
+  * Created by Nick Hale on 2/21/16.[m
+[36m@@ -32,7 +36,8 @@[m [mpublic class JobOrdersResource {[m
+     private static final Logger logger = LogManager.getLogger(JobOrdersResource.class);[m
+ [m
+     private static final ExecutorService pool =[m
+[31m-            Executors.newFixedThreadPool(4 * Runtime.getRuntime().availableProcessors());[m
+[32m+[m[32m            Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());[m
+[32m+[m
+ [m
+     protected class JobCompilationCallable<Void> implements Callable {[m
+ [m
+[36m@@ -182,5 +187,13 @@[m [mpublic class JobOrdersResource {[m
+         return jobId;[m
+     }[m
+ [m
+[32m+[m[32m    /**[m
+[32m+[m[32m     * Stops each active JobCompilationCallable running[m
+[32m+[m[32m     * and enqueued[m
+[32m+[m[32m     */[m
+[32m+[m[32m    public static void killActiveJCCs() {[m
+[32m+[m[32m        pool.shutdownNow();[m
+[32m+[m[32m    }[m
+[32m+[m
+ [m
+ }[m
+[1mdiff --git a/src/main/java/com/sage/ws/service/SageServletContextListener.java b/src/main/java/com/sage/ws/service/SageServletContextListener.java[m
+[1mindex 5ca84ef..24d6e66 100644[m
+[1m--- a/src/main/java/com/sage/ws/service/SageServletContextListener.java[m
+[1m+++ b/src/main/java/com/sage/ws/service/SageServletContextListener.java[m
+[36m@@ -4,6 +4,7 @@[m [mimport com.google.gson.Gson;[m
+ import com.sage.ws.models.AndroidNode;[m
+ import com.sage.ws.models.Job;[m
+ import com.sage.ws.models.User;[m
+[32m+[m[32mimport com.sage.ws.resources.JobOrdersResource;[m
+ import org.apache.logging.log4j.LogManager;[m
+ import org.apache.logging.log4j.Logger;[m
+ import org.hibernate.SessionFactory;[m
+[36m@@ -41,6 +42,8 @@[m [mpublic class SageServletContextListener implements ServletContextListener{[m
+      */[m
+     public void contextDestroyed(ServletContextEvent arg0) {[m
+         logger.info("ServletContextListener destroyed");[m
+[32m+[m[32m        // kill all active compilation callables[m
+[32m+[m[32m        JobOrdersResource.killActiveJCCs();[m
+         // close the hibernate session factory[m
+         sessionFactory.close();[m
+     }[m
+[1mdiff --git a/src/main/java/com/sage/ws/util/JavaToDexTranslator.java b/src/main/java/com/sage/ws/util/JavaToDexTranslator.java[m
+[1mindex 9d417a6..8124cd5 100644[m
+[1m--- a/src/main/java/com/sage/ws/util/JavaToDexTranslator.java[m
+[1m+++ b/src/main/java/com/sage/ws/util/JavaToDexTranslator.java[m
+[36m@@ -65,8 +65,8 @@[m [mpublic class JavaToDexTranslator {[m
+         // get the java file[m
+         String src = new String(DatatypeConverter.parseBase64Binary(grps[idx++]));[m
+ [m
+[31m-        logger.debug("fqn: " + fqn);[m
+[31m-        logger.debug("src: " + src);[m
+[32m+[m[32m//        logger.debug("fqn: " + fqn);[m
+[32m+[m[32m//        logger.debug("src: " + src);[m
+ [m
+         // create a unique temp directory to store the java, class, and dex files[m
+         File root = new File(buildzone + this.hashCode());[m
+[36m@@ -99,10 +99,10 @@[m [mpublic class JavaToDexTranslator {[m
+         logger.debug("Running java2dex.sh ...");[m
+         Process p = pb.start();[m
+ [m
+[31m-        BufferedReader reader = new BufferedReader (new InputStreamReader(p.getInputStream()));[m
+[31m-        while ((reader.readLine ()) != null) {[m
+[31m-            logger.error("stdout: " + reader.readLine());[m
+[31m-        }[m
+[32m+[m[32m//        BufferedReader reader = new BufferedReader (new InputStreamReader(p.getInputStream()));[m
+[32m+[m[32m//        while ((reader.readLine ()) != null) {[m
+[32m+[m[32m//            logger.error("stdout: " + reader.readLine());[m
+[32m+[m[32m//        }[m
+         //Wait for it to finish[m
+         int status = p.waitFor();[m
+         logger.debug("Run of java2dex.sh completed with status code: " + status);[m
+[1mdiff --git a/target/classes/com/sage/ws/resources/JobOrdersResource$JobCompilationCallable.class b/target/classes/com/sage/ws/resources/JobOrdersResource$JobCompilationCallable.class[m
+[1mindex c34af2c..695ed78 100644[m
+Binary files a/target/classes/com/sage/ws/resources/JobOrdersResource$JobCompilationCallable.class and b/target/classes/com/sage/ws/resources/JobOrdersResource$JobCompilationCallable.class differ
+[1mdiff --git a/target/classes/com/sage/ws/resources/JobOrdersResource.class b/target/classes/com/sage/ws/resources/JobOrdersResource.class[m
+[1mindex 5a45bc5..847144f 100644[m
+Binary files a/target/classes/com/sage/ws/resources/JobOrdersResource.class and b/target/classes/com/sage/ws/resources/JobOrdersResource.class differ
+[1mdiff --git a/target/classes/com/sage/ws/service/SageServletContextListener.class b/target/classes/com/sage/ws/service/SageServletContextListener.class[m
+[1mindex fb45fc3..f0d07e3 100644[m
+Binary files a/target/classes/com/sage/ws/service/SageServletContextListener.class and b/target/classes/com/sage/ws/service/SageServletContextListener.class differ
+[1mdiff --git a/target/classes/com/sage/ws/util/JavaToDexTranslator.class b/target/classes/com/sage/ws/util/JavaToDexTranslator.class[m
+[1mindex 7fcd843..8c4b57f 100644[m
+Binary files a/target/classes/com/sage/ws/util/JavaToDexTranslator.class and b/target/classes/com/sage/ws/util/JavaToDexTranslator.class differ
+[1mdiff --git a/target/sage.war b/target/sage.war[m
+[1mindex c534223..d0270f9 100644[m
+Binary files a/target/sage.war and b/target/sage.war differ

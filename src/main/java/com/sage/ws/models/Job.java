@@ -4,6 +4,7 @@ package com.sage.ws.models;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
@@ -38,7 +39,6 @@ public class Job {
     @Column(name = "node_id")
     private int nodeId;
 
-    @JsonIgnore
     @Column(name = "bounty")
     private int bounty;
 
@@ -94,8 +94,7 @@ public class Job {
         this.nodeId = nodeId;
     }
 
-    @XmlTransient
-    @JsonIgnore
+    @XmlElement(name = "bounty")
     public int getBounty() { return bounty; }
 
     public void setBounty(int bounty) { this.bounty = bounty; }
@@ -110,6 +109,7 @@ public class Job {
     }
 
     @XmlElement(name = "timeout")
+    @JsonProperty("timeout")
     public long getTimeOut() {
         return timeOut;
     }
