@@ -9,20 +9,26 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.sage.ws.dao.Dao;
+import com.sage.ws.dao.SageTokenDao;
 import com.sage.ws.dao.UserDao;
 import com.sage.ws.models.JobStatus;
+import com.sage.ws.models.SageToken;
 import com.sage.ws.models.User;
+import com.sage.ws.models.UserCredential;
 import com.sage.ws.service.SageServletContextListener;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.impl.crypto.MacProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
+import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.security.Key;
+import java.util.*;
 
 
 /**
@@ -45,6 +51,9 @@ public class UserAuth {
     private HttpTransport transport;
 
     private GoogleIdTokenVerifier verifier;
+
+    // auto-generate key TODO: Pull the key from some config file
+    private static final Key key = MacProvider.generateKey();
 
 
 
@@ -70,6 +79,39 @@ public class UserAuth {
                 // a GoogleIdTokenVerifier for each issuer and try them both.
                 .setIssuer("https://accounts.google.com")
                 .build();
+    }
+
+    /**
+     *  Verifies the given SageToken string and returns its claimed user
+     * @param sageTokenStr Token string of the token to validate
+     * @return The user related to the token, null if the token is invalid
+     * @throws Exception If something goes wrong
+     */
+    public User verifySageToken(String sageTokenStr) throws Exception {
+        // create a null user
+        User user = null;
+        try {
+            Jwts.parser().setSigningKey(key).parseClaimsJws(sageTokenStr);
+            //OK, we can trust this JWT - pull out claims
+            Claims claims = Jwts.parser()
+                    .setSigningKey(key)
+                    .parseClaimsJws(sageTokenStr).getBody();
+            // pull userId out of claims
+            int userId = Integer.parseInt(claims.getId());
+            // retrieve user from the datastore
+            Dao<User> userDao = new UserDao();
+            user = userDao.get(userId);
+        } catch (SignatureException e) {
+            // don't trust the JWT!
+            logger.error("SageToken string JWT Signature Exception was thrown. Bad JWT!");
+            logger.debug("Error: ", e);
+        } catch (Exception e) {
+            // some other error occurred
+            logger.error("An error occurred while attempting to verify the SageToken string.");
+            logger.debug("Error: ", e);
+        }
+        // return the User
+        return user;
     }
 
     /**
@@ -134,6 +176,38 @@ public class UserAuth {
         }
 
         return user;
+
+    }
+
+    /**
+     * Returns a SageToken for the given user credentials
+     * @param cred UserCredential containing user googleId string and other identifying junk
+     * @return SageToken object containing JWT string
+     */
+    public SageToken getSageToken(UserCredential cred) throws Exception {
+        // verify the google token
+        User user = verifyGoogleToken(cred.getGoogleIdToken());
+        // return null if the verification failed
+        if (user == null) return null;
+
+        // ** BOILER PLATE **
+        // We need a signing key, so we'll create one just for this example. Usually
+        // the key would be read from your application configuration instead.
+        //Key key = MacProvider.generateKey();
+        JwtBuilder jwtBuilder = Jwts.builder();
+        String tknString = jwtBuilder
+                .setExpiration(new Date(System.currentTimeMillis() + 3600000))// nasty code +3600000 for an hour's expiration date
+                .setIssuer("Sage")// issuer Sage
+                .setId(Integer.toString(user.getUserId()))// user id
+                .setIssuedAt(new Date()) //set the issued date to now
+                .signWith(SignatureAlgorithm.HS512, key).compact();// sign and compact
+
+        // set the tknString
+        SageToken token = new SageToken();
+        token.setSageTokenStr(tknString);
+
+        // return the SageToken
+        return token;
 
     }
 

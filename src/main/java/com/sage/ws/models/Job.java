@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -28,33 +29,30 @@ public class Job {
      * Hibernate Annotations for ORM persistence
      */
     @Id
-    @GeneratedValue
+    @GeneratedValue()
     @Column(name = "job_id")
     private int jobId;
 
     @Column(name = "orderer_id")
-    @Basic(fetch = FetchType.EAGER)
     private int ordererId;
 
     @Column(name = "node_id")
     private int nodeId;
 
+    @Column(name = "java_id")
+    private int javaId;
+
     @Column(name = "bounty")
-    private int bounty;
+    private BigInteger bounty;
 
     @Column(name = "status")
-    @Enumerated(EnumType.STRING)
     private JobStatus status;
 
     @Column(name = "timeout")
-    private long timeOut;
+    private long timeout;
 
-    @Column(name = "encoded_dex")
-    private String encodedDex;
-
-    @JsonIgnore
-    @Column(name = "encoded_java")
-    private String encodedJava;
+    @Column(name = "completion")
+    private Date completion;
 
     @Column(name = "data")
     private byte[] data;
@@ -62,8 +60,10 @@ public class Job {
     @Column(name = "result")
     private byte[] result;
 
-    @Column(name = "completion")
-    private Date completion;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "_ts", nullable = false)
+    private Date _ts;
+
 
     /**
      * Default constructor
@@ -73,17 +73,22 @@ public class Job {
     /**
      * Jersey JAXB Annotations
      */
-    @XmlElement(name = "jobId")
     public int getJobId() {
         return jobId;
     }
 
-    public void setJobId(int jobId) { this.jobId = jobId; }
+    public void setJobId(int jobId) {
+        this.jobId = jobId;
+    }
 
     @XmlElement(name = "ordererId")
-    public int getOrdererId() { return ordererId; }
+    public int getOrdererId() {
+        return ordererId;
+    }
 
-    public void setOrdererId(int ordererId) { this.ordererId = ordererId; }
+    public void setOrdererId(int ordererId) {
+        this.ordererId = ordererId;
+    }
 
     @XmlElement(name = "nodeId")
     public int getNodeId() {
@@ -94,10 +99,23 @@ public class Job {
         this.nodeId = nodeId;
     }
 
-    @XmlElement(name = "bounty")
-    public int getBounty() { return bounty; }
+    @XmlElement(name = "javaId")
+    public int getJavaId() {
+        return javaId;
+    }
 
-    public void setBounty(int bounty) { this.bounty = bounty; }
+    public void setJavaId(int javaId) {
+        this.javaId = javaId;
+    }
+
+    @XmlElement(name = "bounty")
+    public BigInteger getBounty() {
+        return bounty;
+    }
+
+    public void setBounty(BigInteger bounty) {
+        this.bounty = bounty;
+    }
 
     @XmlElement(name = "status")
     public JobStatus getStatus() {
@@ -109,26 +127,13 @@ public class Job {
     }
 
     @XmlElement(name = "timeout")
-    @JsonProperty("timeout")
-    public long getTimeOut() {
-        return timeOut;
+    public long getTimeout() {
+        return timeout;
     }
 
-    public void setTimeOut(long timeOut) {
-        this.timeOut = timeOut;
+    public void setTimeout(long timeout) {
+        this.timeout = timeout;
     }
-
-    @XmlElement(name = "encodedDex")
-    public String getEncodedDex() { return encodedDex; }
-
-    public void setEncodedDex(String encodedDex) { this.encodedDex = encodedDex; }
-
-    @XmlTransient
-    @JsonIgnore
-    public String getEncodedJava() { return encodedJava; }
-
-    public void setEncodedJava(String encodedJava) { this.encodedJava = encodedJava; }
-
 
     @XmlElement(name = "data")
     public byte[] getData() {
@@ -152,5 +157,16 @@ public class Job {
     public Date getCompletion() { return completion; }
 
     public void setCompletion(Date completion) { this.completion = completion; }
+
+    @XmlTransient
+    @JsonIgnore
+    public Date get_ts() {
+        return _ts;
+    }
+
+    public void set_ts(Date _ts) {
+        this._ts = _ts;
+    }
+
 
 }

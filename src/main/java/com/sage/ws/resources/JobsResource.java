@@ -205,12 +205,9 @@ public class JobsResource {
             // get the acting user
             User user = null;
             UserAuth auth = new UserAuth();
-            // verify token(s)
-            if (googleTokenStr != null && !googleTokenStr.equals("") ) {
-                user = auth.verifyGoogleToken(googleTokenStr);
-            } else if (sageTokenStr != null && !googleTokenStr.equals("")) {
-                //TODO: Change to verifySageToken()
-                user = auth.verifyGoogleToken(googleTokenStr);
+            // verify SageToken
+            if (sageTokenStr != null && !sageTokenStr.equals("")) {
+                user = auth.verifySageToken(sageTokenStr);
             }
 
             if (user == null) {
@@ -288,14 +285,12 @@ public class JobsResource {
      * Updates the given job in the datastore
      * Only the android node running the given job is allowed to make updates
      * No changing of dex content is permitted
-     * @param googleTokenStr
      * @param sageTokenStr
      * @param job
      * @return Gets Job associated with the given jobId
      */
     @POST
     public void updateJob(
-            @HeaderParam("googleToken") String googleTokenStr,
             @HeaderParam("sageToken") String sageTokenStr,
             Job job) {
 
@@ -303,12 +298,9 @@ public class JobsResource {
             // get the acting user
             User user = null;
             UserAuth auth = new UserAuth();
-            // verify token(s)
-            if (googleTokenStr != null && !googleTokenStr.equals("") ) {
-                user = auth.verifyGoogleToken(googleTokenStr);
-            } else if (sageTokenStr != null && !googleTokenStr.equals("")) {
-                //TODO: Change to verifySageToken()
-                user = auth.verifyGoogleToken(googleTokenStr);
+            // verify SageToken
+            if (sageTokenStr != null && !sageTokenStr.equals("")) {
+                user = auth.verifySageToken(sageTokenStr);
             }
 
             if (user == null) {
@@ -365,7 +357,6 @@ public class JobsResource {
 
     /**
      *
-     * @param googleTokenStr
      * @param sageTokenStr
      * @param count
      * @param dir
@@ -377,7 +368,6 @@ public class JobsResource {
      */
     @GET
     public List<Job> getJobs(
-            @HeaderParam("GoogleToken") String googleTokenStr,
             @HeaderParam("SageToken") String sageTokenStr,
             @QueryParam("count") int count,
             @QueryParam("dir") String dir,
@@ -394,16 +384,13 @@ public class JobsResource {
             // get the acting user
             User user = null;
             UserAuth auth = new UserAuth();
-            // verify token(s)
-            if (googleTokenStr != null && !googleTokenStr.equals("") ) {
-                user = auth.verifyGoogleToken(googleTokenStr);
-            } else if (sageTokenStr != null && !googleTokenStr.equals("")) {
-                //TODO: Change to verifySageToken()
-                user = auth.verifyGoogleToken(googleTokenStr);
+            // verify SageToken
+            if (sageTokenStr != null && !sageTokenStr.equals("")) {
+                user = auth.verifySageToken(sageTokenStr);
             }
 
             if (user == null) {
-                // The user is unauthorized
+                // the user is unauthorized - they must go get a new token
                 throw new WebApplicationException(Response.status(401).build());// unauthorized
             }
 
