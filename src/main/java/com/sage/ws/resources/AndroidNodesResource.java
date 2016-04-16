@@ -36,20 +36,16 @@ public class AndroidNodesResource {
     private static final Logger logger = LogManager.getLogger(AndroidNodesResource.class);
 
     @POST
-    public int addNode(@HeaderParam("GoogleToken") String googleTokenStr,
-                       @HeaderParam("SageToken") String sageTokenStr,
+    public int addNode(@HeaderParam("SageToken") String sageTokenStr,
                        AndroidNode node) {
         int nodeId = -1;
         try {
             // get the acting user
             User user = null;
             UserAuth auth = new UserAuth();
-            // verify token(s)
-            if (googleTokenStr != null && !googleTokenStr.equals("")) {
-                user = auth.verifyGoogleToken(googleTokenStr);
-            } else if (sageTokenStr != null && !googleTokenStr.equals("")) {
-                //TODO: Change to verifySageToken()
-                user = auth.verifyGoogleToken(googleTokenStr);
+            // verify given sageTokenStr
+            if (sageTokenStr != null && !sageTokenStr.equals("")) {
+                user = auth.verifySageToken(sageTokenStr);
             }
 
             if (user == null) {
@@ -86,7 +82,6 @@ public class AndroidNodesResource {
 
     @GET
     public List<AndroidNode> getNodes(
-            @HeaderParam("GoogleToken") String googleTokenStr,
             @HeaderParam("SageToken") String sageTokenStr,
             @QueryParam("count") int count,
             @QueryParam("dir") String dir,
@@ -99,12 +94,9 @@ public class AndroidNodesResource {
             // get the acting user
             User user = null;
             UserAuth auth = new UserAuth();
-            // verify token(s)
-            if (googleTokenStr != null && !googleTokenStr.equals("") ) {
-                user = auth.verifyGoogleToken(googleTokenStr);
-            } else if (sageTokenStr != null && !googleTokenStr.equals("")) {
-                //TODO: Change to verifySageToken()
-                user = auth.verifyGoogleToken(googleTokenStr);
+            // verify given sageTokenStr
+            if (sageTokenStr != null && !sageTokenStr.equals("")) {
+                user = auth.verifySageToken(sageTokenStr);
             }
 
             if (user == null) {

@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 
 /**
  * Created by Nick Hale on 2/21/16.
@@ -39,7 +40,7 @@ public class JavasResource {
     private static final ExecutorService pool =
             Executors.newFixedThreadPool(4 * Runtime.getRuntime().availableProcessors());
 
-    private static final Object lock = new Object();
+    private static final Semaphore sema = new Semaphore(1, true);
 
     protected class JavaCompilationCallable<Void> implements Callable {
 
@@ -101,8 +102,9 @@ public class JavasResource {
         try {
             Dao<Java> javaDao = new JavaDao();
             Java java = javaDao.get(javaId);
-            // pull the encodedDex out if we can s
+            // pull the encodedDex out if it completed
             if (java != null) encodedDex = java.getEncodedDex();
+
         } catch (Exception e) {
             logger.error("Something went wrong while attempting to get encodedDex");
             logger.error(e.getMessage());
@@ -113,6 +115,41 @@ public class JavasResource {
         }
         // return the encodedDex
         return encodedDex;
+    }
+
+    protected enum JavaStatus {
+        NO_SUCH_JAVA, COMPILING, COMPILED
+    }
+
+    @GET
+    @Path("/{javaId}/compileStatus")
+    public JavaStatus getJavaCompileStatus(@PathParam("javaId") int javaId) {
+
+        // initialize default status as NO_SUCH_JOB
+        JavaStatus status = JavaStatus.NO_SUCH_JAVA;
+        // attempt to retrieve the java from the database
+        try {
+            Dao<Java> javaDao = new JavaDao();
+            Java java = javaDao.get(javaId);
+            // pull the encodedDex out if it completed
+            if (java != null) {
+                if (java.getEncodedDex() != null && !java.getEncodedDex().equals("")) {
+                    status = JavaStatus.COMPILED;
+                } else {
+                    status = JavaStatus.COMPILING;
+                }
+            }
+
+        } catch (Exception e) {
+            logger.error("Something went wrong while attempting to get java compile status");
+            logger.error(e.getMessage());
+            logger.debug("Error: ", e);
+            logger.debug("rethrowing web exception");
+            // rethrow as web exception
+            throw new WebApplicationException(Response.status(503).build());
+        }
+        // return the encodedDex
+        return status;
     }
 
     @POST

@@ -39,11 +39,10 @@ public class JobsResource {
 
     private static final Logger logger = LogManager.getLogger(JobsResource.class);
 
-    private static final Semaphore sema = new Semaphore(1);
+    private static final Semaphore sema = new Semaphore(1, true);
 
     /**
      * Gets Job associated with the given jobId
-     * @param googleTokenStr
      * @param sageTokenStr
      * @param jobId
      * @return Gets Job associated with the given jobId
@@ -51,23 +50,19 @@ public class JobsResource {
     @GET
     @Path("/{jobId}")
     public Job getJob(
-            @HeaderParam("GoogleToken") String googleTokenStr,
             @HeaderParam("SageToken") String sageTokenStr,
             @PathParam("jobId") int jobId ) {
 
         // create job reference
         Job job = null;
         try {
-            logger.debug("Verifying tokens...");
+            logger.debug("Verifying token...");
             // get the acting user
             User user = null;
             UserAuth auth = new UserAuth();
-            // verify token(s)
-            if (googleTokenStr != null && !googleTokenStr.equals("") ) {
-                user = auth.verifyGoogleToken(googleTokenStr);
-            } else if (sageTokenStr != null && !googleTokenStr.equals("")) {
-                //TODO: Change to verifySageToken()
-                user = auth.verifyGoogleToken(googleTokenStr);
+            // verify sage token string
+            if (sageTokenStr != null && !sageTokenStr.equals("")) {
+                user = auth.verifyGoogleToken(sageTokenStr);
             }
 
             if (user == null) {
@@ -128,7 +123,6 @@ public class JobsResource {
     @GET
     @Path("/{jobId}/status")
     public JobStatus getJobStatus(
-            @HeaderParam("GoogleToken") String googleTokenStr,
             @HeaderParam("SageToken") String sageTokenStr,
             @PathParam("jobId") int jobId ) {
 
@@ -187,7 +181,6 @@ public class JobsResource {
     /**
      * Gets Job associated with the given jobId
      * POST should not have a body
-     * @param googleTokenStr
      * @param sageTokenStr
      * @param nodeId
      * @return Gets Job associated with the given jobId
@@ -195,7 +188,6 @@ public class JobsResource {
     @POST
     @Path("/nextReady/{nodeId}")//sage-ws.ddns.net:8080/sage/0.1/jobs/nextReady/2234
     public Job getNextReadyJob(
-            @HeaderParam("googleToken") String googleTokenStr,
             @HeaderParam("sageToken") String sageTokenStr,
             @PathParam("nodeId") int nodeId) {
 

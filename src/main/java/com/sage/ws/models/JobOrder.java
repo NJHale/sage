@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.File;
+import java.math.BigInteger;
 
 /**
  * Created by root on 2/24/16.
@@ -11,13 +12,14 @@ import java.io.File;
 @XmlRootElement
 public class JobOrder {
 
-    private int bounty;
+    private int javaId;
 
-    private long timeOut;
+    private BigInteger bounty;
+
+    private long timeout;
 
     private byte[] data;
 
-    private String encodedJava;
 
     /**
      * Default JobOrder constructor
@@ -30,22 +32,27 @@ public class JobOrder {
      * Getters and Setters annotated with Jersey mappings
      */
 
+    @XmlElement(name = "javaId")
+    public int getJavaId() { return javaId; }
+
+    public void setJavaId(int javaId){ this.javaId = javaId; }
+
     @XmlElement(name = "bounty")
-    public int getBounty() {
+    public BigInteger getBounty() {
         return bounty;
     }
 
-    public void setBounty(int bounty) {
+    public void setBounty(BigInteger bounty) {
         this.bounty = bounty;
     }
 
-    @XmlElement(name = "timeOut")
-    public long getTimeOut() {
-        return timeOut;
+    @XmlElement(name = "timeout")
+    public long getTimeout() {
+        return timeout;
     }
 
-    public void setTimeOut(long timeOut) {
-        this.timeOut = timeOut;
+    public void setTimeout(long timeOut) {
+        this.timeout = timeOut;
     }
 
     @XmlElement(name = "data")
@@ -57,12 +64,4 @@ public class JobOrder {
         this.data = data;
     }
 
-    @XmlElement(name = "encodedJava")
-    public String getEncodedJava() {
-        return encodedJava;
-    }
-
-    public void setEncodedJava(String encodedJava) {
-        this.encodedJava = encodedJava;
-    }
 }

@@ -37,19 +37,17 @@ public class ModelValidator {
 
         boolean valid = false;
         try {
-            valid = mod.getTimeOut() > 0 &&
+            valid = mod.getTimeout() > 0 &&
                     mod.getStatus().ordinal() >= JobStatus.DONE.ordinal() &&
                     mod.getStatus().ordinal() <= JobStatus.TIMED_OUT.ordinal() &&
                     mod.getResult() != null &&
                     mod.getBounty() == src.getBounty() &&
                     !( mod.getOrdererId() != src.getOrdererId() ||
-                    !mod.getEncodedDex().equals(src.getEncodedDex()) ||
                     !mod.getData().equals(src.getData()) ||
-                    mod.getTimeOut() != src.getTimeOut() );
+                    mod.getTimeout() != src.getTimeout() );
         } catch (Exception e) {
             // this case there is some null causing a problem
             // drop the exception
-
         }
 
         return valid;
