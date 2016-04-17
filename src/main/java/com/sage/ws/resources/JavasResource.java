@@ -7,6 +7,7 @@ import com.sage.ws.models.Java;
 import com.sage.ws.models.Job;
 import com.sage.ws.models.JobStatus;
 import com.sage.ws.models.User;
+import com.sage.ws.service.SageServletContextListener;
 import com.sage.ws.util.JavaToDexTranslator;
 import com.sage.ws.util.UserAuth;
 import org.apache.logging.log4j.LogManager;
@@ -16,6 +17,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -32,13 +34,15 @@ import java.util.concurrent.Semaphore;
  *
  */
 
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 @Path("/javas")
 public class JavasResource {
 
     private static final Logger logger = LogManager.getLogger(JavasResource.class);
 
-    private static final ExecutorService pool =
-            Executors.newFixedThreadPool(4 * Runtime.getRuntime().availableProcessors());
+    // cheat on the injection
+    private static final ExecutorService pool = SageServletContextListener.pool;
 
     private static final Semaphore sema = new Semaphore(1, true);
 

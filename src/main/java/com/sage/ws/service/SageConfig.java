@@ -19,6 +19,9 @@ public class SageConfig {
     @JsonProperty("buildzoneDir")
     public String buildzoneDir;
 
+    @JsonProperty("watchdogInterval")
+    public long watchdogInterval;
+
 
     public SageConfig() { }
 
@@ -45,4 +48,13 @@ public class SageConfig {
     public void setBuildzoneDir(String buildzoneDir) {
         this.buildzoneDir = buildzoneDir;
     }
+
+    public long getWatchdogInterval() {
+        return watchdogInterval;
+    }
+
+    public void setWatchdogInterval(long watchdogInterval) {
+        this.watchdogInterval = watchdogInterval;
+    }
+
 }

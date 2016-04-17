@@ -53,15 +53,9 @@ public class JobWatchdog implements Callable<Void> {
                     "for " + dt + " ms...");
                 Thread.sleep(dt);
                 logger.debug("Watchdog thread awake, commencing job check.");
-                // retrieve the timedout jobs
-                List<Job> jobs = jobDao.getTimedout();
-                // update each status to timedout
-                //TODO: possibly make the updates concurrent
-                for (Job job : jobs) {
-                    job.setStatus(JobStatus.TIMED_OUT);
-                    jobDao.upsert(job);
-                }
-                logger.debug("Job check completed.");
+                // enforce the timeout
+                jobDao.enforceTimeout();
+                logger.debug("Job timeouts enforced.");
             } catch (InterruptedException e) {
                 logger.error("Watchdog's sleep interrupted. Stopping watch...");
                 logger.debug("Error: ", e);

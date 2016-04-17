@@ -5,10 +5,8 @@ import com.sage.ws.models.User;
 import com.sage.ws.models.UserCredential;
 import com.sage.ws.util.UserAuth;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -26,12 +24,14 @@ import java.util.Date;
  *         NJohnHale@gmail.com
  *
  */
-@Path("/SageTokens")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/sageTokens")
 public class SageTokensResource {
 
     private static final Logger logger = LogManager.getLogger(SageTokensResource.class);
 
-    @GET
+    @POST
     public SageToken getSageToken(UserCredential cred) {
         SageToken token = null;
         try {

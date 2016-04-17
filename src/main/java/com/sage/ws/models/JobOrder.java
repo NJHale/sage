@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.File;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
@@ -14,7 +15,7 @@ public class JobOrder {
 
     private int javaId;
 
-    private BigInteger bounty;
+    private BigDecimal bounty;
 
     private long timeout;
 
@@ -38,11 +39,11 @@ public class JobOrder {
     public void setJavaId(int javaId){ this.javaId = javaId; }
 
     @XmlElement(name = "bounty")
-    public BigInteger getBounty() {
+    public BigDecimal getBounty() {
         return bounty;
     }
 
-    public void setBounty(BigInteger bounty) {
+    public void setBounty(BigDecimal bounty) {
         this.bounty = bounty;
     }
 

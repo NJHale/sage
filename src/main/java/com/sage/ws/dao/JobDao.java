@@ -121,26 +121,24 @@ public class JobDao extends Dao<Job> {
         }
     }
 
-    public List<Job> getTimedout() {
-        // instantiate an empty list of jobs
-        List<Job> jobs = new ArrayList<Job>();
+    public void enforceTimeout() {
         // open a new session
         Session session = sessionFactory.openSession();
+        // create update status (-1 for failure status)
+        int updateStatus = -1;
         try {
             // YAY NATIVE QUERIES!!!
-            jobs = session
-                    .createSQLQuery("SELECT * FROM job WHERE status='RUNNING' AND _tm + timeout < CURRENT_TIMESTAMP")
-                    .addEntity(Job.class)
-                    .list();
+            updateStatus = session.createSQLQuery("UPDATE job SET status='TIMED_OUT' WHERE status='RUNNING' AND _ts + timeout < CURRENT_TIMESTAMP")
+                    .executeUpdate();
+            logger.debug("status on enforce job timeout update: " + updateStatus);
         } catch (HibernateException e) {
-            logger.error("Something went wrong when attempting to get timed out jobs");
+            logger.error("Something went wrong when attempting to enforce job timeouts");
             logger.debug(e.getMessage());
             logger.debug("Error: ", e);
         } finally {
             session.close();
         }
 
-        return jobs;
     }
 
     /**

@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -43,7 +44,7 @@ public class Job {
     private int javaId;
 
     @Column(name = "bounty")
-    private BigInteger bounty;
+    private BigDecimal bounty;
 
     @Column(name = "status")
     private JobStatus status;
@@ -109,11 +110,11 @@ public class Job {
     }
 
     @XmlElement(name = "bounty")
-    public BigInteger getBounty() {
+    public BigDecimal getBounty() {
         return bounty;
     }
 
-    public void setBounty(BigInteger bounty) {
+    public void setBounty(BigDecimal bounty) {
         this.bounty = bounty;
     }
 

@@ -6,7 +6,7 @@
     <session-factory>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://sage-ws.ddns.net:3306/sagedb</property>
+        <property name="hibernate.connection.url">jdbc:mysql://sage-ws.ddns.net:3306/sagedb-bison</property>
         <property name="hibernate.connection.username">sage-user</property>
         <property name="hibernate.connection.password">krang</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
