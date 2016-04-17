@@ -50,7 +50,7 @@ public class JobWatchdog implements Callable<Void> {
             // wait dt milliseconds until next check
             try {
                 logger.debug("Watchdog going to sleep in thread " + Thread.currentThread().getId() +
-                    "for " + dt + " ms...");
+                    " for " + dt + " ms...");
                 Thread.sleep(dt);
                 logger.debug("Watchdog thread awake, commencing job check.");
                 // enforce the timeout
