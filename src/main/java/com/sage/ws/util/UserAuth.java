@@ -7,6 +7,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.sage.ws.dao.Dao;
@@ -91,13 +92,15 @@ public class UserAuth {
         // create a null user
         User user = null;
         try {
+            logger.debug("sageTokenStr: " + sageTokenStr);
+            //logger.debug("plainTextJws: " + Jwts.parser().parsePlaintextJws(sageTokenStr));
             Jwts.parser().setSigningKey(key).parseClaimsJws(sageTokenStr);
             //OK, we can trust this JWT - pull out claims
             Claims claims = Jwts.parser()
                     .setSigningKey(key)
                     .parseClaimsJws(sageTokenStr).getBody();
             // pull userId out of claims
-            int userId = Integer.parseInt(claims.getId());
+            int userId = Integer.parseInt(claims.getId()); logger.debug("userId: " + userId);
             // retrieve user from the datastore
             Dao<User> userDao = new UserDao();
             user = userDao.get(userId);
@@ -186,7 +189,7 @@ public class UserAuth {
      */
     public SageToken getSageToken(UserCredential cred) throws Exception {
         // verify the google token
-        User user = verifyGoogleToken(cred.getGoogleIdToken());
+        User user = verifyGoogleToken(cred.getGoogleIdStr());
         // return null if the verification failed
         if (user == null) return null;
 
@@ -196,10 +199,11 @@ public class UserAuth {
         //Key key = MacProvider.generateKey();
         JwtBuilder jwtBuilder = Jwts.builder();
         String tknString = jwtBuilder
-                .setExpiration(new Date(System.currentTimeMillis() + 3600000))// nasty code +3600000 for an hour's expiration date
-                .setIssuer("Sage")// issuer Sage
+                .setSubject("AuthToken")
+                //.setExpiration(new Date(System.currentTimeMillis() + 3600000))// nasty code +3600000 for an hour's expiration date
+                //.setIssuer("Sage")// issuer Sage
                 .setId(Integer.toString(user.getUserId()))// user id
-                .setIssuedAt(new Date()) //set the issued date to now
+                //.setIssuedAt(new Date()) //set the issued date to now
                 .signWith(SignatureAlgorithm.HS512, key).compact();// sign and compact
 
         // set the tknString

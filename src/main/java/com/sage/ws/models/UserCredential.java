@@ -17,7 +17,7 @@ public class UserCredential {
     public UserCredential() { }
 
     @XmlElement(name = "googleIdStr")
-    public String getGoogleIdToken() {
+    public String getGoogleIdStr() {
         return googleIdStr;
     }
 

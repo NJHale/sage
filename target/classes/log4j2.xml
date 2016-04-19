@@ -27,22 +27,22 @@
     </RollingFile>
 </Appenders>
 <Loggers>
-    <Logger name="com.sage.ws.util" level="debug" additivity="true">
+    <Logger name="com.sage.ws.util" level="debug" additivity="false">
         <appender-ref ref="trace-log" level="debug"/>
         <appender-ref ref="error-log" level="error"/>
         <appender-ref ref="console-log" level="debug"/>
     </Logger>
-    <Logger name="com.sage.ws.service" level="debug" additivity="true">
+    <Logger name="com.sage.ws.service" level="debug" additivity="false">
         <appender-ref ref="trace-log" level="debug"/>
         <appender-ref ref="error-log" level="error"/>
         <appender-ref ref="console-log" level="debug"/>
     </Logger>
-    <Logger name="com.sage.ws.dao" level="debug" additivity="true">
+    <Logger name="com.sage.ws.dao" level="debug" additivity="false">
         <appender-ref ref="trace-log" level="debug"/>
         <appender-ref ref="error-log" level="error"/>
         <appender-ref ref="console-log" level="debug"/>
     </Logger>
-    <Logger name="com.sage.ws.resources" level="debug" additivity="true">
+    <Logger name="com.sage.ws.resources" level="debug" additivity="false">
         <appender-ref ref="trace-log" level="debug"/>
         <appender-ref ref="error-log" level="error"/>
         <appender-ref ref="console-log" level="debug"/>

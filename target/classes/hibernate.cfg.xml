@@ -24,5 +24,6 @@
         <mapping class="com.sage.ws.models.User"/>
         <mapping class="com.sage.ws.models.AndroidNode"/>
         <mapping class="com.sage.ws.models.Job"/>
+        <mapping class="com.sage.ws.models.Java"/>
     </session-factory>
 </hibernate-configuration>
