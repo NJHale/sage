@@ -66,6 +66,7 @@ public class JavaDao extends Dao<Java> {
             for (Criterion crit : crits)
                 cr.add(crit);
             // add the order
+            if (order == null) order = Order.desc("javaId");
             cr.addOrder(order);
             // trim the resilt set
             if (setSize >= 0) cr.setMaxResults(setSize);
@@ -134,7 +135,7 @@ public class JavaDao extends Dao<Java> {
         try {
             session.beginTransaction();
             // remove all associated jobs from the datastore
-            Query query = session.createQuery("DELETE FROM jobs WHERE javaId = :javaId");
+            Query query = session.createQuery("DELETE FROM Job WHERE javaId = :javaId");
             query.setParameter("javaId", java.getJavaId());
             query.executeUpdate();
             // remove the given java from the datastore

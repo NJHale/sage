@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *         NJohnHale@gmail.com
  *
  */
-@XmlRootElement()
+@XmlRootElement
 @Entity
 @Table(name = "java")
 public class Java {

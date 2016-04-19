@@ -2,6 +2,7 @@ package com.sage.ws.service;
 
 import com.google.gson.Gson;
 import com.sage.ws.models.AndroidNode;
+import com.sage.ws.models.Java;
 import com.sage.ws.models.Job;
 import com.sage.ws.models.User;
 import org.apache.logging.log4j.LogManager;
@@ -84,7 +85,8 @@ public class SageServletContextListener implements ServletContextListener{
                     .addPackage("com.sage.models")
                     .addAnnotatedClass(User.class)
                     .addAnnotatedClass(Job.class)
-                    .addAnnotatedClass(AndroidNode.class);
+                    .addAnnotatedClass(AndroidNode.class)
+                    .addAnnotatedClass(Java.class);
             //.addAnnotatedClass(SageToken.class);
 
             // build the service registry

@@ -67,9 +67,9 @@ public class JavasResource {
                 crits.add(Restrictions.eq("encodedJava", java.getEncodedJava()));
                 crits.add(Restrictions.ne("encodedDex", ""));
                 // create the ordering
-                Order ord = Order.desc("status");
+                //Order ord = Order.desc("");
                 // make sure to only get the first result - setSize = 1
-                List<Java> javas = javaDao.get(crits, ord, 1);
+                List<Java> javas = javaDao.get(crits, null, 1);
 
                 logger.debug("javas.size(): " + javas.size());
 
