@@ -237,7 +237,7 @@ public class JobsResource {
             Order order = Order.desc("bounty");
 
             // acquire the semaphore
-            sema.acquire();
+            //sema.acquire();
 
             // synchronize the region (overkill)
             synchronized (mutex) {
@@ -274,7 +274,7 @@ public class JobsResource {
             logger.error("Silently withering...");
         } finally  {
             // release the semaphore
-            sema.release();
+            //sema.release();
         }
         // return the job
         return job;
