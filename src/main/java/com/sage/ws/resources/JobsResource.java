@@ -41,6 +41,8 @@ public class JobsResource {
 
     private static final Semaphore sema = new Semaphore(1);
 
+    private static final Object mutex = new Object();
+
     /**
      * Gets Job associated with the given jobId
      * @param sageTokenStr
@@ -234,23 +236,28 @@ public class JobsResource {
             // create the ordering
             Order order = Order.desc("bounty");
 
+            // acquire the semaphore
             sema.acquire();
-            // make sure to only get the first result - setSize = 1
-            List<Job> jobs = jobDao.get(crits, order, 1);
 
-            if (jobs.size() > 0) {
-                // we know the job is at the first index
-                job = jobs.get(0);
-                logger.info("Retrieved next ready job!");
-                logger.debug("Setting job status to running");
-                // set the status to JobStatus.RUNNING
-                job.setStatus(JobStatus.RUNNING);
-                // set the android nodeId
-                job.setNodeId(nodeId);
-                // upsert the job
-                jobDao.upsert(job);
-            } else {
-                logger.info("No next ready job available.");
+            // synchronize the region (overkill)
+            synchronized (mutex) {
+                // make sure to only get the first result - setSize = 1
+                List<Job> jobs = jobDao.get(crits, order, 1);
+
+                if (jobs.size() > 0) {
+                    // we know the job is at the first index
+                    job = jobs.get(0);
+                    logger.info("Retrieved next ready job!");
+                    logger.debug("Setting job status to running");
+                    // set the status to JobStatus.RUNNING
+                    job.setStatus(JobStatus.RUNNING);
+                    // set the android nodeId
+                    job.setNodeId(nodeId);
+                    // upsert the job
+                    jobDao.upsert(job);
+                } else {
+                    logger.info("No next ready job available.");
+                }
             }
 
         } catch (WebApplicationException e) {

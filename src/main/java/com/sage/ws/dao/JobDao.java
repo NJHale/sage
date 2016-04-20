@@ -129,7 +129,8 @@ public class JobDao extends Dao<Job> {
         int updateStatus = -1;
         try {
             // YAY NATIVE QUERIES!!!
-            Query query = session.createSQLQuery("UPDATE job SET status=:timedout WHERE status=:running AND _ts + timeout < CURRENT_TIMESTAMP");
+            Query query = session.createSQLQuery(
+                    "UPDATE job SET status=:timedout WHERE status=:running AND TIMESTAMPDIFF(SECOND, _ts, CURRENT_TIMESTAMP) > timeout/1000;");
             query.setParameter("timedout", JobStatus.TIMED_OUT);
             query.setParameter("running", JobStatus.RUNNING);
             updateStatus = query.executeUpdate();
@@ -156,7 +157,7 @@ public class JobDao extends Dao<Job> {
             // YAY! More native queries!!!
             Query query = session.createQuery("UPDATE job SET status = :status WHERE java_id = :javaId");
             query.setParameter("status", JobStatus.READY);
-            query.setParameter("java_id", javaId);
+            query.setParameter("javaId", javaId);
             result = query.executeUpdate();
         } catch (HibernateException e) {
             logger.error("An error occurred while attempting to set all jobs READY for javaId: " + javaId);
