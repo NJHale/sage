@@ -39,7 +39,7 @@ public class JobsResource {
 
     private static final Logger logger = LogManager.getLogger(JobsResource.class);
 
-    private static final Semaphore sema = new Semaphore(1, true);
+    private static final Semaphore sema = new Semaphore(1);
 
     /**
      * Gets Job associated with the given jobId
@@ -252,7 +252,6 @@ public class JobsResource {
             } else {
                 logger.info("No next ready job available.");
             }
-            sema.release();
 
         } catch (WebApplicationException e) {
             logger.error("Something went wrong while attempting to get the next ready Job");
@@ -260,13 +259,14 @@ public class JobsResource {
             logger.debug(e.getStackTrace().toString());
             logger.debug("rethrowing web exception");
             // rethrow as web exception
-            sema.release();
             throw e;
         } catch (Exception e) {
             logger.error("Something went wrong while attempting to get the next ready Job");
             logger.error(e.getMessage());
             logger.debug(e.getStackTrace().toString());
             logger.error("Silently withering...");
+        } finally  {
+            // release the semaphore
             sema.release();
         }
         // return the job
