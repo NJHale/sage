@@ -62,7 +62,7 @@ public class Job {
     private byte[] result;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "_ts", nullable = false)
+    @Column(name = "_ts", nullable = true)
     private Date _ts;
 
 

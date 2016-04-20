@@ -54,7 +54,7 @@ public class JobOrdersResource {
             UserAuth auth = new UserAuth();
             // verify SageToken
             if (sageTokenStr != null && !sageTokenStr.equals("")) {
-                user = auth.verifyGoogleToken(sageTokenStr);
+                user = auth.verifySageToken(sageTokenStr);
             }
 
             // make sure the token is valid and that the user matches the given orderId
@@ -74,7 +74,7 @@ public class JobOrdersResource {
 
             // create a new job with the given jobOrder
             Job job = new Job();
-            job.setOrdererId(user.getUserId());
+            job.setOrdererId(user.getUserId()); logger.debug("UserId: " + user.getUserId());
             job.setJavaId(order.getJavaId());
             job.setBounty(order.getBounty());
             job.setData(order.getData());

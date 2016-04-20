@@ -100,7 +100,7 @@ public class UserAuth {
                     .setSigningKey(key)
                     .parseClaimsJws(sageTokenStr).getBody();
             // pull userId out of claims
-            int userId = Integer.parseInt(claims.getId()); logger.debug("userId: " + userId);
+            int userId = Integer.parseInt(claims.getSubject()); logger.debug("userId: " + userId);
             // retrieve user from the datastore
             Dao<User> userDao = new UserDao();
             user = userDao.get(userId);
@@ -157,7 +157,7 @@ public class UserAuth {
             // try to get the user by their email
             UserDao uDao = new UserDao();
             List<Criterion> crits = new ArrayList<Criterion>();
-            crits.add(Restrictions.eq("userEmail", payload.getEmail()));        logger.debug("User Email: " + payload.getEmail());
+            crits.add(Restrictions.eq("userEmail", payload.getEmail()));  logger.debug("User Email: " + payload.getEmail());
             List<User> users = uDao.get(crits, null, 1);
             // we should only get one result back if the user exists
             if (users.size() > 0) {
@@ -200,9 +200,10 @@ public class UserAuth {
         JwtBuilder jwtBuilder = Jwts.builder();
         String tknString = jwtBuilder
                 .setSubject("AuthToken")
-                //.setExpiration(new Date(System.currentTimeMillis() + 3600000))// nasty code +3600000 for an hour's expiration date
+                .setExpiration(new Date(System.currentTimeMillis() + 3600000))// nasty code +3600000 for an hour's expiration date
                 //.setIssuer("Sage")// issuer Sage
-                .setId(Integer.toString(user.getUserId()))// user id
+                //.setId(Integer.toString(user.getUserId()))// user id
+                .setSubject(Integer.toString(user.getUserId()))
                 //.setIssuedAt(new Date()) //set the issued date to now
                 .signWith(SignatureAlgorithm.HS512, key).compact();// sign and compact
 

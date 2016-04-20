@@ -98,7 +98,7 @@ public class JavasResource {
     }
 
     @GET
-    @Path("/dex/{javaId}")
+    @Path("/{javaId}/dex")
     public String getJavasDex(@PathParam("javaId") int javaId) {
         // create a null encodedDex reference
         String encodedDex = null;
