@@ -64,7 +64,7 @@ public class JobsResource {
             UserAuth auth = new UserAuth();
             // verify sage token string
             if (sageTokenStr != null && !sageTokenStr.equals("")) {
-                user = auth.verifyGoogleToken(sageTokenStr);
+                user = auth.verifySageToken(sageTokenStr);
             }
 
             if (user == null) {

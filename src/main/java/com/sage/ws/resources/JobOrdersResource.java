@@ -97,7 +97,7 @@ public class JobOrdersResource {
         } catch (WebApplicationException e) {
             logger.error("Something went wrong while attempting to place JobOrder");
             logger.error(e.getMessage());
-            logger.debug(e.getStackTrace());
+            logger.debug("Error: ", e);
             logger.debug("rethrowing web exception");
             e.printStackTrace();
             // rethrow given web exception
@@ -113,7 +113,7 @@ public class JobOrdersResource {
             logger.error("Something went wrong while attempting to place JobOrder");
             logger.error(e.getMessage());
             e.printStackTrace();
-            logger.debug(e.getStackTrace());
+            logger.debug("Error: ", e);
             logger.debug("rethrowing web exception");
             // rethrow as web exception
             throw new WebApplicationException(Response.status(503).build());
