@@ -135,7 +135,7 @@ public class JavaDao extends Dao<Java> {
         try {
             session.beginTransaction();
             // remove all associated jobs from the datastore
-            Query query = session.createQuery("DELETE FROM job WHERE javaId = :javaId");
+            Query query = session.createQuery("DELETE FROM Job WHERE javaId = :javaId");
             query.setParameter("javaId", java.getJavaId());
             query.executeUpdate();
             // remove the given java from the datastore

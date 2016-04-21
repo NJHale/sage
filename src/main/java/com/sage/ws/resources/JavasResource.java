@@ -188,6 +188,7 @@ public class JavasResource {
                 java.setCreatorId(user.getUserId());
                 // store the java in as-is
                 javaId = javaDao.add(java);
+                java.setJavaId(javaId);
                 // now we need to compile
                 Callable<Void> jcc = new JavaCompilationCallable<Void>(java);
                 pool.submit(jcc);

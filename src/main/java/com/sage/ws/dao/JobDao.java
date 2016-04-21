@@ -128,14 +128,17 @@ public class JobDao extends Dao<Job> {
         // create update status (-1 for failure status)
         int updateStatus = -1;
         try {
+            session.beginTransaction();
             // YAY NATIVE QUERIES!!!
             Query query = session.createSQLQuery(
-                    "UPDATE job SET status=:timedout WHERE status=:running AND TIMESTAMPDIFF(SECOND, _ts, CURRENT_TIMESTAMP) > timeout/1000;");
-            query.setParameter("timedout", JobStatus.TIMED_OUT);
-            query.setParameter("running", JobStatus.RUNNING);
+                    "UPDATE job SET status=:timedout WHERE status=:running AND TIMESTAMPDIFF(SECOND, _ts, CURRENT_TIMESTAMP) > timeout/1000");
+            query.setParameter("timedout", JobStatus.TIMED_OUT.ordinal());
+            query.setParameter("running", JobStatus.RUNNING.ordinal());
             updateStatus = query.executeUpdate();
+            session.getTransaction().commit();
             logger.debug("status on enforce job timeout update: " + updateStatus);
         } catch (HibernateException e) {
+            session.getTransaction().rollback();
             logger.error("Something went wrong when attempting to enforce job timeouts");
             logger.debug(e.getMessage());
             logger.debug("Error: ", e);
@@ -151,15 +154,22 @@ public class JobDao extends Dao<Job> {
      */
     public int setAllReadyOnJava(int javaId) {
         // instantiate a result status (-1 for failure)
+        logger.debug("JAVA ID FOR SET ALL READY: " + javaId);
         int result = -1;
         Session session = sessionFactory.openSession();
         try {
+            session.beginTransaction();
             // YAY! More native queries!!!
-            Query query = session.createQuery("UPDATE job SET status = :status WHERE java_id = :javaId");
+            Query query = session.createQuery(
+                    "UPDATE Job SET status = :status WHERE javaId = :javaId");
+            System.out.println("Ordinal: " + JobStatus.READY.ordinal());
             query.setParameter("status", JobStatus.READY);
             query.setParameter("javaId", javaId);
+            //query.setParameter("pending", JobStatus.PENDING);
             result = query.executeUpdate();
+            session.getTransaction().commit();
         } catch (HibernateException e) {
+            session.getTransaction().rollback();
             logger.error("An error occurred while attempting to set all jobs READY for javaId: " + javaId);
             logger.debug("Error: ", e);
         } finally {
